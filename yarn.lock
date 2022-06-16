@@ -123,7 +123,7 @@
     "@vue/compiler-dom" "3.2.37"
     "@vue/shared" "3.2.37"
 
-"@vue/devtools-api@^6.0.0":
+"@vue/devtools-api@^6.0.0", "@vue/devtools-api@^6.0.0-beta.19":
   version "6.1.4"
   resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.1.4.tgz#b4aec2f4b4599e11ba774a50c67fa378c9824e53"
   integrity sha512-IiA0SvDrJEgXvVxjNkHPFfDx6SXw0b/TUkqMcDZWNg9fnCAHbTpoo59YfJ9QLFkwa3raau5vSlRVzMSLDnfdtQ==
@@ -814,6 +814,13 @@ vite@^2.9.9:
     rollup "^2.59.0"
   optionalDependencies:
     fsevents "~2.3.2"
+
+vue-composable@^1.0.0-beta.24:
+  version "1.0.0-beta.24"
+  resolved "https://registry.yarnpkg.com/vue-composable/-/vue-composable-1.0.0-beta.24.tgz#04032163fb90adfb4c1f0f5d962f9bca00398341"
+  integrity sha512-rVxqIk+CCBDNlu7MK59FB6hIHbjpaNszSZ3o1fReXiDKpdw2AAnSWx5vqUpJgC4yGlUzBMJ2eUQIjij5/wr8Kg==
+  dependencies:
+    "@vue/devtools-api" "^6.0.0-beta.19"
 
 vue-router@4:
   version "4.0.16"
