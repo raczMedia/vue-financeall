@@ -8,8 +8,8 @@ const count = ref(0)
 
 <template>
   <h1>{{ msg }}</h1>
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
+  <h1 class="text-3xl font-bold underline text-fa-light-blue">
+    Hello world! test
   </h1>
   <p>
     Recommended IDE setup:
