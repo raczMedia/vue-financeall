@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@storyblok/vue": "^6.0.4",
     "vue": "^3.2.25"
   },
   "devDependencies": {

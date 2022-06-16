@@ -7,6 +7,20 @@
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.18.5.tgz#337062363436a893a2d22faa60be5bb37091c83c"
   integrity sha512-YZWVaglMiplo7v8f1oMQ5ZPQr0vn7HPeZXxXWsxXJRjGVrzUFn9OxFQl1sb5wzfootjA/yChhW84BV+383FSOw==
 
+"@storyblok/js@^1.2.0":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@storyblok/js/-/js-1.6.1.tgz#385c08e960d93a7463c414dbf30254f089e6e7fe"
+  integrity sha512-Umxi3rcIEK5waZNynS62AEsw3ygbFhyv0s0ZjFWVvBxJKNVEhqqg7Zx6Fa8fo+lW6vFsdlnXmvX7CfjI94RzrA==
+  dependencies:
+    storyblok-js-client "^4.5.2"
+
+"@storyblok/vue@^6.0.4":
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/@storyblok/vue/-/vue-6.0.4.tgz#01386edf62819f38b3e70be69c8b359d2c8400ea"
+  integrity sha512-32JWNCQCYO1j3LLeYTXeTcL7k7CnGoyDETScU9keNJKWGbkVf40Xy5HuCSJzI8uYVlpKIqqBVA9kBIgjcB82vQ==
+  dependencies:
+    "@storyblok/js" "^1.2.0"
+
 "@vitejs/plugin-vue@^2.3.3":
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue/-/plugin-vue-2.3.3.tgz#fbf80cc039b82ac21a1acb0f0478de8f61fbf600"
@@ -327,6 +341,11 @@ postcss@^8.1.10, postcss@^8.4.13:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
+prettier@^2.5.1:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.7.0.tgz#a4fdae07e5596c51c9857ea676cd41a0163879d6"
+  integrity sha512-nwoX4GMFgxoPC6diHvSwmK/4yU8FFH3V8XWtLQrbj4IBsK2pkYhG4kf/ljF/haaZ/aii+wNJqISrCDPgxGWDVQ==
+
 resolve@^1.22.0:
   version "1.22.0"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.0.tgz#5e0b8c67c15df57a89bdbabe603a002f21731198"
@@ -335,6 +354,11 @@ resolve@^1.22.0:
     is-core-module "^2.8.1"
     path-parse "^1.0.7"
     supports-preserve-symlinks-flag "^1.0.0"
+
+rollup-plugin-mjs-entry@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-mjs-entry/-/rollup-plugin-mjs-entry-0.1.1.tgz#b3ab47e8d49ddb1916e36ba2480dc8a62a22d533"
+  integrity sha512-uii0Txyrn4YCgP++fypLqsT3LgO3Fx0gAZLZlWRSwKCuZ+bdSzAzdVbJFATmCHcBNlO61i65EgemOVdVQYONHA==
 
 rollup@^2.59.0:
   version "2.75.6"
@@ -357,6 +381,14 @@ sourcemap-codec@^1.4.8:
   version "1.4.8"
   resolved "https://registry.yarnpkg.com/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz#ea804bd94857402e6992d05a38ef1ae35a9ab4c4"
   integrity sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==
+
+storyblok-js-client@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-4.5.2.tgz#f93ae4822fd5710737a516d474a5dd40ee80b96c"
+  integrity sha512-86On+EyREZdbTcYTV+0dRQ1E4Gy0hPWs43MxK5VOv6DRwbf1A7haXq6dUL8nm9i5+xgOB0GLJW0f3B9CHbq4sQ==
+  dependencies:
+    prettier "^2.5.1"
+    rollup-plugin-mjs-entry "^0.1.1"
 
 supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
