@@ -5,7 +5,6 @@
 
   const route = useRoute();
 
-  console.log(route.fullPath)
   const layout = computed(() => {
     return route.meta.layout || DefaultLayout;
   })
@@ -13,7 +12,7 @@
 
 <template>
   <component :is="layout">
-    <router-view name="content" />
+    <router-view />
   </component>
 </template>
 

@@ -5,10 +5,14 @@
 
 <template>
   <div class="flex justify-center items-center bg-gray-100" aria-label="content">
-    <main class="max-w-screen-xl w-full shadow-lg min-h-screen bg-white relative">
-      <Navigation />
-      <slot />
-      <!-- <Footer /> -->
-    </main>
+    <Suspense>
+      <main class="max-w-screen-xl w-full shadow-lg min-h-screen bg-white relative">
+        <Navigation />
+        <section class="min-h-screen">
+          <slot />
+        </section>
+        <Footer />
+      </main>
+    </Suspense>
   </div>
 </template>

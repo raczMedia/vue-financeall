@@ -1,8 +1,4 @@
 <script lang="ts" setup>
-    import { useAttrs } from 'vue'
-    const props = useAttrs();
-
-
     interface Lender {
         filename: string
     }
@@ -14,7 +10,9 @@
         sloganImage: { filename: string }
     }
 
-    const content = computed((): Lenders => props.content);
+    const props = defineProps({
+        content: Object
+    })
 </script>
 
 <template>
@@ -28,12 +26,12 @@
         </div>
 
         <p class="z-10 text-center text-lg font-bold">
-            {{ content.title }}
+            {{ props.content.title }}
         </p>
         
         <section class="z-10 flex gap-4 justify-between mt-4">
             <template v-if="content">
-                <article v-for="(item, index) in content.items" :key="`lender-${index}`">
+                <article v-for="(item, index) in props.content.items" :key="`lender-${index}`">
                     <img :src="item.filename" alt="rbc">
                 </article>
             </template>
@@ -41,9 +39,9 @@
 
         <div class="relative flex justify-between mt-32 items-start w-full z-10">
             <article class="border-l-4 border-white pl-3 mt-8 w-1/5 text-4xl leading-[48px]">
-                {{ content.slogan }}
+                {{ props.content.slogan }}
             </article>
-            <img :src="content.sloganImage.filename" alt="rbc" class="absolute right-0 -top-8 w-4/5">
+            <img :src="props.content.sloganImage.filename" alt="rbc" class="absolute right-0 -top-8 w-4/5">
         </div>
     </section>
 </template>

@@ -1,21 +1,6 @@
 <script lang="ts" setup>
-    // const storyapi = useStoryApi();
-    // const { data } = await storyapi.get('cdn/stories/footer', {
-    //     version: 'draft',
-    // });
-    // const state = reactive({
-    //     story: data.story,
-    // });
-
-    // onMounted(() => {
-    //     useStoryBridge(state.story.id, event => {
-    //         state.story = event
-    //     })
-    // });
-    
-    // const content = computed(() => {
-    //     return state.story.content;
-    // })
+    import { useStoryblokState, useBridge } from '../composables/storyblokComposable';
+    const { content, state } = await useStoryblokState('footer');
 </script>
 
 <template>
@@ -23,7 +8,7 @@
         <div class="absolute inset-0 clip-top-up-right bg-fa-blue"></div>
         <div class="relative min-h-64 px-32 pt-32 pb-16 text-white flex justify-between content-stretch">
             <section class="flex flex-col">
-                <img :src="content.logo.filename" alt="" class="flex-grow-0 self-start">
+                <img :src="content?.logo?.filename" alt="" class="flex-grow-0 self-start">
                 <p class="text-gray-400 flex-grow flex items-end">
                     {{ content.copyright }}
                 </p>
@@ -42,7 +27,7 @@
                             class="flex justify-between gap-4"
                         >
                             <span>
-                                {{ social.icon }}
+                                <font-awesome-icon :icon="`fa-brands fa-${social.icon}`" />
                             </span>
                             <p>
                                 {{ social.title }}
@@ -52,11 +37,11 @@
                     <ul>
                         <li 
                             v-for="(contacts, contactsIndex) in content.contacts" 
-                            :key="`footer-contactss-${contactsIndex}`"
-                            class="flex justify-between gap-4"
+                            :key="`footer-contacts-${contactsIndex}`"
+                            class="flex justify-start gap-4"
                         >
-                            <span>
-                                {{ contacts.icon }}
+                            <span class="w-4 text-center">
+                                <font-awesome-icon :icon="`fa-solid fa-${contacts.icon}`" />
                             </span>
                             <p>
                                 {{ contacts.title }}
@@ -65,6 +50,7 @@
                     </ul>
                 </div>
             </section>
+            
         </div>
     </footer>
 </template>

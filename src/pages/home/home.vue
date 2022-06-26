@@ -1,56 +1,49 @@
-<script setup>
-    import Lenders from './partials/Lenders.vue';
+<script lang="ts" setup>
+    import { computed } from 'vue';
     import Header from './partials/Header.vue';
+    import Lenders from './partials/Lenders.vue';
     import Bullets from './partials/Bullets.vue';
     import Reviews from './partials/Reviews.vue';
     import Contact from './partials/Contact.vue';
-
-    // const storyapi = useStoryApi();
-    // const { data } = await storyapi.get('cdn/stories/home', {
-    //     version: 'draft',
-    // });
-    // const state = reactive({
-    //     story: data.story,
-    // });
+    import { useStoryblokState, useBridge } from '../../composables/storyblokComposable';
     
-    // onMounted(() => {
-    //     useStoryBridge(state.story.id, event => {
-    //         state.story = event
-    //     })
-    // });
+    const { content, state } = await useStoryblokState('home');
+    useBridge(state);
 
-    // const lenders = computed(() => state.story.content.body.find(content => {
-    //     return content.component == 'Lenders'
-    // }));
+    const contentWrapper = computed(() => {
+        let list: {
+            Header: Object,
+            Lenders: Object,
+            Bullets: Object,
+            Reviews: Object,
+            Contact: Object,
+        } = {
+            Header: {},
+            Lenders: {},
+            Bullets: {},
+            Reviews: {},
+            Contact: {},
+        };
 
-    // const header = computed(() => state.story.content.body.find(content => {
-    //     return content.component == 'Header'
-    // }));
+        Object.keys(content.value.body).forEach((key: string, index: number): void => {
+            // @ts-ignore
+            list[content.value.body[index].component] = content.value.body[index];
+        })
 
-    // const bullets = computed(() => state.story.content.body.find(content => {
-    //     return content.component == 'Bullets'
-    // }));
-
-    // const reviews = computed(() => state.story.content.body.find(content => {
-    //     return content.component == 'Reviews'
-    // }));
-
-    // const contact = computed(() => state.story.content.body.find(content => {
-    //     return content.component == 'Contact'
-    // }));
+        return list;
+    })
 </script>
 
 <template>
-    <main class="relative">
-        home page broham
-        <!-- <Header :content="header" />
-        <Lenders :content="lenders" />
+    <section class="relative">
+        <Header :content="contentWrapper.Header" />
+        <Lenders :content="contentWrapper.Lenders" />
         <div class="relative">
-            <Bullets :content="bullets" />
-            <Reviews :content="reviews" />
-            <Contact :content="contact" />
+            <Bullets :content="contentWrapper.Bullets" />
+            <Reviews :content="contentWrapper.Reviews" />
+            <Contact :content="contentWrapper.Contact" />
             <div class="absolute z-10 clip-left-up-right bg-gray-400/10 right-0 top-0 w-1/4 h-full"></div>
             <div class="absolute z-10 clip-left-up-right bg-gray-400/10 right-0 top-0 w-2/5 h-full"></div>
-        </div> -->
-    </main>
+        </div> 
+    </section>
 </template>

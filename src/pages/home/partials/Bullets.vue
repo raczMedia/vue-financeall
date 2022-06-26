@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-    import { useAttrs } from 'vue'
-    const props = useAttrs();
-
     interface Bullets {
         Items: { info: string }[]
     }
 
-    const content = computed((): Bullets => props.content);
+    const props = defineProps({
+        content: Object
+    })
 </script>
 
 <template>
@@ -16,7 +15,7 @@
     >   
         <ul class="flex justify-between gap-8 relative z-20">
             <li 
-                v-for="(bullet, index) in content.Items" 
+                v-for="(bullet, index) in props.content.Items" 
                 :key="`bullet-${index}`" 
                 class="flex gap-4"
             >

@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-    import { useAttrs } from 'vue'
-    const props = useAttrs();
-
     interface Data {
         bg: {filename: string},
         title: string,
@@ -15,7 +12,9 @@
         }[]
     }
 
-    const content = computed((): Data => props.content);
+    const props = defineProps({
+        content: Object
+    })
 </script>
 
 <template>
@@ -25,16 +24,16 @@
     >
         <div class="absolute inset-0 clip-top-down-right bg-fa-blue">
             <div class="absolute left-0 top-12 -z-10">
-                <img :src="content.bg.filename" alt="background">
+                <img :src="props.content.bg.filename" alt="background">
             </div>
         </div>
         <div class="relative z-20 flex flex-col py-[8rem] px-32 min-h-64 overflow-x-auto no-scrollbar">
             <section aria-label="title" class="sticky left-0 flex flex-col items-center text-white">
                 <p class="text-4xl font-medium">
-                    {{ content.title }}
+                    {{ props.content.title }}
                 </p>
                 <p class="text-xl font-light text-gray-300 pt-2">
-                    {{ content.subtitle }}
+                    {{ props.content.subtitle }}
                 </p>
             </section>
             <section 
@@ -42,7 +41,7 @@
                 class="flex gap-4 items-stretch mt-16"
             >
                 <article 
-                    v-for="review in content.reviewsList" 
+                    v-for="review in props.content.reviewsList" 
                     :key="`review-${review.uuid}`" 
                     aria-label="Review" 
                     class="flex flex-col w-5/12 flex-shrink-0"
