@@ -12,6 +12,9 @@ import { faFacebook, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-
 import { faMapPin, faMobileAlt, faAt } from '@fortawesome/free-solid-svg-icons'
 
 // @ts-ignore
+import * as AutoVerify from './utils/autoverify.js'
+
+// @ts-ignore
 library.add([faFacebook, faLinkedin, faTwitter, faMapPin, faMobileAlt, faAt ])
 
 const app = createApp(App)
@@ -19,6 +22,7 @@ const app = createApp(App)
 app
   .component('font-awesome-icon', FontAwesomeIcon)
   .use(router)
+  .use(AutoVerify)
   .use(StoryblokVue, {
     accessToken: 'GrLdjYB94wV1T5IaqQWXSQtt',
     use: [apiPlugin],
