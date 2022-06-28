@@ -2,7 +2,6 @@
 </script>
 
 <template>
-    <section class="relative">
-        <div class="p-32">Free Credit Check Page</div>
+    <section id="av-credit-page">
     </section>
 </template>
