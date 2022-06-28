@@ -1,15 +1,16 @@
-import { reactive, computed } from 'vue';
-import { onMounted } from "vue";
+import { reactive, computed, onMounted } from 'vue';
 // @ts-ignore
 import { useStoryblokBridge, useStoryblokApi, StoryblokEventPayload } from "@storyblok/vue";
 
 // @ts-ignore
 export async function useStoryblokState(story) {
-
     const storyblokApi = useStoryblokApi();
+    const mode = location.href.includes('draft--')
+        ? 'draft'
+        : 'published';
 
     const { data } = await storyblokApi.get(`cdn/stories/${story}`, {
-        version: 'draft',
+        version: mode,
     });
     
     const state = reactive({
