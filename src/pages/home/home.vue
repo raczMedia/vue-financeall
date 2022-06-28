@@ -1,12 +1,21 @@
 <script lang="ts" setup>
-    import { computed } from 'vue';
+    import { computed, onMounted } from 'vue';
+    import { useRoute } from 'vue-router';
     import Header from './partials/Header.vue';
     import Lenders from './partials/Lenders.vue';
     import Bullets from './partials/Bullets.vue';
     import Reviews from './partials/Reviews.vue';
     import Contact from './partials/Contact.vue';
     import { useStoryblokState, useBridge } from '../../composables/storyblokComposable';
+    import { scrollToElement } from '../../composables/scrollToElementComposable';
     
+    const route = useRoute();
+    onMounted(() => {
+        if (route.query.contact === 'true') {
+            scrollToElement('#contact')
+        }
+    });
+
     const { content, state } = await useStoryblokState('home');
     useBridge(state);
 
@@ -24,6 +33,10 @@
             Reviews: {},
             Contact: {},
         };
+
+        if (! content) {
+            return list;
+        }
 
         Object.keys(content.value.body).forEach((key: string, index: number): void => {
             // @ts-ignore

@@ -2,6 +2,7 @@
 </script>
 
 <template>
-    <section id="av-credit-page">
-    </section>
+    <div class="px-32 py-32">
+        <section id="av-credit-page"></section>
+    </div>
 </template>
