@@ -9,7 +9,7 @@ export async function useStoryblokState(story) {
     const storyblokApi = useStoryblokApi();
 
     const { data } = await storyblokApi.get(`cdn/stories/${story}`, {
-        version: 'draft',
+        version: 'published',
     });
     
     const state = reactive({
