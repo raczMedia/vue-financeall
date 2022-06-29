@@ -9,10 +9,10 @@ import './css/index.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faFacebook, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { faMapPin, faMobileAlt, faAt } from '@fortawesome/free-solid-svg-icons'
+import { faMapPin, faMobileAlt, faAt, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 // @ts-ignore
-library.add([faFacebook, faLinkedin, faTwitter, faMapPin, faMobileAlt, faAt ])
+library.add([faFacebook, faLinkedin, faTwitter, faMapPin, faMobileAlt, faAt, faChevronDown ])
 
 const app = createApp(App)
 
