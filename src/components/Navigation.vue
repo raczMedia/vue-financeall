@@ -2,11 +2,25 @@
   import { useOnScroll } from "vue-composable";
   import { useStoryblokState } from '../composables/storyblokComposable';
   import { useRoute } from 'vue-router';
+  import { computed, ref } from 'vue';
   import { scrollToElement } from '../composables/scrollToElementComposable';
 
+  type Link = {
+    address: string,
+    title: string
+  }
+
+  const menuOpen = ref(false);
   const route = useRoute();
   const { scrollTop } = useOnScroll();
   const { content, state } = await useStoryblokState('navigation');
+  const activeLink = computed((): Link => {
+    if (! content.value.Links) {
+      return { title: "Home", address: "/"};
+    }
+    
+    return content.value.Links.find((link: Link) => `/${link.address}` == route.path || link.address == route.path)
+  })
 
   const scrollTo = (identifier: string) => scrollToElement(identifier);
 </script>
@@ -14,16 +28,30 @@
 <template>
   <nav 
     class="fixed top-0 w-full pt-4 max-w-screen-xl transition-all duration-300 z-30" 
-    :class="scrollTop ? 'bg-white/95': 'bg-transparent'"
+    :class="scrollTop ? 'bg-white/95': 'bg-white lg:bg-transparent'"
     aria-label="primary"
   >
-    <div class="flex items-center px-32">
+    <div class="flex items-center px-8 lg:px-32 py-2">
       <img 
         class="w-[125px]"
         aria-label="Navigation Logo"
         src="https://a.storyblok.com/f/155950/x/0726342c27/financeall-logo.svg" 
       />
-      <section class="flex gap-6 ml-8">
+      <div 
+        class="flex items-center lg:hidden gap-1 font-semibold flex-grow justify-end cursor-pointer text-lg" 
+        @click="menuOpen = !menuOpen"
+      >
+        <span>{{ activeLink.title }}</span>
+        <font-awesome-icon icon="fa-solid fa-chevron-down" />
+      </div>
+      <section 
+        class="
+          flex flex-col ml-8 absolute top-16 bg-gray-100 right-8 p-4 text-right rounded-lg gap-3
+          lg:flex-row lg:relative lg:bg-transparent lg:right-auto lg:top-auto lg:p-0 lg:text-left lg:gap-6
+        "
+        :class="{'hidden': !menuOpen}"
+        @click="menuOpen = false"
+      >
         <template v-for="link in content.Links" :key="`link-${link.address}`">
           <template v-if="link.address === 'contact'">
             <div
