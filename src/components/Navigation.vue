@@ -2,14 +2,17 @@
   import { useOnScroll } from "vue-composable";
   import { useStoryblokState } from '../composables/storyblokComposable';
   import { useRoute } from 'vue-router';
-  import { computed, ref } from 'vue';
+  import { computed, ref, onBeforeMount, onUnmounted } from 'vue';
   import { scrollToElement } from '../composables/scrollToElementComposable';
+  import { useViewport } from '../composables/viewportComposable';
 
   type Link = {
     address: string,
     title: string
   }
-
+  
+  const scrollTo = (identifier: string) => scrollToElement(identifier);
+  const { isDesktop, isMobile } = useViewport();
   const menuOpen = ref(false);
   const route = useRoute();
   const { scrollTop } = useOnScroll();
@@ -21,8 +24,17 @@
     
     return content.value.Links.find((link: Link) => `/${link.address}` == route.path || link.address == route.path)
   })
+  const resetMenuOpen = () => {
+    menuOpen.value = isDesktop.value;
+  }
 
-  const scrollTo = (identifier: string) => scrollToElement(identifier);
+  onBeforeMount(() => {
+    window.addEventListener('resize', resetMenuOpen);
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', resetMenuOpen);
+  });
 </script>
 
 <template>
@@ -46,7 +58,7 @@
       </div>
       <section 
         class="
-          lg:flex flex-col ml-8 absolute top-16 bg-gray-100 right-8 p-4 text-right rounded-lg gap-3
+          flex flex-col ml-8 absolute top-16 bg-gray-100 right-8 p-4 text-right rounded-lg gap-3
           lg:flex-row lg:relative lg:bg-transparent lg:right-auto lg:top-auto lg:p-0 lg:text-left lg:gap-6
         "
         :class="{'hidden': !menuOpen}"

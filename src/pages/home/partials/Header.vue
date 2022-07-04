@@ -1,23 +1,29 @@
 <script lang="ts" setup>
     import { toRefs } from 'vue';
-    // type Content = {
-    //     header_image: { filename: string }
-    //     all_image: { filename: string }
-    //     title: string
-    //     title_line_2: string
-    //     description: string
-    //     button_1: string
-    //     button_2: string
-    // }
+
+    type Content = {
+        header_image: { filename: string }
+        all_image: { filename: string }
+        title: string
+        title_line_2: string
+        description: string
+        button_1: string
+        button_2: string
+    }
+    interface Props {
+        content: Content;
+    }
     
-    const props = defineProps({
-        content: Object
-    })
+    const props = defineProps<Props>();
 </script>
 
 <template>
-    <header aria-label="Welcome section" class="px-32 py-32 bg-cover bg-center bg-no-repeat" :style="`background-image: url(${ props.content.header_image.filename })`">
-        <div class="mt-32">
+    <header 
+        aria-label="Welcome section" 
+        class="px-8 lg:px-32 py-32 bg-cover bg-center bg-no-repeat flex flex-col items-center lg:items-baseline" 
+        :style="`background-image: url(${ props.content.header_image.filename })`"
+    >
+        <div class="mt-32 text-center lg:text-left">
             <p class="font-bold text-fa-blue text-5xl">
                 {{ props.content.title }}
             </p>
@@ -28,7 +34,7 @@
                 </p>
             </div>
         </div>
-        <p class="w-1/2 text-gray-400 font-semibold pt-4 text-xl">
+        <p class="w-2/3 lg:w-1/2 lg:text-gray-400 text-gray-500 font-semibold text-3xl lg:text-xl leading-relaxed text-center lg:text-left py-14 lg:pb-0 lg:pt-4">
             {{ props.content.description }}
         </p>
         <div class="flex gap-4 my-8">
