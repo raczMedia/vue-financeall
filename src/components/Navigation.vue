@@ -2,7 +2,7 @@
   import { useOnScroll } from "vue-composable";
   import { useStoryblokState } from '../composables/storyblokComposable';
   import { useRoute } from 'vue-router';
-  import { computed, ref, onBeforeMount, onUnmounted } from 'vue';
+  import { computed, ref, onBeforeMount, onUnmounted, onMounted } from 'vue';
   import { scrollToElement } from '../composables/scrollToElementComposable';
   import { useViewport } from '../composables/viewportComposable';
 
@@ -30,6 +30,10 @@
 
   onBeforeMount(() => {
     window.addEventListener('resize', resetMenuOpen);
+  });
+
+  onMounted(() => {
+    resetMenuOpen();
   });
 
   onUnmounted(() => {

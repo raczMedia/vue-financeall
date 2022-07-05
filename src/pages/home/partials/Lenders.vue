@@ -1,24 +1,28 @@
 <script lang="ts" setup>
+    import { toRefs } from 'vue';
+    
     interface Lender {
         filename: string
     }
-
-    interface Lenders {
+    
+    type Content = {
         title: string
         items: Lender[]
         slogan: string
         sloganImage: { filename: string }
     }
 
-    const props = defineProps({
-        content: Object
-    })
+    interface Props {
+        content: Content;
+    }
+
+    const props = defineProps<Props>();
 </script>
 
 <template>
     <section 
         aria-label="Lenders section" 
-        class="relative text-white min-h-64 pt-24 pb-12 px-32 flex flex-col -mt-12"
+        class="relative text-white min-h-64 pt-24 pb-12 px-8 lg:px-32 flex flex-col -mt-12"
     >
         <div class="absolute z-0 inset-0 clip-top-up-right bg-fa-blue overflow-hidden">
             <div class="absolute z-0 clip-right-up-right bg-gray-400/5 left-0 top-0 w-2/3 h-full"></div>

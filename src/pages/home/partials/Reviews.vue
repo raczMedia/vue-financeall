@@ -27,7 +27,7 @@
                 <img :src="props.content.bg.filename" alt="background">
             </div>
         </div>
-        <div class="relative z-20 flex flex-col py-[8rem] px-32 min-h-64 overflow-x-auto no-scrollbar">
+        <div class="relative z-20 flex flex-col py-[8rem] px-8 lg:px-32 min-h-64 overflow-x-auto no-scrollbar">
             <section aria-label="title" class="sticky left-0 flex flex-col items-center text-white">
                 <p class="text-4xl font-medium">
                     {{ props.content.title }}

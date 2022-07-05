@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-    import { toRefs } from 'vue';
+    import { defineProps } from 'vue';
 
     type Content = {
         header_image: { filename: string }
@@ -23,25 +23,25 @@
         class="px-8 lg:px-32 py-32 bg-cover bg-center bg-no-repeat flex flex-col items-center lg:items-baseline" 
         :style="`background-image: url(${ props.content.header_image.filename })`"
     >
-        <div class="mt-32 text-center lg:text-left">
-            <p class="font-bold text-fa-blue text-5xl">
+        <div class="mt-8 lg:mt-32 text-center lg:text-left">
+            <p class="font-bold text-fa-blue text-4xl lg:text-5xl">
                 {{ props.content.title }}
             </p>
             <div class="flex gap-2 items-center pt-4">
-                <img :src="props.content?.all_image.filename" alt="">
-                <p class="font-bold text-fa-blue text-5xl">
+                <img :src="props.content?.all_image.filename" alt="" class="w-12 lg:w-auto">
+                <p class="font-bold text-fa-blue text-3xl lg:text-5xl">
                     {{ props.content.title_line_2 }}
                 </p>
             </div>
         </div>
-        <p class="w-2/3 lg:w-1/2 lg:text-gray-400 text-gray-500 font-semibold text-3xl lg:text-xl leading-relaxed text-center lg:text-left py-14 lg:pb-0 lg:pt-4">
+        <p class="w-3/4 lg:w-1/2 lg:text-gray-400 text-gray-500 font-semibold text-2xl lg:text-xl leading-relaxed text-center lg:text-left py-14 lg:pb-0 lg:pt-4">
             {{ props.content.description }}
         </p>
-        <div class="flex gap-4 my-8">
-            <button class="bg-fa-blue text-white py-4 px-8 rounded-lg">
+        <div class="flex gap-4 my-4 lg:my-8">
+            <button class="bg-fa-blue text-white p-4 lg:px-8 rounded-lg">
                 {{ props.content.button_1 }}
             </button>
-            <button class="bg-fa-secondary-blue text-white py-4 px-8 rounded-lg">
+            <button class="bg-fa-secondary-blue text-white py-4 px-4 lg:px-8 rounded-lg">
                 {{ props.content.button_2 }}
             </button>
         </div>
