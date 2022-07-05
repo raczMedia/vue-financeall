@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-    import { toRefs } from 'vue';
+    import { defineProps } from 'vue';
 
     type Content = {
         header_image: { filename: string }

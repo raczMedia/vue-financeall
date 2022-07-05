@@ -1,18 +1,21 @@
 <script lang="ts" setup>
-    interface Lender {
-        filename: string
-    }
-
-    interface Lenders {
+    import { defineProps } from 'vue';
+    
+    type Content = {
         title: string
         items: Lender[]
         slogan: string
         sloganImage: { filename: string }
     }
+    interface Props {
+        content: Content;
+    }
 
-    const props = defineProps({
-        content: Object
-    })
+    interface Lender {
+        filename: string
+    }
+
+    const props = defineProps<Props>();
 </script>
 
 <template>
