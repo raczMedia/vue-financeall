@@ -15,7 +15,7 @@
     <section 
         id="contact"
         aria-label="Contact section" 
-        class="min-h-64 py-[8rem] px-32 -mt-12 bg-gray-100"
+        class="min-h-64 py-[8rem] px-8 lg:px-32 -mt-12 bg-gray-100"
     >
         <div class="relative z-20 flex content-between">
             <section aria-label="Contact Form">
@@ -51,7 +51,7 @@
                     <button class="bg-fa-blue text-white px-4 py-2 rounded mt-4">{{ props.content.buttonText }}</button>
                 </div>
             </section>
-            <section aria-label="Location Map" class="w-2/4 flex-shrink-0">
+            <section aria-label="Location Map" class="hidden lg:flex w-2/4 flex-shrink-0">
                 <img :src="props.content.map.filename" alt="">
             </section>
         </div>

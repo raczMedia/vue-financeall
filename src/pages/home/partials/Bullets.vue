@@ -19,7 +19,7 @@
 <template>
     <section 
         aria-label="Promises section" 
-        class="min-h-64 pt-[24rem] pb-48 px-32 flex flex-col bg-fa-light-blue"
+        class="min-h-64 pt-[24rem] pb-48 px-8 lg:px-32 flex flex-col bg-fa-light-blue"
     >   
         <ul class="flex justify-between gap-8 relative z-20 flex-wrap">
             <li 
