@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-    import { defineProps } from 'vue';
+    import { toRefs } from 'vue';
+    
+    interface Lender {
+        filename: string
+    }
     
     type Content = {
         title: string
@@ -7,12 +11,9 @@
         slogan: string
         sloganImage: { filename: string }
     }
+
     interface Props {
         content: Content;
-    }
-
-    interface Lender {
-        filename: string
     }
 
     const props = defineProps<Props>();
