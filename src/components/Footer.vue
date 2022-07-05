@@ -6,7 +6,7 @@
 <template>
     <footer class="relative -mt-10 z-10">
         <div class="absolute inset-0 clip-top-up-right bg-fa-blue"></div>
-        <div class="relative min-h-64 px-32 pt-32 pb-16 text-white flex justify-between content-stretch">
+        <div class="relative min-h-64 px-8 lg:px-32 pt-32 pb-16 text-white flex flex-col lg:flex-row justify-between content-stretch">
             <section class="flex flex-col">
                 <img :src="content?.logo?.filename" alt="" class="flex-grow-0 self-start">
                 <p class="text-gray-400 flex-grow flex items-end">
@@ -19,7 +19,7 @@
                         {{ link.title }}
                     </li>
                 </ul>
-                <div class="flex gap-16 mt-16">
+                <div class="flex flex-col lg:flex-row gap-16 mt-16">
                     <ul>
                         <li 
                             v-for="(social, socialIndex) in content.socials" 
@@ -50,7 +50,6 @@
                     </ul>
                 </div>
             </section>
-            
         </div>
     </footer>
 </template>
