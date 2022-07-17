@@ -42,10 +42,11 @@
         </section>
 
         <div class="relative flex flex-col lg:flex-row lg:justify-between mt-8 lg:mt-32 items-start w-full z-10 lg:px-auto px-4">
-            <article class="lg:border-l-4 border-white lg:pl-3 mt-8 lg:w-1/5 pb-64 lg:pb-0 text-5xl lg:text-4xl text-center lg:text-left leading-normal font-semibold lg:font-normal lg:leading-[48px]">
+            <article class="lg:border-l-4 border-white lg:pl-3 mt-8 lg:w-1/5 pb-48 lg:pb-0 text-5xl lg:text-4xl text-center lg:text-left leading-normal font-semibold lg:font-normal lg:leading-[48px]">
                 {{ props.content.slogan }}
             </article>
             <img :src="props.content.sloganImage.filename" alt="rbc" class="hidden lg:block absolute right-0 -top-8 w-4/5">
+            <img :src="props.content.sloganImageSmall.filename" alt="rbc" class="lg:hidden block absolute right-0 -bottom-64 w-full">
         </div>
     </section>
 </template>
