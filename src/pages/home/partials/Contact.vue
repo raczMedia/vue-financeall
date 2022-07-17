@@ -29,8 +29,8 @@
                     <label 
                         v-for="(field, index) in props.content.fields" 
                         :key="`contact-field-${index}`"
-                        class="flex flex-col pr-8"
-                        :class="field.size === 'half' ? 'w-1/2' : 'w-full'"
+                        class="flex flex-col w-full lg:pr-8"
+                        :class="{'lg:w-1/2': field.size === 'half'}"
                     >
                         <span class="pb-2">
                             {{ field.label }}
@@ -47,7 +47,7 @@
                         />
                     </label>
                 </div>
-                <div class="flex justify-end pr-8 pt-2">
+                <div class="flex justify-end lg:pr-8 pt-2">
                     <button class="bg-fa-blue text-white px-4 py-2 rounded mt-4">{{ props.content.buttonText }}</button>
                 </div>
             </section>
