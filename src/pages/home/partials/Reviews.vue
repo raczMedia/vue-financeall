@@ -70,7 +70,7 @@
                 >
                     <section
                         class="flex mb-4 gap-4 items-center"
-                        :class="{'flex-row-reverse': index % 2}"
+                        :class="{'flex-row-reverse md:flex-row': index % 2}"
                         aria-label="Review Header"
                     >
                         <img 
@@ -78,7 +78,7 @@
                             class="rounded-full"
                             alt="avatar"
                         />
-                        <div :class="{'text-right': index % 2}">
+                        <div :class="{'text-right md:text-left': index % 2}">
                             <p class="text-white">{{ review.name }}</p>
                             <p class="text-gray-400">{{ review.occupation }}</p>
                         </div>
