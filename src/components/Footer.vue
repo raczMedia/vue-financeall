@@ -7,14 +7,19 @@
     <footer class="relative -mt-10 z-10">
         <div class="absolute inset-0 clip-top-up-right bg-fa-blue"></div>
         <div class="
-            relative min-h-64 px-8 pt-32 pb-16 text-white flex flex-col justify-between content-stretch
-            md:px-32 md:flex-row
+            relative min-h-64 text-white flex flex-col justify-between content-stretch px-8 pt-32 pb-16
+            lg:px-32 
+            md:flex-row
         ">
             <section class="
                 flex flex-col gap-8 mb-8 
                 md:gap-0 md:mb-0
             ">
-                <img :src="content?.logo?.filename" alt="" class="flex-grow-0 self-start">
+                <img 
+                    :src="content?.logo?.filename" 
+                    alt="" 
+                    class="flex-grow-0 self-start"
+                />
                 <p class="text-gray-400 flex-grow flex items-end">
                     {{ content.copyright }}
                 </p>
@@ -33,7 +38,8 @@
                 </ul>
                 <div class="
                     flex flex-col gap-8 mt-8
-                    md:gap-16 md:mt-16 md:flex-row
+                    lg:gap-16 
+                    md:mt-16 md:flex-row
                 ">
                     <ul class="
                         flex flex-col gap-4 
@@ -64,7 +70,7 @@
                             :key="`footer-contacts-${contactsIndex}`"
                             class="
                                 flex gap-4
-                                md:justify-between 
+                                lg:justify-between 
                             "
                         >
                             <span class="w-4 text-center">
