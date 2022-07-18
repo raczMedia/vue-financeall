@@ -19,9 +19,9 @@
 <template>
     <section 
         aria-label="Promises section" 
-        class="min-h-64 pt-[20rem] pb-48 px-8 lg:px-32 flex flex-col bg-fa-light-blue"
+        class="min-h-64 pt-[20rem] pb-48 px-8 md:px-32 flex flex-col bg-fa-light-blue"
     >   
-        <ul class="flex justify-between gap-8 relative z-20 flex-wrap md:flex-nowrap">
+        <ul class="flex justify-between gap-8 relative z-20 flex-wrap lg:flex-nowrap">
             <li 
                 v-for="(bullet, index) in props.content.Items" 
                 :key="`bullet-${index}`" 

@@ -10,6 +10,7 @@
         items: Lender[]
         slogan: string
         sloganImage: { filename: string }
+        sloganImageSmall: { filename: string }
     }
 
     interface Props {
