@@ -2,7 +2,7 @@
   import { useOnScroll } from "vue-composable";
   import { useStoryblokState } from '../composables/storyblokComposable';
   import { useRoute } from 'vue-router';
-  import { computed, ref, onBeforeMount, onUnmounted, onMounted } from 'vue';
+  import { computed, ref, onBeforeMount, onUnmounted, onMounted, watch } from 'vue';
   import { scrollToElement } from '../composables/scrollToElementComposable';
   import { useViewport } from '../composables/viewportComposable';
 
@@ -31,6 +31,10 @@
   onBeforeMount(() => {
     window.addEventListener('resize', resetMenuOpen);
   });
+
+  watch(route, (to) => {
+    menuOpen.value = isDesktop.value;
+  }, {flush: 'pre', immediate: true, deep: true})
 
   onMounted(() => {
     resetMenuOpen();
@@ -66,7 +70,6 @@
           lg:flex-row lg:relative lg:bg-transparent lg:right-auto lg:top-auto lg:p-0 lg:text-left lg:gap-6
         "
         :class="{'hidden': !menuOpen}"
-        @click="menuOpen = false"
       >
         <template v-for="link in content.Links" :key="`link-${link.address}`">
           <template v-if="link.address === 'contact'">
