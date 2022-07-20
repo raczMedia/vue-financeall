@@ -21,11 +21,11 @@
 
     const contentWrapper = computed(() => {
         let list: {
-            Header: Object,
-            Lenders: Object,
-            Bullets: Object,
-            Reviews: Object,
-            Contact: Object,
+            Header: any,
+            Lenders: any,
+            Bullets: any,
+            Reviews: any,
+            Contact: any,
         } = {
             Header: {},
             Lenders: {},
