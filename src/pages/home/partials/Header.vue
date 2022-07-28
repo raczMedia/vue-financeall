@@ -42,10 +42,10 @@
             {{ props.content.description }}
         </p>
         <div class="flex gap-4 my-4 lg:my-8">
-            <button class="bg-fa-blue text-white p-4 lg:px-8 rounded-lg">
+            <button class="bg-fa-blue text-white p-4 lg:px-8 rounded-lg" :id="props.content.button_1.toLowerCase().replaceAll(' ', '-')">
                 {{ props.content.button_1 }}
             </button>
-            <button class="bg-fa-secondary-blue text-white py-4 px-4 lg:px-8 rounded-lg">
+            <button class="bg-fa-secondary-blue text-white py-4 px-4 lg:px-8 rounded-lg" :id="props.content.button_2.toLowerCase().replaceAll(' ', '-')">
                 {{ props.content.button_2 }}
             </button>
         </div>
