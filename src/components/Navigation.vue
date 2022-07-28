@@ -47,7 +47,7 @@
 
 <template>
   <nav 
-    class="fixed top-0 w-full pt-4 max-w-screen-xl transition-all duration-300 z-30" 
+    class="fixed top-0 w-full pt-4 max-w-[1600px] transition-all duration-300 z-30" 
     :class="scrollTop ? 'bg-white/95': 'bg-white lg:bg-transparent'"
     aria-label="primary"
   >

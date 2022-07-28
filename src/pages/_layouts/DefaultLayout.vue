@@ -6,7 +6,7 @@
 <template>
   <div class="flex justify-center items-center bg-gray-100" aria-label="content">
     <Suspense>
-      <main class="max-w-screen-xl w-full shadow-lg min-h-screen bg-white relative">
+      <main class="max-w-[1600px] w-full shadow-lg min-h-screen bg-white relative">
         <Navigation />
         <section class="min-h-screen">
           <slot />
