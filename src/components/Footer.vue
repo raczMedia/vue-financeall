@@ -70,7 +70,6 @@
                             :key="`footer-contacts-${contactsIndex}`"
                             class="
                                 flex gap-4
-                                lg:justify-between 
                             "
                         >
                             <span class="w-4 text-center">

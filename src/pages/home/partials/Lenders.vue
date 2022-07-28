@@ -53,6 +53,7 @@
                     class="
                         w-1/2
                         lg:w-auto
+                        flex-grow
                     "
                 >
                     <img :src="item.filename" class="w-full">
@@ -65,8 +66,9 @@
             lg:flex-row lg:justify-between lg:mt-32 lg:px-auto md:items-center
         ">
             <article class="
-                border-white pb-48 text-5xl text-center leading-normal font-semibold 
-                lg:pb-0 lg:text-left lg:border-l-4 lg:pl-3 mt-8 lg:w-1/5 lg:text-4xl lg:font-normal lg:leading-[48px]
+                border-white pb-48 text-5xl text-center leading-normal font-semibold mt-8
+                lg:pb-0 lg:text-left lg:border-l-4 lg:pl-3 lg:w-1/5 lg:text-4xl lg:font-normal lg:leading-[48px]
+                xl:w-2/5 xl:mt-32 xl:text-5xl xl:leading-[64px] xl:pl-6
             ">
                 {{ props.content.slogan }}
             </article>
@@ -74,7 +76,7 @@
                 :src="props.content.sloganImage.filename" 
                 class="
                     hidden absolute right-0 -top-8 w-4/5
-                    lg:block
+                    lg:block xl:w-3/5
                 "
             />
             <img 

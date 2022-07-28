@@ -31,14 +31,14 @@
                 <img 
                     :src="props.content.bg.filename" 
                     alt="background"
-                    class="
-                        w-1/2
-                        md:w-auto
-                    "
+                    class="w-1/2 md:w-auto"
                 >
             </div>
         </div>
-        <div class="relative z-20 flex flex-col py-[8rem] px-8 lg:px-32 min-h-64 overflow-x-auto no-scrollbar">            
+        <div class="
+            relative z-20 flex flex-col py-[8rem] px-8 min-h-64 overflow-x-auto no-scrollbar
+            lg:px-32
+        ">            
             <section 
                 aria-label="title" 
                 class="
@@ -46,10 +46,13 @@
                     md:text-left
                 "
             >
-                <p class="text-4xl font-medium">
+                <p class="text-4xl font-medium xl:text-5xl">
                     {{ props.content.title }}
                 </p>
-                <p class="text-xl font-light text-gray-300 pt-2">
+                <p class="
+                    text-xl font-light text-gray-300 pt-2 
+                    xl:text-2xl xl:pt-4
+                ">
                     {{ props.content.subtitle }}
                 </p>
             </section>
@@ -90,7 +93,7 @@
                         <span class="text-6xl pr-2 relative -top-2">
                             ‟
                         </span>
-                        <p class="text-lg">
+                        <p class="text-lg xl:text-xl xl:pt-4">
                             {{ review.comment }}
                         </p>
                     </section>

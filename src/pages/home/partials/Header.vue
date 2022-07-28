@@ -34,7 +34,11 @@
                 </p>
             </div>
         </div>
-        <p class="w-3/4 lg:w-1/2 lg:text-gray-400 text-gray-500 font-semibold text-2xl lg:text-xl leading-relaxed text-center lg:text-left py-14 lg:pb-0 lg:pt-4">
+        <p class="
+            w-3/4 text-gray-500 font-semibold text-2xl leading-relaxed text-center py-14
+            lg:w-1/3 lg:text-gray-400 lg:text-xl lg:text-left lg:pb-0 lg:pt-4
+            xl:text-2xl xl:pt-8
+        ">
             {{ props.content.description }}
         </p>
         <div class="flex gap-4 my-4 lg:my-8">
