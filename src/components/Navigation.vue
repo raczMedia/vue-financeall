@@ -88,14 +88,6 @@
               {{ link.title }}
             </router-link>
           </template>
-          <a
-            v-else-if="link.title === 'Inventory'"
-            :href="link.address"
-            target="_blank"
-            class="pb-1 link cursor-pointer border-b border-transparent hover:border-fa-secondary-blue transition-all duration-200"
-          >
-            {{ link.title }}
-          </a>
           <router-link 
             v-else
             :to="link.address"
