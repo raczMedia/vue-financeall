@@ -4,7 +4,7 @@
 </script>
 
 <template>
-  <div class="flex justify-center items-center bg-gray-100" aria-label="content">
+  <div class="flex justify-center items-center bg-gray-100 scroll-smooth" aria-label="content">
     <Suspense>
       <main class="max-w-[1600px] w-full shadow-lg min-h-screen bg-white relative">
         <Navigation />
