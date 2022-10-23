@@ -20,7 +20,7 @@ app
   .component('font-awesome-icon', FontAwesomeIcon)
   .use(router)
   .use(StoryblokVue, {
-    accessToken: 'GrLdjYB94wV1T5IaqQWXSQtt',
+    accessToken: import.meta.env.VITE_STORYBLOK_API_KEY,
     use: [apiPlugin],
   })
 
