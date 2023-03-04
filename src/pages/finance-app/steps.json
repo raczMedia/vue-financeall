@@ -135,8 +135,8 @@
 								"label": "",
 								"name": "db_year",
 								"size": "xs",
-								"placeholder": "YY",
-								"mask": "##"
+								"placeholder": "YYYY",
+								"mask": "####"
 							},
 							{
 								"type": "number",
