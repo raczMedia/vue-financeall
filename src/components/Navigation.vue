@@ -61,7 +61,7 @@
         class="flex items-center lg:hidden gap-1 font-semibold flex-grow justify-end cursor-pointer text-lg" 
         @click="menuOpen = !menuOpen"
       >
-        <span>{{ activeLink.title }}</span>
+        <span v-if="activeLink">{{ activeLink.title }}</span>
         <font-awesome-icon icon="fa-solid fa-chevron-down" />
       </div>
       <section 
@@ -96,6 +96,12 @@
             {{ link.title }}
           </router-link>
         </template>  
+        <router-link 
+          to="/finance-app"
+          class="pb-1 link cursor-pointer border-b border-transparent hover:border-fa-secondary-blue transition-all duration-200"
+        >
+          Application
+        </router-link>
       </section>
     </div>
     <div class="h-[1px] bg-gray-400 opacity-30 w-full mt-4"></div>  
