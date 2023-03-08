@@ -9,7 +9,9 @@
 					"type": "image-radio",
 					"label": "",
 					"name": "car_type",
-					"options": [{
+					"size": "full",
+					"options": [
+						{
 							"value": "Sedan",
 							"title": "Sedan",
 							"asset": "sedan@2x.png"
@@ -73,7 +75,7 @@
 						"type": "dropdown",
 						"label": "Salutation",
 						"name": "salutation",
-						"size": "xs",
+						"size": "sm",
 						"options": [{
 								"title": "Mr",
 								"value": "Mr",
@@ -95,14 +97,14 @@
 								"type": "text",
 								"label": "First Name",
 								"name": "first_name",
-								"size": "md",
+								"size": "lg",
 								"placeholder": ""
 							},
 							{
 								"type": "text",
 								"label": "Last Name",
 								"name": "last_name",
-								"size": "md",
+								"size": "lg",
 								"placeholder": ""
 							}
 						]
@@ -134,8 +136,9 @@
 								"type": "number",
 								"label": "",
 								"name": "db_year",
-								"size": "xs",
-								"placeholder": "YYYY",
+								"size": "sm",
+								"placeholder": "",
+								"helper": "YYYY",
 								"mask": "####"
 							},
 							{
@@ -143,7 +146,8 @@
 								"label": "",
 								"name": "db_month",
 								"size": "xs",
-								"placeholder": "MM",
+								"placeholder": "",
+								"helper": "MM",
 								"mask": "##"
 							},
 							{
@@ -151,7 +155,8 @@
 								"label": "",
 								"name": "db_day",
 								"size": "xs",
-								"placeholder": "DD",
+								"placeholder": "",
+								"helper": "DD",
 								"mask": "##"
 							}
 						]
@@ -165,22 +170,18 @@
 			"sections": [{
 				"size": "half",
 				"title": "Contact Information",
-				"fields": [{
-						"type": "tel",
-						"name": "phone_number",
-						"label": "Phone Number ",
-						"size": "md",
-						"placeholder": "(519) 555-5555"
-					},
+				"fields": [
 					{
-						"type": "group",
+						"type": "row",
 						"name": "address",
 						"label": "",
-						"items": [{
+						"size": "full",
+						"items": [
+							{
 								"type": "text",
 								"label": "Street",
 								"name": "street",
-								"size": "lg",
+								"size": "xl",
 								"placeholder": ""
 							},
 							{
@@ -189,98 +190,138 @@
 								"name": "unit",
 								"size": "sm",
 								"placeholder": ""
+							}
+						]
+					},
+					{
+						"type": "text",
+						"label": "City",
+						"name": "city",
+						"size": "lg",
+						"placeholder": ""
+					},
+					{
+						"type": "dropdown",
+						"label": "Province",
+						"name": "province",
+						"size": "sm",
+						"placeholder": "",
+						"options": [
+							{
+								"title": "AB",
+								"value": "AB",
+								"asset": ""
 							},
 							{
-								"type": "text",
-								"label": "City",
-								"name": "city",
-								"size": "sm",
+								"title": "BC",
+								"value": "BC",
+								"asset": ""
+							},
+							{
+								"title": "MB",
+								"value": "MB",
+								"asset": ""
+							},
+							{
+								"title": "NB",
+								"value": "NB",
+								"asset": ""
+							},
+							{
+								"title": "NL",
+								"value": "NL",
+								"asset": ""
+							},
+							{
+								"title": "NS",
+								"value": "NS",
+								"asset": ""
+							},
+							{
+								"title": "NT",
+								"value": "NT",
+								"asset": ""
+							},
+							{
+								"title": "NU",
+								"value": "NU",
+								"asset": ""
+							},
+							{
+								"title": "ON",
+								"value": "ON",
+								"asset": ""
+							},
+							{
+								"title": "PE",
+								"value": "PE",
+								"asset": ""
+							},
+							{
+								"title": "QC",
+								"value": "QC",
+								"asset": ""
+							},
+							{
+								"title": "SK",
+								"value": "SK",
+								"asset": ""
+							},
+							{
+								"title": "YT",
+								"value": "YT",
+								"asset": ""
+							}
+						]
+					},
+					{
+						"type": "postal",
+						"label": "Postal Code",
+						"name": "postal_code",
+						"size": "sm",
+						"placeholder": ""
+					},
+					{
+						"type": "row",
+						"label": "How long have you lived at this address?",
+						"name": "time_at_address",
+						"size": "full",
+						"placeholder": "",
+						"items": [{
+								"type": "years",
+								"label": "",
+								"name": "address_years",
+								"size": "md",
+								"after": "Years",
 								"placeholder": ""
 							},
 							{
-								"type": "dropdown",
-								"label": "Province",
-								"name": "province",
-								"size": "sm",
-								"placeholder": "",
-								"options": [{
-										"title": "AB",
-										"value": "AB",
-										"asset": ""
-									},
-									{
-										"title": "BC",
-										"value": "BC",
-										"asset": ""
-									},
-									{
-										"title": "MB",
-										"value": "MB",
-										"asset": ""
-									},
-									{
-										"title": "NB",
-										"value": "NB",
-										"asset": ""
-									},
-									{
-										"title": "NL",
-										"value": "NL",
-										"asset": ""
-									},
-									{
-										"title": "NS",
-										"value": "NS",
-										"asset": ""
-									},
-									{
-										"title": "NT",
-										"value": "NT",
-										"asset": ""
-									},
-									{
-										"title": "NU",
-										"value": "NU",
-										"asset": ""
-									},
-									{
-										"title": "ON",
-										"value": "ON",
-										"asset": ""
-									},
-									{
-										"title": "PE",
-										"value": "PE",
-										"asset": ""
-									},
-									{
-										"title": "QC",
-										"value": "QC",
-										"asset": ""
-									},
-									{
-										"title": "SK",
-										"value": "SK",
-										"asset": ""
-									},
-									{
-										"title": "YT",
-										"value": "YT",
-										"asset": ""
-									}
-								]
-							},
-							{
-								"type": "postal",
-								"label": "Postal Code",
-								"name": "postal_code",
-								"size": "sm",
+								"type": "months",
+								"label": "",
+								"name": "address_months",
+								"size": "md",
+								"after": "Months",
 								"placeholder": ""
 							}
 						]
+					},
+					{
+						"type": "tel",
+						"name": "phone_number",
+						"label": "Phone Number ",
+						"size": "md",
+						"placeholder": "(519) 555-5555"
+					},
+					{
+						"type": "text",
+						"name": "email",
+						"label": "Email Address",
+						"size": "xl",
+						"placeholder": "johndoe@gmail.com"
 					}
 				]
-			}]
+			}
+			]
 		},
 		{
 			"title": "Housing",
@@ -289,69 +330,49 @@
 				"size": "half",
 				"title": "Housing",
 				"fields": [{
-						"type": "radio",
+						"type": "toggle",
 						"label": "Ownership",
 						"name": "ownership",
 						"size": "sm",
 						"placeholder": "",
-						"options": [{
-								"title": "Rent",
-								"value": "rent",
+						"options": [
+							{
+								"title": "Own",
+								"value": true,
                 "asset": ""
 							},
 							{
-								"title": "Own",
-								"value": "own",
+								"title": "Rent",
+								"value": false,
                 "asset": ""
 							}
 						]
 					},
 					{
-						"type": "radio",
+						"type": "toggle",
 						"label": "Do you split monthly housing costs",
 						"name": "split",
-						"size": "md",
+						"size": "2xl",
 						"placeholder": "",
 						"options": [{
 								"title": "Yes",
-								"value": "yes"
+								"value": true,
+                "asset": ""
 							},
 							{
 								"title": "No",
-								"value": "no"
+								"value": false,
+                "asset": ""
 							}
 						]
 					},
 					{
-						"type": "money",
+						"type": "number",
 						"label": "Monthly Payment",
 						"name": "monthly_payment",
 						"size": "md",
+						"before": "$",
 						"placeholder": ""
-					},
-					{
-						"type": "group",
-						"label": "Time at current address",
-						"name": "time_at_address",
-						"size": "md",
-						"placeholder": "",
-						"items": [{
-								"type": "number",
-								"label": "",
-								"name": "years",
-								"size": "sm",
-								"placeholder": "Years",
-								"mask": "##"
-							},
-							{
-								"type": "number",
-								"label": "",
-								"name": "months",
-								"size": "sm",
-								"placeholder": "Months",
-								"mask": "##"
-							}
-						]
 					}
 				]
 			}]
@@ -366,7 +387,7 @@
 						"type": "radio",
 						"label": "Employment Status",
 						"name": "employment_status",
-						"size": "lg",
+						"size": "full",
 						"placeholder": "",
 						"options": [{
 								"title": "Employed Full Time",
@@ -402,34 +423,17 @@
 								"title": "Other",
 								"value": "other",
                 "asset": ""
-							},
-							{
-								"title": "Other",
-								"value": "other",
-                "asset": ""
-							},
-							{
-								"title": "Other",
-								"value": "other",
-                "asset": ""
-							},
-							{
-								"title": "Other",
-								"value": "other"
-							},
-							{
-								"title": "Other",
-								"value": "other",
-                "asset": ""
 							}
 						]
 					},
 					{
-						"type": "money",
-						"label": "Monthly income before taxes",
-						"name": "monthly_income_before_taxes",
+						"type": "number",
+						"label": "Monthly income",
+						"name": "monthly_income",
 						"size": "md",
-						"placeholder": ""
+						"placeholder": "",
+						"before": "$",
+						"helper": "Before Taxes"
 					},
 					{
 						"type": "group",
@@ -437,20 +441,20 @@
 						"name": "duration_at_emplpoyment",
 						"size": "md",
 						"items": [{
-								"type": "number",
+								"type": "years",
 								"label": "",
 								"name": "duration_at_employment_years",
-								"size": "sm",
-								"placeholder": "Years",
-								"mask": "##"
+								"size": "md",
+								"after": "Years",
+								"placeholder": ""
 							},
 							{
-								"type": "number",
+								"type": "months",
 								"label": "",
 								"name": "duration_at_employment_months",
-								"size": "sm",
-								"placeholder": "Months",
-								"mask": "##"
+								"size": "md",
+								"after": "Months",
+								"placeholder": ""
 							}
 						]
 					},
@@ -478,39 +482,49 @@
 				"size": "half",
 				"title": "Additional Monthly Income",
 				"fields": [{
-						"type": "money",
-						"label": "Second Job / month",
+						"type": "number",
+						"label": "Second Job",
+						"after": "/ month",
+						"before": "$",
 						"name": "second_job",
-						"size": "md",
-						"placeholder": "$0"
+						"size": "lg",
+						"placeholder": "0"
 					},
 					{
-						"type": "money",
-						"label": "Child Tax Benefit / month",
+						"type": "number",
+						"label": "Child Tax Benefit",
+						"after": "/ month",
 						"name": "child_tax_benefit",
-						"size": "md",
-						"placeholder": "$0"
+						"size": "lg",
+						"before": "$",
+						"placeholder": "0"
 					},
 					{
-						"type": "money",
-						"label": "Rental income / month",
+						"type": "number",
+						"label": "Rental income",
+						"after": "/ month",
 						"name": "rental_income",
-						"size": "md",
-						"placeholder": "$0"
+						"size": "lg",
+						"before": "$",
+						"placeholder": "0"
 					},
 					{
-						"type": "money",
-						"label": "Investment Income / month",
+						"type": "number",
+						"label": "Investment Income",
+						"after": "/ month",
 						"name": "investment_income",
-						"size": "md",
-						"placeholder": "$0"
+						"size": "lg",
+						"before": "$",
+						"placeholder": "0"
 					},
 					{
-						"type": "money",
-						"label": "Pensions or Benefit / month",
+						"type": "number",
+						"label": "Pensions or Benefit",
+						"after": "/ month",
 						"name": "pensions_benefit",
-						"size": "md",
-						"placeholder": "$0"
+						"size": "lg",
+						"before": "$",
+						"placeholder": "0"
 					}
 				]
 			}]
@@ -525,7 +539,7 @@
 					"type": "radio",
 					"label": "What is your estimated credit rating",
 					"name": "credit_rating",
-					"size": "lg",
+					"size": "xl",
 					"placeholder": "",
 					"options": [{
 							"title": "Good (680+ Beacon Score)",
@@ -598,44 +612,53 @@
 			}]
 		},
 		{
-			"title": "Vehikl",
-			"name": "vehikl",
+			"title": "Vehicle",
+			"name": "vehicle",
 			"sections": [{
 					"size": "half",
 					"title": "Current Vehicle",
-					"fields": [{
-							"type": "radio",
-							"label": "Do you currently have a vehicle",
-							"name": "current_vehicle",
-							"size": "md",
-							"placeholder": "",
-							"options": [{
-									"title": "Yes",
-									"value": "Yes",
-                  "asset": ""
-								},
-								{
-									"title": "$no",
-									"value": "no",
-                  "asset": ""
-								}
-							]
-						},
+					"fields": [
 						{
-							"type": "radio",
-							"label": "Are you trading it in",
-							"name": "trading_in",
-							"size": "md",
-							"placeholder": "",
-							"options": [{
-									"title": "Yes",
-									"value": "Yes",
-                  "asset": ""
+							"type": "row",
+							"label": "",
+							"name": "current_vehicle_details",
+							"size": "lg",
+							"items": [
+								{
+									"type": "toggle",
+									"label": "Do you currently have a vehicle",
+									"name": "current_vehicle",
+									"size": "xl",
+									"placeholder": "",
+									"options": [{
+											"title": "Yes",
+											"value": true,
+											"asset": ""
+										},
+										{
+											"title": "No",
+											"value": false,
+											"asset": ""
+										}
+									]
 								},
 								{
-									"title": "$no",
-									"value": "no",
-                  "asset": ""
+									"type": "toggle",
+									"label": "Are you trading it in",
+									"name": "trading_in",
+									"size": "lg",
+									"placeholder": "",
+									"options": [{
+											"title": "Yes",
+											"value": true,
+											"asset": ""
+										},
+										{
+											"title": "No",
+											"value": false,
+											"asset": ""
+										}
+									]
 								}
 							]
 						},
@@ -645,32 +668,34 @@
 							"name": "current_vehicle_details",
 							"size": "lg",
 							"items": [{
-									"type": "text",
+									"type": "number",
 									"label": "Year",
 									"name": "current_vehicle_year",
 									"size": "sm",
-									"placeholder": ""
+									"placeholder": "",
+									"mask": "####"
 								},
 								{
 									"type": "text",
 									"label": "Make",
 									"name": "current_vehicle_make",
-									"size": "sm",
+									"size": "md",
 									"placeholder": ""
 								},
 								{
 									"type": "text",
 									"label": "Model",
 									"name": "current_vehicle_model",
-									"size": "sm",
+									"size": "md",
 									"placeholder": ""
 								},
 								{
-									"type": "text",
+									"type": "number",
 									"label": "Mileage",
 									"name": "current_vehicle_mileage",
-									"size": "sm",
-									"placeholder": ""
+									"size": "md",
+									"placeholder": "",
+									"after": "km"
 								}
 							]
 						}
@@ -685,25 +710,40 @@
 						"name": "desired_vehicle_details",
 						"size": "lg",
 						"items": [{
-								"type": "text",
+								"type": "number",
 								"label": "Year",
 								"name": "desired_vehicle_year",
 								"size": "sm",
-								"placeholder": ""
+								"placeholder": "",
+								"mask": "####"
 							},
 							{
 								"type": "text",
 								"label": "Make",
 								"name": "desired_vehicle_make",
-								"size": "sm",
+								"size": "md",
 								"placeholder": ""
 							},
 							{
 								"type": "text",
 								"label": "Model",
 								"name": "desired_vehicle_model",
-								"size": "sm",
+								"size": "md",
 								"placeholder": ""
+							},
+							{
+								"type": "row",
+								"label": "",
+								"name": "desired_vehicle_dealer_group",
+								"size": "full",
+								"placeholder": "",
+								"items": [{
+									"type": "text",
+									"label": "If you are applying through a dealership please provide their name here",
+									"name": "desired_vehicle_dealer_name",
+									"size": "full",
+									"placeholder": ""
+								}]
 							}
 						]
 					}]

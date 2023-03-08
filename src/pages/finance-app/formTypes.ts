@@ -1,5 +1,5 @@
 export interface Option {
-  value: string,
+  value: string | boolean,
   title: string,
   asset?: string,
 }
@@ -10,6 +10,9 @@ export interface Field {
   options?: Option[],
   size?: string,
   placeholder?: string,
+  helper?: string,
+  after?: string,
+  before?: string,
   items?: Field[],
   mask?: string
 }
@@ -23,3 +26,5 @@ export interface Step {
   name: string, 
   sections: Section[]
 }
+
+export type Status = 'Progress' | 'Verification' | 'Submitted';

@@ -1,6 +1,11 @@
 <script lang="ts" setup>
   import { Field, Step } from '../formTypes';
-  import { getComponent, getValue, setValue } from './utils';
+  import {
+    getFieldComponent,
+    getAnswer,
+    setAnswer,
+    getSizing
+  } from '../fields/utils';
 
   interface Props {
     field: Field,
@@ -9,22 +14,21 @@
   }
 
   defineProps<Props>();
+  defineEmits(['input'])
 </script>
 
 <template>
-  <div class="inline-flex gap-4">
-    <template v-for="(item, itemIndex) in field.items" :key="`${field.name}-group-${itemIndex}`">
-      <div class="flex flex-col">
-        <label v-if="item.label">{{ item.label }}</label>
-        {{ item.placeholder }}
-        <component 
-          :is="getComponent(item.type)" 
-          :field="item" 
-          :currentStep="currentStep" 
-          :value="getValue(currentStep, item)" 
-          @input="setValue(currentStep, item, $event)" 
-        />
-      </div>
-    </template>
-  </div>
+  <template v-for="(item, itemIndex) in field.items" :key="`${field.name}-group-${itemIndex}`">
+    <div class="flex flex-col">
+      <label v-if="item.label" class="font-medium" :class="getSizing(item)">{{ item.label }}</label>
+      <component 
+        :is="getFieldComponent(item.type)" 
+        :field="item" 
+        :currentStep="currentStep" 
+        :value="getAnswer(currentStep, item)" 
+        :class="getSizing(item)"
+        @input="setAnswer(currentStep, item, $event)" 
+      />
+    </div>
+  </template>
 </template>

@@ -26,7 +26,7 @@
 <template>
   <div class="border-gray-300 bg-white rounded border mt-2 cursor-pointer" ref="dropdown">
     <div class="flex items-center" @click="isOpen = !isOpen">
-      <input type="text" class="px-4 py-2 w-24 outline-none cursor-pointer" :value="value" readonly />
+      <input type="text" class="px-4 py-2 outline-none cursor-pointer w-full" :value="value" readonly />
       <font-awesome-icon icon="fa-solid fa-chevron-down" size="xs" class="px-4" />
     </div>
     <div class="relative">
