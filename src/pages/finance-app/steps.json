@@ -71,7 +71,8 @@
 			"sections": [{
 				"size": "half",
 				"title": "Personal Information",
-				"fields": [{
+				"fields": [
+					{
 						"type": "dropdown",
 						"label": "Salutation",
 						"name": "salutation",
@@ -89,25 +90,18 @@
 						]
 					},
 					{
-						"type": "group",
-						"name": "name",
-						"label": "",
+						"type": "text",
+						"label": "First Name",
+						"name": "first_name",
 						"size": "lg",
-						"items": [{
-								"type": "text",
-								"label": "First Name",
-								"name": "first_name",
-								"size": "lg",
-								"placeholder": ""
-							},
-							{
-								"type": "text",
-								"label": "Last Name",
-								"name": "last_name",
-								"size": "lg",
-								"placeholder": ""
-							}
-						]
+						"placeholder": ""
+					},
+					{
+						"type": "text",
+						"label": "Last Name",
+						"name": "last_name",
+						"size": "lg",
+						"placeholder": ""
 					},
 					{
 						"type": "dropdown",
@@ -127,7 +121,7 @@
 						]
 					},
 					{
-						"type": "group",
+						"type": "batch",
 						"name": "date_of_birth",
 						"label": "Date of Birth",
 						"size": "md",
@@ -436,7 +430,7 @@
 						"helper": "Before Taxes"
 					},
 					{
-						"type": "group",
+						"type": "batch",
 						"label": "Duration at employment",
 						"name": "duration_at_emplpoyment",
 						"size": "md",
@@ -663,90 +657,78 @@
 							]
 						},
 						{
-							"type": "group",
-							"label": "",
-							"name": "current_vehicle_details",
-							"size": "lg",
-							"items": [{
-									"type": "number",
-									"label": "Year",
-									"name": "current_vehicle_year",
-									"size": "sm",
-									"placeholder": "",
-									"mask": "####"
-								},
-								{
-									"type": "text",
-									"label": "Make",
-									"name": "current_vehicle_make",
-									"size": "md",
-									"placeholder": ""
-								},
-								{
-									"type": "text",
-									"label": "Model",
-									"name": "current_vehicle_model",
-									"size": "md",
-									"placeholder": ""
-								},
-								{
-									"type": "number",
-									"label": "Mileage",
-									"name": "current_vehicle_mileage",
-									"size": "md",
-									"placeholder": "",
-									"after": "km"
-								}
-							]
+							"type": "number",
+							"label": "Year",
+							"name": "current_vehicle_year",
+							"size": "sm",
+							"placeholder": "",
+							"mask": "####"
+						},
+						{
+							"type": "text",
+							"label": "Make",
+							"name": "current_vehicle_make",
+							"size": "md",
+							"placeholder": ""
+						},
+						{
+							"type": "text",
+							"label": "Model",
+							"name": "current_vehicle_model",
+							"size": "md",
+							"placeholder": ""
+						},
+						{
+							"type": "number",
+							"label": "Mileage",
+							"name": "current_vehicle_mileage",
+							"size": "md",
+							"placeholder": "",
+							"after": "km"
 						}
 					]
 				},
 				{
 					"size": "half",
 					"title": "Desired Vehicle",
-					"fields": [{
-						"type": "group",
-						"label": "",
-						"name": "desired_vehicle_details",
-						"size": "lg",
-						"items": [{
-								"type": "number",
-								"label": "Year",
-								"name": "desired_vehicle_year",
-								"size": "sm",
-								"placeholder": "",
-								"mask": "####"
-							},
-							{
+					"fields": [
+						{
+							"type": "number",
+							"label": "Year",
+							"name": "desired_vehicle_year",
+							"size": "sm",
+							"placeholder": "",
+							"mask": "####"
+						},
+						{
+							"type": "text",
+							"label": "Make",
+							"name": "desired_vehicle_make",
+							"size": "md",
+							"placeholder": ""
+						},
+						{
+							"type": "text",
+							"label": "Model",
+							"name": "desired_vehicle_model",
+							"size": "md",
+							"placeholder": ""
+						},
+						{
+							"type": "row",
+							"label": "",
+							"name": "desired_vehicle_dealer_group",
+							"size": "full",
+							"placeholder": "",
+							"items": [{
 								"type": "text",
-								"label": "Make",
-								"name": "desired_vehicle_make",
-								"size": "md",
-								"placeholder": ""
-							},
-							{
-								"type": "text",
-								"label": "Model",
-								"name": "desired_vehicle_model",
-								"size": "md",
-								"placeholder": ""
-							},
-							{
-								"type": "row",
-								"label": "",
-								"name": "desired_vehicle_dealer_group",
+								"label": "If you are applying through a dealership please provide their name here",
+								"name": "desired_vehicle_dealer_name",
 								"size": "full",
-								"placeholder": "",
-								"items": [{
-									"type": "text",
-									"label": "If you are applying through a dealership please provide their name here",
-									"name": "desired_vehicle_dealer_name",
-									"size": "full",
-									"placeholder": ""
-								}]
-							}
-						]
-					}]
+								"placeholder": ""
+							}]
+						}
+					]
 				}
 			]
 		}

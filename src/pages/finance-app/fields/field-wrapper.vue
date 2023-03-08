@@ -10,17 +10,13 @@
 </script>
 
 <template>
-  <div v-if="field.type !== 'group' && field.type !== 'row'" class="flex flex-col">
-    <label v-if="field.label" class="font-medium" :class="getSizing(field)">{{ field.label }}</label>
-    <slot />
-  </div>
-  <div v-else-if="field.label || field.type === 'row'" class="flex flex-col" :class="{'w-full': field.type === 'row'}">
-    <label class="font-medium" :class="getSizing(field)">
+  <div class="flex flex-col" :class="{'w-full': field.type === 'row'}">
+    <label v-if="field.label" class="font-medium" :class="getSizing(field)">
       {{ field.label }}
     </label>
-    <div class="gap-4 inline-flex">
+    <div v-if="field.type === 'row' || field.type === 'batch'" class="gap-4 inline-flex">
       <slot />
     </div>
+    <slot v-else />
   </div>
-  <slot v-else />
 </template>

@@ -46,7 +46,6 @@ export const getStatus = () => status.value;
 export const setStatus = (newVal: Status) => status.value = newVal;
 
 export const getFieldComponent = (type: string) => ({
-  'image-radio': ImageRadio,
   'text': TextField,
   'tel': TextField,
   'number': TextField,
@@ -55,8 +54,11 @@ export const getFieldComponent = (type: string) => ({
   'phone': TextField,
   'years': TextField,
   'months': TextField,
-  'group': GroupField,
+
+  'batch': GroupField,
   'row': GroupField,
+  
+  'image-radio': ImageRadio,
   'dropdown': DropdownField,
   'radio': RadioField,
   'toggle': ToggleField,

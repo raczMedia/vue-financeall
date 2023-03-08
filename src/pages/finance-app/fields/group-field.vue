@@ -18,7 +18,7 @@
 </script>
 
 <template>
-  <template v-for="(item, itemIndex) in field.items" :key="`${field.name}-group-${itemIndex}`">
+  <template v-for="(item, itemIndex) in field.items" :key="`${field.name}-${itemIndex}`">
     <div class="flex flex-col">
       <label v-if="item.label" class="font-medium" :class="getSizing(item)">{{ item.label }}</label>
       <component 
