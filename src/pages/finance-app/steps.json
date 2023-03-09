@@ -325,19 +325,19 @@
 				"title": "Housing",
 				"fields": [{
 						"type": "toggle",
-						"label": "Ownership",
+						"label": "Do you own or rent your home",
 						"name": "ownership",
-						"size": "sm",
+						"size": "md",
 						"placeholder": "",
 						"options": [
 							{
 								"title": "Own",
-								"value": true,
+								"value": "own",
                 "asset": ""
 							},
 							{
 								"title": "Rent",
-								"value": false,
+								"value": "rent",
                 "asset": ""
 							}
 						]
@@ -346,7 +346,7 @@
 						"type": "toggle",
 						"label": "Do you split monthly housing costs",
 						"name": "split",
-						"size": "2xl",
+						"size": "xl",
 						"placeholder": "",
 						"options": [{
 								"title": "Yes",
@@ -421,19 +421,24 @@
 						]
 					},
 					{
-						"type": "number",
-						"label": "Monthly income",
-						"name": "monthly_income",
-						"size": "md",
-						"placeholder": "",
-						"before": "$",
-						"helper": "Before Taxes"
+						"type": "text",
+						"label": "Company Name",
+						"name": "company_name",
+						"size": "lg",
+						"placeholder": ""
+					},
+					{
+						"type": "text",
+						"label": "Your Position/title",
+						"name": "employment_title",
+						"size": "lg",
+						"placeholder": ""
 					},
 					{
 						"type": "batch",
 						"label": "Duration at employment",
 						"name": "duration_at_emplpoyment",
-						"size": "md",
+						"size": "lg",
 						"items": [{
 								"type": "years",
 								"label": "",
@@ -453,18 +458,13 @@
 						]
 					},
 					{
-						"type": "text",
-						"label": "Company Name",
-						"name": "company_name",
-						"size": "lg",
-						"placeholder": ""
-					},
-					{
-						"type": "text",
-						"label": "Your Position/title",
-						"name": "employment_title",
+						"type": "number",
+						"label": "Monthly income",
+						"name": "monthly_income",
 						"size": "md",
-						"placeholder": ""
+						"placeholder": "",
+						"before": "$",
+						"helper": "Before Taxes"
 					}
 				]
 			}]

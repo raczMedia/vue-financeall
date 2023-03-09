@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { ref, computed, Ref } from 'vue';
-  import { getFieldComponent, initForm, setAnswer, getAnswer, getSizing, getStatus, setStatus } from './fields/utils';
+  import { getFieldComponent, initForm, setAnswer, getAnswer, getSizing, getStatus, setStatus, getAnswers } from './fields/utils';
   import { Status } from './formTypes';
 
   import Form from './steps.json';
@@ -58,6 +58,8 @@
       return currentStepCount.value -= 1; 
     }
   }
+
+  const answers = getAnswers();
 </script>
 
 <template>
@@ -82,10 +84,11 @@
 
     <!-- Body -->
     <section aria-label="form-content" class="mt-12 relative">
+      <!-- hide when getStatus() === 'Submitted'"  -->
       <button 
-        :disable="! hasPreviousStep || getStatus() === 'Submitted'" 
+      :disable="! hasPreviousStep" 
         class="text-gray-400 font-medium hover:text-fa-blue hover:font-bold" 
-        :class="{'opacity-0': ! hasPreviousStep || getStatus() === 'Submitted'}"
+        :class="{'opacity-0': ! hasPreviousStep}"
         @click=" goToPreviousStep()"
       >
         <font-awesome-icon icon="fa-solid fa-arrow-left" size="xs" />

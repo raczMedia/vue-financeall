@@ -1,5 +1,7 @@
 <script lang='ts' setup>
-  
+  import { getAnswers } from '../fields/utils';
+
+  const answers = getAnswers();
 </script>
 <template>
   <div>

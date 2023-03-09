@@ -5,16 +5,17 @@ export interface Option {
 }
 export interface Field {
   type: string,
-  label?: string,
   name: string,
-  options?: Option[],
-  size?: string,
+  label?: string,
   placeholder?: string,
+  size?: string,
   helper?: string,
-  after?: string,
   before?: string,
-  items?: Field[],
-  mask?: string
+  after?: string,
+  mask?: string,
+  group?: string,
+  options?: Option[],
+  items?: Field[]
 }
 export interface Section {
   size: string, 
