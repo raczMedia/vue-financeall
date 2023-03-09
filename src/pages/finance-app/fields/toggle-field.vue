@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { computed } from 'vue';
   import { Field, Step } from '../formTypes';
-import FieldWrapper from './field-wrapper.vue';
+  import FieldWrapper from './field-wrapper.vue';
 
   interface Props {
     field: Field,
@@ -36,10 +36,8 @@ import FieldWrapper from './field-wrapper.vue';
     <div class="
       w-11 h-6 
       rounded-full 
-
       bg-gray-400
       peer-checked:bg-fa-blue
-
       peer peer-checked:after:translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-2 after:left-[2px] 
       after:bg-white after:border-gray-300 after:border 
