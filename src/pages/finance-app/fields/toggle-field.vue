@@ -1,7 +1,6 @@
 <script lang="ts" setup>
   import { computed } from 'vue';
   import { Field, Step } from '../formTypes';
-  import FieldWrapper from './field-wrapper.vue';
 
   interface Props {
     field: Field,
@@ -11,27 +10,26 @@
   const props = defineProps<Props>();
   defineEmits(['input'])
 
-  const selectedOptionTitle = computed(() => {
+  const selectedOption = computed(() => {
     if (! props.field.options) {
-      return null;
+      return {title: "", value: "", asset: ""};
     }
 
     return props.value
-      ? props.field.options.find((option) => option.value === props.value)
-      : props.field.options[1].title 
+      ? props.field.options.find((option) => option.value === props.value) ?? props.field.options[1]
+      : props.field.options[1] 
   });
 
-  const getBooleanValue = (value: Props['value']) => value === props.field.options[0].value ? true : false;
-  const getStringValue = (value: boolean) => value ? props.field.options[0].value : props.field.options[1].value;
+  const booleanValue = computed(() => selectedOption.value === props.field.options![0] ? true : false);
 </script>
 
 <template>
   <label class="relative flex items-center cursor-pointer py-1.5 mt-2">
     <input 
-      type="checkbox" 
+      type="checkbox"
       class="sr-only peer" 
-      :checked="getBooleanValue(value)" 
-      @change="e => $emit('input', {value: field.options[Number(e.target?.checked)].value})"
+      :checked="booleanValue" 
+      @change="e => $emit('input', {value: field.options[Number(! e.target?.checked)].value})"
     />
     <div class="
       w-11 h-6 
@@ -46,6 +44,6 @@
       after:transition-all
     "
     ></div>
-    <span class="ml-3 text-sm text-gray-900">{{ selectedOptionTitle }}</span>
+    <span class="ml-3 text-sm text-gray-900">{{ selectedOption.title }}</span>
   </label>
 </template>
