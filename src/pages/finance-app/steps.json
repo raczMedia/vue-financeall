@@ -79,13 +79,11 @@
 						"size": "sm",
 						"options": [{
 								"title": "Mr",
-								"value": "Mr",
-								"asset": ""
+								"value": "Mr"
 							},
 							{
 								"title": "Ms",
-								"value": "Ms",
-								"asset": ""
+								"value": "Ms"
 							}
 						]
 					},
@@ -110,13 +108,11 @@
 						"size": "md",
 						"options": [{
 								"value": "Single",
-								"title": "Single",
-								"asset": ""
+								"title": "Single"
 							},
 							{
 								"value": "Married",
-								"title": "Married",
-								"asset": ""
+								"title": "Married"
 							}
 						]
 					},
@@ -203,68 +199,55 @@
 						"options": [
 							{
 								"title": "AB",
-								"value": "AB",
-								"asset": ""
+								"value": "AB"
 							},
 							{
 								"title": "BC",
-								"value": "BC",
-								"asset": ""
+								"value": "BC"
 							},
 							{
 								"title": "MB",
-								"value": "MB",
-								"asset": ""
+								"value": "MB"
 							},
 							{
 								"title": "NB",
-								"value": "NB",
-								"asset": ""
+								"value": "NB"
 							},
 							{
 								"title": "NL",
-								"value": "NL",
-								"asset": ""
+								"value": "NL"
 							},
 							{
 								"title": "NS",
-								"value": "NS",
-								"asset": ""
+								"value": "NS"
 							},
 							{
 								"title": "NT",
-								"value": "NT",
-								"asset": ""
+								"value": "NT"
 							},
 							{
 								"title": "NU",
-								"value": "NU",
-								"asset": ""
+								"value": "NU"
 							},
 							{
 								"title": "ON",
-								"value": "ON",
-								"asset": ""
+								"value": "ON"
 							},
 							{
 								"title": "PE",
-								"value": "PE",
-								"asset": ""
+								"value": "PE"
 							},
 							{
 								"title": "QC",
-								"value": "QC",
-								"asset": ""
+								"value": "QC"
 							},
 							{
 								"title": "SK",
-								"value": "SK",
-								"asset": ""
+								"value": "SK"
 							},
 							{
 								"title": "YT",
-								"value": "YT",
-								"asset": ""
+								"value": "YT"
 							}
 						]
 					},
@@ -381,38 +364,31 @@
 						"placeholder": "",
 						"options": [{
 								"title": "Employed Full Time",
-								"value": "employed_full_time",
-                "asset": ""
+								"value": "employed_full_time"
 							},
 							{
 								"title": "Employed Part Time",
-								"value": "employed_part_time",
-                "asset": ""
+								"value": "employed_part_time"
 							},
 							{
 								"title": "Self Employed",
-								"value": "self_employed",
-                "asset": ""
+								"value": "self_employed"
 							},
 							{
 								"title": "Student",
-								"value": "student",
-                "asset": ""
+								"value": "student"
 							},
 							{
 								"title": "Homemaker",
-								"value": "homemaker",
-                "asset": ""
+								"value": "homemaker"
 							},
 							{
 								"title": "Retired",
-								"value": "retired",
-                "asset": ""
+								"value": "retired"
 							},
 							{
 								"title": "Other",
-								"value": "other",
-                "asset": ""
+								"value": "other"
 							}
 						]
 					},
@@ -533,33 +509,27 @@
 					"placeholder": "",
 					"options": [{
 							"title": "Good (680+ Beacon Score)",
-							"value": "student",
-              "asset": ""
+							"value": "student"
 						},
 						{
 							"title": "Fair (550 - 679 Beacon Score)",
-							"value": "fair",
-              "asset": ""
+							"value": "fair"
 						},
 						{
 							"title": "Poor (440 - 549 Beacon Score)",
-							"value": "poor",
-              "asset": ""
+							"value": "poor"
 						},
 						{
 							"title": "Very Poor (399 or less)",
-							"value": "very poor",
-                "asset": ""
+							"value": "very poor"
 						},
 						{
 							"title": "Current Bankruptcy or Proposal",
-							"value": "bankruptcy",
-              "asset": ""
+							"value": "bankruptcy"
 						},
 						{
 							"title": "No Credit",
-							"value": "no credit",
-              "asset": ""
+							"value": "no credit"
 						}
 					]
 				}]
@@ -579,23 +549,19 @@
 					"placeholder": "",
 					"options": [{
 							"title": "Under $250 / month",
-							"value": "Under $250 / month",
-              "asset": ""
+							"value": "Under $250 / month"
 						},
 						{
 							"title": "$250 - $375 / month",
-							"value": "250 - $375 / month",
-              "asset": ""
+							"value": "250 - $375 / month"
 						},
 						{
 							"title": "$376 - $500 / month",
-							"value": "$376 - $500 / month",
-              "asset": ""
+							"value": "$376 - $500 / month"
 						},
 						{
 							"title": "$501+ / month",
-							"value": "$501+ / month",
-              "asset": ""
+							"value": "$501+ / month"
 						}
 					]
 				}]
@@ -622,13 +588,11 @@
 									"placeholder": "",
 									"options": [{
 											"title": "Yes",
-											"value": true,
-											"asset": ""
+											"value": true
 										},
 										{
 											"title": "No",
-											"value": false,
-											"asset": ""
+											"value": false
 										}
 									]
 								},
@@ -640,13 +604,11 @@
 									"placeholder": "",
 									"options": [{
 											"title": "Yes",
-											"value": true,
-											"asset": ""
+											"value": true
 										},
 										{
 											"title": "No",
-											"value": false,
-											"asset": ""
+											"value": false
 										}
 									]
 								}
