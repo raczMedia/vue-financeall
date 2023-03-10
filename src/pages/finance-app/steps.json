@@ -332,13 +332,11 @@
 						"options": [
 							{
 								"title": "Own",
-								"value": "own",
-                "asset": ""
+								"value": "Own"
 							},
 							{
 								"title": "Rent",
-								"value": "rent",
-                "asset": ""
+								"value": "Rent"
 							}
 						]
 					},
@@ -350,13 +348,11 @@
 						"placeholder": "",
 						"options": [{
 								"title": "Yes",
-								"value": true,
-                "asset": ""
+								"value": "Yes"
 							},
 							{
 								"title": "No",
-								"value": false,
-                "asset": ""
+								"value": "No"
 							}
 						]
 					},
