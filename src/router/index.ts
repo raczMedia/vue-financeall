@@ -14,17 +14,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/inventory",
     name: "Inventory",
     component: Inventory,
-  },
-  {
-    path: "/value-my-trade-in",
-    name: "ValueMyTradeIn",
-    component: ValueMyTradeIn,
-  },
-  {
-    path: "/free-credit-check",
-    name: "FreeCreditCheck",
-    component: FreeCreditCheck,
-  },
+  }
 ];
 
 const router = createRouter({
