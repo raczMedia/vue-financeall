@@ -48,7 +48,7 @@
 </script>
 
 <template>
-    <section class="relative">
+    <section>
         <Header :content="contentWrapper.Header" />
         <Lenders :content="contentWrapper.Lenders" />
         <div class="relative">
