@@ -4,9 +4,9 @@
 </script>
 
 <template>
-  <div class="flex justify-center items-center bg-gray-100 scroll-smooth" aria-label="content">
+  <div class="flex justify-center items-center bg-gray-100" aria-label="content" id="app">
     <Suspense>
-      <main class="max-w-[1600px] w-full shadow-lg min-h-screen bg-white relative">
+      <main class="max-w-[1600px] w-full shadow-lg min-h-screen bg-white">
         <Navigation />
         <section class="min-h-screen">
           <slot />
