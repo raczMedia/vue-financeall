@@ -24,6 +24,7 @@ input::-webkit-inner-spin-button {
     clip-path: polygon(15% 0, 100% 0, 100% 99%, 0 100%);
 }
 
-body {
+* {
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
