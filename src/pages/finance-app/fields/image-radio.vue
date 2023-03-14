@@ -18,7 +18,7 @@
   <div class="grid grid-cols-5 gap-2 select-none">
     <div 
       v-for="option in field.options"
-      :key="option.value"
+      :key="`image-${option.value}`"
       class="
         flex flex-col items-center justify-center
         p-3 overflow-hidden rounded-lg 
