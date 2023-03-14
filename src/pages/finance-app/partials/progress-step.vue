@@ -1,7 +1,7 @@
 <script lang='ts' setup>
   import { computed } from 'vue';
   import FieldWrapper from '../fields/field-wrapper.vue';
-  import { Section, Step } from '../formTypes';
+  import { Field, Section, Step } from '../formTypes';
   import { 
     getFieldComponent,
     getAnswer,
@@ -15,6 +15,14 @@
   }
 
   defineProps<Props>();
+
+  const getClass = (field: Field) => {
+    if (field.type === 'row' || field.type === 'batch') {
+      return undefined
+    }
+    
+    return getSizing(field) 
+  }
 </script>
 
 <template>
@@ -31,8 +39,8 @@
             :field="field" 
             :currentStep="currentStep" 
             :value="getAnswer(currentStep, field)" 
-            :class="getSizing(field)"
-            @input="setAnswer(currentStep, field, $event)" 
+            :class="getClass(field)"
+            @input="e => setAnswer(currentStep, field, e)" 
           />
         </FieldWrapper>
       </template>
