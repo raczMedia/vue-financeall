@@ -450,9 +450,10 @@
 							"type": "number",
 							"label": "Monthly income",
 							"name": "monthly_income",
-							"size": "md",
+							"size": "lg",
 							"placeholder": "",
 							"before": "$",
+							"after": "/month",
 							"helper": "Before Taxes"
 						}
 					]
@@ -460,7 +461,7 @@
 			]
 		},
 		{
-			"title": "Additional Income",
+			"title": "Income",
 			"name": "income",
 			"sections": [
 				{
@@ -470,7 +471,7 @@
 						{
 							"type": "number",
 							"label": "Second Job",
-							"after": "/ month",
+							"after": "/month",
 							"before": "$",
 							"name": "second_job",
 							"size": "lg",
@@ -479,7 +480,7 @@
 						{
 							"type": "number",
 							"label": "Child Tax Benefit",
-							"after": "/ month",
+							"after": "/month",
 							"name": "child_tax_benefit",
 							"size": "lg",
 							"before": "$",
@@ -488,7 +489,7 @@
 						{
 							"type": "number",
 							"label": "Rental income",
-							"after": "/ month",
+							"after": "/month",
 							"name": "rental_income",
 							"size": "lg",
 							"before": "$",
@@ -497,7 +498,7 @@
 						{
 							"type": "number",
 							"label": "Investment Income",
-							"after": "/ month",
+							"after": "/month",
 							"name": "investment_income",
 							"size": "lg",
 							"before": "$",
@@ -506,7 +507,7 @@
 						{
 							"type": "number",
 							"label": "Pensions or Benefit",
-							"after": "/ month",
+							"after": "/month",
 							"name": "pensions_benefit",
 							"size": "lg",
 							"before": "$",
@@ -569,20 +570,20 @@
 					"size": "lg",
 					"placeholder": "",
 					"options": [{
-							"title": "Under $250 / month",
-							"value": "Under $250 / month"
+							"title": "Under $250 /month",
+							"value": "Under $250 /month"
 						},
 						{
-							"title": "$250 - $375 / month",
-							"value": "250 - $375 / month"
+							"title": "$250 - $375 /month",
+							"value": "250 - $375 /month"
 						},
 						{
-							"title": "$376 - $500 / month",
-							"value": "$376 - $500 / month"
+							"title": "$376 - $500 /month",
+							"value": "$376 - $500 /month"
 						},
 						{
-							"title": "$501+ / month",
-							"value": "$501+ / month"
+							"title": "$501+ /month",
+							"value": "$501+ /month"
 						}
 					]
 				}]
@@ -604,16 +605,16 @@
 								{
 									"type": "toggle",
 									"label": "Do you currently have a vehicle",
-									"name": "current_vehicle",
+									"name": "own_vehicle",
 									"size": "xl",
 									"placeholder": "",
 									"options": [{
 											"title": "Yes",
-											"value": true
+											"value": "Own Vehicle"
 										},
 										{
 											"title": "No",
-											"value": false
+											"value": "Do not own vehicle"
 										}
 									]
 								},
@@ -625,11 +626,11 @@
 									"placeholder": "",
 									"options": [{
 											"title": "Yes",
-											"value": true
+											"value": "Trading in"
 										},
 										{
 											"title": "No",
-											"value": false
+											"value": "Not trading in"
 										}
 									]
 								}
