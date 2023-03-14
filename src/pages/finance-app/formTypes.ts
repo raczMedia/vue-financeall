@@ -31,7 +31,12 @@ export interface Step {
 export type Status = 'Progress' | 'Verification' | 'Submitted';
 
 export interface AnswerField {
-  group: string | undefined, label: string, value: string | number | boolean, name: string
+  group: string | undefined, 
+  label: string, 
+  value: string | number | boolean, 
+  name: string,
+  before: string | undefined, 
+  after: string | undefined,
 }
 export interface StepAnswer {
   title: string,
