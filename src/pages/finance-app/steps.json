@@ -1,7 +1,7 @@
 {
 	"steps": [{
 			"title": "Car Type",
-			"name": "car_type",
+			"name": "desired_vehicle",
 			"sections": [{
 				"size": "full",
 				"title": "Car Type",
@@ -76,6 +76,7 @@
 						"type": "dropdown",
 						"label": "Salutation",
 						"name": "salutation",
+						"group": "fullname[1]",
 						"size": "sm",
 						"options": [{
 								"title": "Mr",
@@ -91,6 +92,7 @@
 						"type": "text",
 						"label": "First Name",
 						"name": "first_name",
+						"group": "fullname[2]",
 						"size": "lg",
 						"placeholder": ""
 					},
@@ -98,6 +100,7 @@
 						"type": "text",
 						"label": "Last Name",
 						"name": "last_name",
+						"group": "fullname[3]",
 						"size": "lg",
 						"placeholder": ""
 					},
@@ -126,15 +129,17 @@
 								"type": "number",
 								"label": "",
 								"name": "db_year",
+								"group": "dateOfBirth[1]",
 								"size": "sm",
 								"placeholder": "",
 								"helper": "YYYY",
 								"mask": "####"
 							},
 							{
-								"type": "number",
+								"type": "months",
 								"label": "",
 								"name": "db_month",
+								"group": "dateOfBirth[2]",
 								"size": "xs",
 								"placeholder": "",
 								"helper": "MM",
@@ -144,6 +149,7 @@
 								"type": "number",
 								"label": "",
 								"name": "db_day",
+								"group": "dateOfBirth[3]",
 								"size": "xs",
 								"placeholder": "",
 								"helper": "DD",
@@ -171,12 +177,14 @@
 								"type": "text",
 								"label": "Street",
 								"name": "street",
+								"group": "address[1]",
 								"size": "xl",
 								"placeholder": ""
 							},
 							{
 								"type": "text",
 								"label": "Unit/Apt",
+								"group": "address[2]",
 								"name": "unit",
 								"size": "sm",
 								"placeholder": ""
@@ -187,6 +195,7 @@
 						"type": "text",
 						"label": "City",
 						"name": "city",
+						"group": "address[3]",
 						"size": "lg",
 						"placeholder": ""
 					},
@@ -194,6 +203,7 @@
 						"type": "dropdown",
 						"label": "Province",
 						"name": "province",
+						"group": "address[4]",
 						"size": "sm",
 						"placeholder": "",
 						"options": [
@@ -255,6 +265,7 @@
 						"type": "postal",
 						"label": "Postal Code",
 						"name": "postal_code",
+						"group": "address[5]",
 						"size": "sm",
 						"placeholder": ""
 					},
@@ -268,6 +279,7 @@
 								"type": "years",
 								"label": "",
 								"name": "address_years",
+								"group": "address-time[1]",
 								"size": "md",
 								"after": "Years",
 								"placeholder": ""
@@ -276,6 +288,7 @@
 								"type": "months",
 								"label": "",
 								"name": "address_months",
+								"group": "address-time[2]",
 								"size": "md",
 								"after": "Months",
 								"placeholder": ""
@@ -290,7 +303,7 @@
 						"placeholder": "(519) 555-5555"
 					},
 					{
-						"type": "text",
+						"type": "email",
 						"name": "email",
 						"label": "Email Address",
 						"size": "xl",
@@ -352,148 +365,156 @@
 		},
 		{
 			"title": "Employment",
-			"name": "employment",
-			"sections": [{
-				"size": "half",
-				"title": "Employment",
-				"fields": [{
-						"type": "radio",
-						"label": "Employment Status",
-						"name": "employment_status",
-						"size": "full",
-						"placeholder": "",
-						"options": [{
-								"title": "Employed Full Time",
-								"value": "employed_full_time"
-							},
-							{
-								"title": "Employed Part Time",
-								"value": "employed_part_time"
-							},
-							{
-								"title": "Self Employed",
-								"value": "self_employed"
-							},
-							{
-								"title": "Student",
-								"value": "student"
-							},
-							{
-								"title": "Homemaker",
-								"value": "homemaker"
-							},
-							{
-								"title": "Retired",
-								"value": "retired"
-							},
-							{
-								"title": "Other",
-								"value": "other"
-							}
-						]
-					},
-					{
-						"type": "text",
-						"label": "Company Name",
-						"name": "company_name",
-						"size": "lg",
-						"placeholder": ""
-					},
-					{
-						"type": "text",
-						"label": "Your Position/title",
-						"name": "employment_title",
-						"size": "lg",
-						"placeholder": ""
-					},
-					{
-						"type": "batch",
-						"label": "Duration at employment",
-						"name": "duration_at_emplpoyment",
-						"size": "lg",
-						"items": [{
-								"type": "years",
-								"label": "",
-								"name": "duration_at_employment_years",
-								"size": "md",
-								"after": "Years",
-								"placeholder": ""
-							},
-							{
-								"type": "months",
-								"label": "",
-								"name": "duration_at_employment_months",
-								"size": "md",
-								"after": "Months",
-								"placeholder": ""
-							}
-						]
-					},
-					{
-						"type": "number",
-						"label": "Monthly income",
-						"name": "monthly_income",
-						"size": "md",
-						"placeholder": "",
-						"before": "$",
-						"helper": "Before Taxes"
-					}
-				]
-			}]
+			"name": "income",
+			"sections": [
+				{
+					"size": "half",
+					"title": "Employment",
+					"fields": [
+						{
+							"type": "radio",
+							"label": "Employment Status",
+							"name": "employment_status",
+							"size": "full",
+							"placeholder": "",
+							"options": [{
+									"title": "Employed Full Time",
+									"value": "employed_full_time"
+								},
+								{
+									"title": "Employed Part Time",
+									"value": "employed_part_time"
+								},
+								{
+									"title": "Self Employed",
+									"value": "self_employed"
+								},
+								{
+									"title": "Student",
+									"value": "student"
+								},
+								{
+									"title": "Homemaker",
+									"value": "homemaker"
+								},
+								{
+									"title": "Retired",
+									"value": "retired"
+								},
+								{
+									"title": "Other",
+									"value": "other"
+								}
+							]
+						},
+						{
+							"type": "text",
+							"label": "Company Name",
+							"name": "company_name",
+							"size": "lg",
+							"placeholder": ""
+						},
+						{
+							"type": "text",
+							"label": "Your Position/title",
+							"name": "employment_title",
+							"size": "lg",
+							"placeholder": ""
+						},
+						{
+							"type": "batch",
+							"label": "Duration at employment",
+							"name": "duration_at_emplpoyment",
+							"size": "lg",
+							"items": [{
+									"type": "years",
+									"label": "",
+									"name": "duration_at_employment_years",
+									"group": "employment-duration[1]",
+									"size": "md",
+									"after": "Years",
+									"placeholder": ""
+								},
+								{
+									"type": "months",
+									"label": "",
+									"name": "duration_at_employment_months",
+									"group": "employment-duration[2]",
+									"size": "md",
+									"after": "Months",
+									"placeholder": ""
+								}
+							]
+						},
+						{
+							"type": "number",
+							"label": "Monthly income",
+							"name": "monthly_income",
+							"size": "md",
+							"placeholder": "",
+							"before": "$",
+							"helper": "Before Taxes"
+						}
+					]
+				}
+			]
 		},
 		{
-			"title": "Additional Monthly Income",
-			"name": "additional_monthly_income",
-			"sections": [{
-				"size": "half",
-				"title": "Additional Monthly Income",
-				"fields": [{
-						"type": "number",
-						"label": "Second Job",
-						"after": "/ month",
-						"before": "$",
-						"name": "second_job",
-						"size": "lg",
-						"placeholder": "0"
-					},
-					{
-						"type": "number",
-						"label": "Child Tax Benefit",
-						"after": "/ month",
-						"name": "child_tax_benefit",
-						"size": "lg",
-						"before": "$",
-						"placeholder": "0"
-					},
-					{
-						"type": "number",
-						"label": "Rental income",
-						"after": "/ month",
-						"name": "rental_income",
-						"size": "lg",
-						"before": "$",
-						"placeholder": "0"
-					},
-					{
-						"type": "number",
-						"label": "Investment Income",
-						"after": "/ month",
-						"name": "investment_income",
-						"size": "lg",
-						"before": "$",
-						"placeholder": "0"
-					},
-					{
-						"type": "number",
-						"label": "Pensions or Benefit",
-						"after": "/ month",
-						"name": "pensions_benefit",
-						"size": "lg",
-						"before": "$",
-						"placeholder": "0"
-					}
-				]
-			}]
+			"title": "Additional Income",
+			"name": "income",
+			"sections": [
+				{
+					"size": "half",
+					"title": "Additional Monthly Income",
+					"fields": [
+						{
+							"type": "number",
+							"label": "Second Job",
+							"after": "/ month",
+							"before": "$",
+							"name": "second_job",
+							"size": "lg",
+							"placeholder": "0"
+						},
+						{
+							"type": "number",
+							"label": "Child Tax Benefit",
+							"after": "/ month",
+							"name": "child_tax_benefit",
+							"size": "lg",
+							"before": "$",
+							"placeholder": "0"
+						},
+						{
+							"type": "number",
+							"label": "Rental income",
+							"after": "/ month",
+							"name": "rental_income",
+							"size": "lg",
+							"before": "$",
+							"placeholder": "0"
+						},
+						{
+							"type": "number",
+							"label": "Investment Income",
+							"after": "/ month",
+							"name": "investment_income",
+							"size": "lg",
+							"before": "$",
+							"placeholder": "0"
+						},
+						{
+							"type": "number",
+							"label": "Pensions or Benefit",
+							"after": "/ month",
+							"name": "pensions_benefit",
+							"size": "lg",
+							"before": "$",
+							"placeholder": "0"
+						}
+					]
+				}
+			]
 		},
 		{
 			"title": "Credit Rating",
@@ -568,8 +589,8 @@
 			}]
 		},
 		{
-			"title": "Vehicle",
-			"name": "vehicle",
+			"title": "Current Vehicle",
+			"name": "current_vehicle",
 			"sections": [{
 					"size": "half",
 					"title": "Current Vehicle",
@@ -618,6 +639,7 @@
 							"type": "number",
 							"label": "Year",
 							"name": "current_vehicle_year",
+							"group": "current-vehicle[1]",
 							"size": "sm",
 							"placeholder": "",
 							"mask": "####"
@@ -626,6 +648,7 @@
 							"type": "text",
 							"label": "Make",
 							"name": "current_vehicle_make",
+							"group": "current-vehicle[2]",
 							"size": "md",
 							"placeholder": ""
 						},
@@ -633,6 +656,7 @@
 							"type": "text",
 							"label": "Model",
 							"name": "current_vehicle_model",
+							"group": "current-vehicle[3]",
 							"size": "md",
 							"placeholder": ""
 						},
@@ -640,12 +664,19 @@
 							"type": "number",
 							"label": "Mileage",
 							"name": "current_vehicle_mileage",
+							"group": "current-vehicle[4]",
 							"size": "md",
 							"placeholder": "",
 							"after": "km"
 						}
 					]
-				},
+				}
+			]
+		},
+		{
+			"title": "Desired Vehicle",
+			"name": "desired_vehicle",
+			"sections": [
 				{
 					"size": "half",
 					"title": "Desired Vehicle",
@@ -654,6 +685,7 @@
 							"type": "number",
 							"label": "Year",
 							"name": "desired_vehicle_year",
+							"group": "desired-vehicle[1]",
 							"size": "sm",
 							"placeholder": "",
 							"mask": "####"
@@ -662,6 +694,7 @@
 							"type": "text",
 							"label": "Make",
 							"name": "desired_vehicle_make",
+							"group": "desired-vehicle[2]",
 							"size": "md",
 							"placeholder": ""
 						},
@@ -669,6 +702,7 @@
 							"type": "text",
 							"label": "Model",
 							"name": "desired_vehicle_model",
+							"group": "desired-vehicle[3]",
 							"size": "md",
 							"placeholder": ""
 						},
@@ -687,8 +721,7 @@
 							}]
 						}
 					]
-				}
-			]
+				}]
 		}
 	]
 }
