@@ -29,3 +29,12 @@ export interface Step {
 }
 
 export type Status = 'Progress' | 'Verification' | 'Submitted';
+
+export interface AnswerField {
+  group: string | undefined, label: string, value: string | number | boolean, name: string
+}
+export interface StepAnswer {
+  title: string,
+  order: number,
+  fields: {string: AnswerField | AnswerField[]}
+}
