@@ -3,6 +3,8 @@
   import { vMaska } from "maska"
   import { computed, ref } from 'vue';
 
+  import { useDebounceFn } from '@vueuse/core'
+
   interface PropsType {
     field: Field,
     currentStep: Step,
@@ -10,7 +12,7 @@
   }
 
   const props = defineProps<PropsType>();
-  defineEmits(['input']);
+  const emit = defineEmits(['input', 'validated']);
 
   const maskOptions = ref({ 
     tel: '(###) ###-####', 
@@ -27,7 +29,32 @@
     number: 'Z:[0-9]:multiple',
   });
   const getToken = () => tokenOptions.value[props.field.type as keyof typeof tokenOptions.value] || '';
+  const getPattern = () => {
+    return { 'email': '.+@globex\.com' }[props.field.type] || ''
+  };
+  const getValidation = () => {
+    return { 
+      'email': /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ 
+    }[props.field.type]
+  };
+  const forceValue = (value: string | number) => {
+    return {
+      "months": Number(value) > 11 ? "11" : value
+    }[props.field.type] || value;
+  }
 
+  const debounceEmit = useDebounceFn((value) => {
+    emit('input', { value })
+    // emit('validated', validated(value))
+  }, 400);
+
+  const validated = (value: string) => {
+    // const regexString = getValidation();
+
+    // return regexString
+    //   ? regexString.test(value)
+    //   : true;
+  }
 </script>
 
 <template>
@@ -38,12 +65,13 @@
         v-maska
         :data-maska="getMask()"
         :data-maska-tokens="getToken()"
-        type="text" 
+        :type="field.type === 'email' ? 'email' : 'text'" 
         class="py-2 w-full outline-none"
         :class="field.before ? 'pr-4' : 'px-4'"
         :value="value"
         :placeholder="field.placeholder"
-        @input="(e) => $emit('input', {value: e.target?.value})"
+        :pattern="getPattern()"
+        @input="(e) => debounceEmit(e.target?.value)"
       />
       <div v-if="field.after" class="pr-2 text-gray-400 flex-shrink-0">{{ field.after }}</div>
     </label>
