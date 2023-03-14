@@ -12,8 +12,8 @@
   const getValuesFromAnswer = (answer: StepAnswer) => Object
     .values(answer.fields)
     .map(field => Array.isArray(field) 
-      ? field.map(item => item.value).join(" ")
-      : field.value
+      ? field.map(item => [item.before, item.value, item.after ? ` ${item.after}` : undefined].join("")).join(" ")
+      : [field.before, field.value, field.after ? ` ${field.after}` : undefined].join("")
     )
 </script>
 <template>
@@ -25,9 +25,9 @@
           <span class="pr-2">{{ answer.title }}</span>
           <font-awesome-icon icon="fa-solid fa-pencil" class="text-fa-blue" size="xs" />
         </h3>
-        <div class="w-full flex flex-wrap gap-x-4">
+        <div class="w-full flex flex-wrap gap-x-4 items-center">
           <template v-for="(value, index) in getValuesFromAnswer(answer)" :key="`answer-${answer.title}-${index}`">
-            <span v-if="index !== 0">-</span>
+            <div v-if="index !== 0" class="w-1 h-1 rounded-full bg-black"></div>
             <span>{{ value }}</span>
           </template>
         </div>

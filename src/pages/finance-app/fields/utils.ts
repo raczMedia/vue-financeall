@@ -99,6 +99,15 @@ export const setAnswer = (
   field: Field, 
   answer: { value: string }
 ) => {
+  const results = {
+    value: answer.value,
+    label: field.label,
+    name: field.name,
+    group: field.group,
+    before: field.before,
+    after: field.after,
+  };
+
   if (field.group) {
     const groupName = getGroupName(field as Required<Field>);
     const groupPosition = getGroupIndex(field as Required<Field>);
@@ -107,18 +116,8 @@ export const setAnswer = (
       answers.value[step.name].fields[groupName] = []
     }
     
-    return answers.value[step.name].fields[groupName][groupPosition] = {
-      value: answer.value,
-      label: field.label,
-      name: field.name,
-      group: field.group
-    };
+    return answers.value[step.name].fields[groupName][groupPosition] = results;
   }
 
-  answers.value[step.name].fields[field.name] = {
-    value: answer.value,
-    label: field.label,
-    name: field.name,
-    group: field.group
-  };
+  answers.value[step.name].fields[field.name] = results;
 }
