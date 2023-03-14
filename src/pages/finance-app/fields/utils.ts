@@ -20,6 +20,7 @@ const sizeOptions = {
 const componentOptions = {
   'text': TextField,
   'tel': TextField,
+  'email': TextField,
   'number': TextField,
   'money': TextField,
   'postal': TextField,
@@ -66,27 +67,58 @@ export const setStatus = (newVal: Status) => status.value = newVal;
 export const getFieldComponent = (type: string) => (componentOptions[type as keyof typeof componentOptions]);
 export const getSizing = (field: Field) => (sizeOptions[field.size as keyof typeof sizeOptions]);
 
+const getGroupName = (field: Required<Field>) => field.group.split("[")[0];
+const getGroupIndex = (field: Required<Field>) => Number(field.group.split("[")[1].replace(/\D/g,''));
 export const getAnswers = () => answers.value;
 export const getAnswer = (
   step: Step, 
   field: Field
 ) => {
-  if (! step || ! field) {
-      return null;
-  } 
+  if (! answers.value || ! Object.keys(answers.value[step.name].fields).length) {
+    return null
+  }
 
-  return answers.value 
-    ? answers.value[step.name]?.fields[field.name]?.value ?? null
-    : null;
+  if (field.group) {
+    const groupName = getGroupName(field as Required<Field>);
+    const groupPosition = getGroupIndex(field as Required<Field>);
+
+    if (
+      ! answers.value[step.name]?.fields[groupName]
+      || ! answers.value[step.name].fields[groupName][groupPosition]
+    ) {
+      return null;
+    }
+
+    return answers.value[step.name].fields[groupName][groupPosition].value ?? null
+  }
+
+  return answers.value[step.name]?.fields[field.name]?.value ?? null
 }
 export const setAnswer = (
   step: Step, 
   field: Field, 
   answer: { value: string }
 ) => {
+  if (field.group) {
+    const groupName = getGroupName(field as Required<Field>);
+    const groupPosition = getGroupIndex(field as Required<Field>);
+
+    if (! answers.value[step.name].fields[groupName]) {
+      answers.value[step.name].fields[groupName] = []
+    }
+    
+    return answers.value[step.name].fields[groupName][groupPosition] = {
+      value: answer.value,
+      label: field.label,
+      name: field.name,
+      group: field.group
+    };
+  }
+
   answers.value[step.name].fields[field.name] = {
     value: answer.value,
     label: field.label,
+    name: field.name,
     group: field.group
   };
 }
