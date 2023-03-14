@@ -10,7 +10,8 @@
   interface Props {
     field: Field,
     currentStep: Step,
-    value: string | null
+    value: string | null,
+    class: string
   }
 
   defineProps<Props>();
