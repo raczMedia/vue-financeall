@@ -65,8 +65,8 @@
 <template>
   <div class="px-8 lg:px-32 py-32 relative">
     <!-- Background shapes -->
-    <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-3/5 h-screen"></div>
     <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-4/5 h-screen"></div>
+    <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-full h-screen"></div>
     
     <!-- Neader -->
     <section aria-label="application-header relative">
