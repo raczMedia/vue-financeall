@@ -130,6 +130,7 @@
 								"label": "",
 								"name": "db_year",
 								"group": "dateOfBirth[1]",
+								"answerBefore": "Born",
 								"size": "sm",
 								"placeholder": "",
 								"helper": "YYYY",
@@ -204,7 +205,7 @@
 						"label": "Province",
 						"name": "province",
 						"group": "address[4]",
-						"size": "sm",
+						"size": "md",
 						"placeholder": "",
 						"options": [
 							{
@@ -291,7 +292,8 @@
 								"group": "address-time[2]",
 								"size": "md",
 								"after": "Months",
-								"placeholder": ""
+								"placeholder": "",
+								"answerAfter": "at current address"
 							}
 						]
 					},
@@ -344,11 +346,11 @@
 						"placeholder": "",
 						"options": [{
 								"title": "Yes",
-								"value": "Yes"
+								"value": "Split monthly costs"
 							},
 							{
 								"title": "No",
-								"value": "No"
+								"value": "Does not split monthly costs"
 							}
 						]
 					},
@@ -356,8 +358,9 @@
 						"type": "number",
 						"label": "Monthly Payment",
 						"name": "monthly_payment",
-						"size": "md",
+						"size": "lg",
 						"before": "$",
+						"after": "/month",
 						"placeholder": ""
 					}
 				]
@@ -379,31 +382,31 @@
 							"placeholder": "",
 							"options": [{
 									"title": "Employed Full Time",
-									"value": "employed_full_time"
+									"value": "Full Time"
 								},
 								{
 									"title": "Employed Part Time",
-									"value": "employed_part_time"
+									"value": "Part Time"
 								},
 								{
 									"title": "Self Employed",
-									"value": "self_employed"
+									"value": "Self Employed"
 								},
 								{
 									"title": "Student",
-									"value": "student"
+									"value": "Student"
 								},
 								{
 									"title": "Homemaker",
-									"value": "homemaker"
+									"value": "Homemaker"
 								},
 								{
 									"title": "Retired",
-									"value": "retired"
+									"value": "Retired"
 								},
 								{
 									"title": "Other",
-									"value": "other"
+									"value": ""
 								}
 							]
 						},
@@ -440,6 +443,7 @@
 									"label": "",
 									"name": "duration_at_employment_months",
 									"group": "employment-duration[2]",
+									"answerAfter": "at employment",
 									"size": "md",
 									"after": "Months",
 									"placeholder": ""
@@ -471,6 +475,7 @@
 						{
 							"type": "number",
 							"label": "Second Job",
+							"answerBefore": "Second Job",
 							"after": "/month",
 							"before": "$",
 							"name": "second_job",
@@ -480,6 +485,7 @@
 						{
 							"type": "number",
 							"label": "Child Tax Benefit",
+							"answerBefore": "Child Tax Benefit",
 							"after": "/month",
 							"name": "child_tax_benefit",
 							"size": "lg",
@@ -489,6 +495,7 @@
 						{
 							"type": "number",
 							"label": "Rental income",
+							"answerBefore": "Rental income",
 							"after": "/month",
 							"name": "rental_income",
 							"size": "lg",
@@ -498,6 +505,7 @@
 						{
 							"type": "number",
 							"label": "Investment Income",
+							"answerBefore": "Investment Income",
 							"after": "/month",
 							"name": "investment_income",
 							"size": "lg",
@@ -507,6 +515,7 @@
 						{
 							"type": "number",
 							"label": "Pensions or Benefit",
+							"answerBefore": "Pensions or Benefit",
 							"after": "/month",
 							"name": "pensions_benefit",
 							"size": "lg",
@@ -575,7 +584,7 @@
 						},
 						{
 							"title": "$250 - $375 /month",
-							"value": "250 - $375 /month"
+							"value": "$250 - $375 /month"
 						},
 						{
 							"title": "$376 - $500 /month",
@@ -718,7 +727,8 @@
 								"label": "If you are applying through a dealership please provide their name here",
 								"name": "desired_vehicle_dealer_name",
 								"size": "full",
-								"placeholder": ""
+								"placeholder": "",
+								"answerBefore": "Dealership:"
 							}]
 						}
 					]
