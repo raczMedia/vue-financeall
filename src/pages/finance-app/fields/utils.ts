@@ -104,6 +104,8 @@ export const setAnswer = (
     label: field.label,
     name: field.name,
     group: field.group,
+    answerBefore: field.answerBefore,
+    answerAfter: field.answerAfter,
     before: field.before,
     after: field.after,
   };

@@ -14,6 +14,8 @@ export interface Field {
   after?: string,
   mask?: string,
   group?: string,
+  answerBefore?: string,
+  answerAfter?: string,
   options?: Option[],
   items?: Field[]
 }
@@ -32,6 +34,8 @@ export type Status = 'Progress' | 'Verification' | 'Submitted';
 
 export interface AnswerField {
   group: string | undefined, 
+  answerBefore: string | undefined, 
+  answerAfter: string | undefined, 
   label: string, 
   value: string | number | boolean, 
   name: string,
