@@ -42,14 +42,16 @@
     <h2 class="text-xl font-bold text-fa-blue mb-8 select-none">Verification</h2>
     <div class="grid grid-cols-2 gap-4 w-full">
       <div v-for="(list, listIndex) in answerLists" :key="`list-column-${listIndex}`" class="flex flex-col gap-y-4">
-        <div v-for="answer in list" :key="`step-${answer.order}`" class="flex flex-col">
-          <h3 class="font-bold">
+        <div v-for="answer in list" :key="`step-${answer.order}`" class="flex flex-col items-start">
+          <h3 
+            class="font-bold hover:text-fa-blue cursor-pointer group" 
+            @click="$emit('goTo', answer.order - 1)"
+          >
             <span>{{ answer.title }}</span>
             <font-awesome-icon 
               icon="fa-solid fa-pencil" 
-              class="text-fa-blue px-2 cursor-pointer hover:scale-110" 
+              class="text-fa-blue px-2 group-hover:scale-110" 
               size="xs" 
-              @click="$emit('goTo', answer.order - 1)" 
             />
           </h3>
           <div class="w-full flex flex-wrap gap-x-4 items-center">
