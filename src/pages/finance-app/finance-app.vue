@@ -59,6 +59,11 @@
     }
   }
 
+  const goToStep = (index: number) => {
+    setStatus('Progress');
+    currentStepCount.value = index;
+  }
+
   const answers = getAnswers();
 </script>
 
@@ -107,7 +112,7 @@
               :section="section" 
             />          
           </template>
-          <VerificationStep v-else-if="getStatus() === 'Verification'" />          
+          <VerificationStep v-else-if="getStatus() === 'Verification'" @goTo="index => goToStep(index)" />          
           <SubmittedStep v-else-if="getStatus() === 'Submitted'" />
         </transition-group>
       </div>

@@ -12,8 +12,6 @@
     return [list.slice(0, half), list.slice(half)]
   });
 
-  
-
   const chainValues = (field: AnswerField) => {
     return [
       field.answerBefore 
@@ -36,6 +34,8 @@
       ? field.map(item => chainValues(item)).join(" ")
       : chainValues(field)
     )
+
+  defineEmits(['goTo']);
 </script>
 <template>
   <div class="w-full">
@@ -44,8 +44,13 @@
       <div v-for="(list, listIndex) in answerLists" :key="`list-column-${listIndex}`" class="flex flex-col gap-y-4">
         <div v-for="answer in list" :key="`step-${answer.order}`" class="flex flex-col">
           <h3 class="font-bold">
-            <span class="pr-2">{{ answer.title }}</span>
-            <font-awesome-icon icon="fa-solid fa-pencil" class="text-fa-blue" size="xs" />
+            <span>{{ answer.title }}</span>
+            <font-awesome-icon 
+              icon="fa-solid fa-pencil" 
+              class="text-fa-blue px-2 cursor-pointer hover:scale-110" 
+              size="xs" 
+              @click="$emit('goTo', answer.order - 1)" 
+            />
           </h3>
           <div class="w-full flex flex-wrap gap-x-4 items-center">
             <template v-for="(value, index) in getValuesFromAnswer(answer)" :key="`answer-${answer.title}-${index}`">
