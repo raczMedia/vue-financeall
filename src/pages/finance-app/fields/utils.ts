@@ -100,14 +100,8 @@ export const setAnswer = (
   answer: { value: string }
 ) => {
   const results = {
-    value: answer.value,
-    label: field.label,
-    name: field.name,
-    group: field.group,
-    answerBefore: field.answerBefore,
-    answerAfter: field.answerAfter,
-    before: field.before,
-    after: field.after,
+    ...field,
+    value: answer.value
   };
 
   if (field.group) {

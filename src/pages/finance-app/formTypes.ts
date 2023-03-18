@@ -32,18 +32,11 @@ export interface Step {
 
 export type Status = 'Progress' | 'Verification' | 'Submitted';
 
-export interface AnswerField {
-  group: string | undefined, 
-  answerBefore: string | undefined, 
-  answerAfter: string | undefined, 
-  label: string, 
-  value: string | number | boolean, 
-  name: string,
-  before: string | undefined, 
-  after: string | undefined,
+export interface Answer extends Field {
+  value: string | number | boolean
 }
-export interface StepAnswer {
+export interface AnswerStep {
   title: string,
   order: number,
-  fields: {string: AnswerField | AnswerField[]}
+  fields: {string: Answer | Answer[]}
 }

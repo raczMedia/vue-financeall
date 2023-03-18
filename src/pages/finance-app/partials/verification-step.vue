@@ -1,10 +1,10 @@
 <script lang='ts' setup>
   import { computed } from 'vue';
   import { getAnswers } from '../fields/utils';
-  import { AnswerField, StepAnswer } from '../formTypes';
+  import { Answer, AnswerStep } from '../formTypes';
   
-  const answerLists = computed((): [StepAnswer[], StepAnswer[]] => {
-    const list: StepAnswer[] = Object.values(getAnswers());
+  const answerLists = computed((): [AnswerStep[], AnswerStep[]] => {
+    const list: AnswerStep[] = Object.values(getAnswers());
     const half = Math.ceil(list.length / 2);
     
     list.sort((a,b) => a.order - b.order);
@@ -12,7 +12,7 @@
     return [list.slice(0, half), list.slice(half)]
   });
 
-  const chainValues = (field: AnswerField) => {
+  const chainValues = (field: Answer) => {
     return [
       field.answerBefore 
         ? field.answerBefore + " " 
@@ -28,7 +28,7 @@
     ].join("")
   }
 
-  const getValuesFromAnswer = (answer: StepAnswer) => Object
+  const getValuesFromAnswer = (answer: AnswerStep) => Object
     .values(answer.fields)
     .map(field => Array.isArray(field) 
       ? field.map(item => chainValues(item)).join(" ")
