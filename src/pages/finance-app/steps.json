@@ -73,37 +73,48 @@
 				"title": "Personal Information",
 				"fields": [
 					{
-						"type": "dropdown",
-						"label": "Salutation",
-						"name": "salutation",
-						"group": "fullname[1]",
-						"size": "sm",
-						"options": [{
-								"title": "Mr",
-								"value": "Mr"
+						"type": "row",
+						"name": "name_fields",
+						"label": "",
+						"size": "half",
+						"items": [
+							{
+								"type": "dropdown",
+								"label": "Salutation",
+								"name": "salutation",
+								"group": "fullname[1]",
+								"size": "sm",
+								"options": [{
+										"title": "Mr",
+										"value": "Mr"
+									},
+									{
+										"title": "Ms",
+										"value": "Ms"
+									}
+								]
 							},
 							{
-								"title": "Ms",
-								"value": "Ms"
+								"type": "text",
+								"label": "First Name",
+								"name": "first_name",
+								"required": true,
+								"group": "fullname[2]",
+								"size": "lg",
+								"placeholder": ""
+							},
+							{
+								"type": "text",
+								"label": "Last Name",
+								"name": "last_name",
+								"required": true,
+								"group": "fullname[3]",
+								"size": "lg",
+								"placeholder": ""
 							}
 						]
 					},
-					{
-						"type": "text",
-						"label": "First Name",
-						"name": "first_name",
-						"group": "fullname[2]",
-						"size": "lg",
-						"placeholder": ""
-					},
-					{
-						"type": "text",
-						"label": "Last Name",
-						"name": "last_name",
-						"group": "fullname[3]",
-						"size": "lg",
-						"placeholder": ""
-					},
+					
 					{
 						"type": "dropdown",
 						"label": "Marital Status",
@@ -123,12 +134,13 @@
 						"type": "batch",
 						"name": "date_of_birth",
 						"label": "Date of Birth",
-						"size": "md",
+ 						"size": "md",
 						"items": [
 							{
 								"type": "number",
 								"label": "",
 								"name": "db_year",
+								"required": true,
 								"group": "dateOfBirth[1]",
 								"answerBefore": "Born",
 								"size": "sm",
@@ -140,6 +152,7 @@
 								"type": "months",
 								"label": "",
 								"name": "db_month",
+								"required": true,
 								"group": "dateOfBirth[2]",
 								"size": "xs",
 								"placeholder": "",
@@ -150,6 +163,7 @@
 								"type": "number",
 								"label": "",
 								"name": "db_day",
+								"required": true,
 								"group": "dateOfBirth[3]",
 								"size": "xs",
 								"placeholder": "",
@@ -177,6 +191,7 @@
 							{
 								"type": "text",
 								"label": "Street",
+								"required": true,
 								"name": "street",
 								"group": "address[1]",
 								"size": "xl",
@@ -196,6 +211,7 @@
 						"type": "text",
 						"label": "City",
 						"name": "city",
+						"required": true,
 						"group": "address[3]",
 						"size": "lg",
 						"placeholder": ""
@@ -204,6 +220,7 @@
 						"type": "dropdown",
 						"label": "Province",
 						"name": "province",
+						"required": true,
 						"group": "address[4]",
 						"size": "md",
 						"placeholder": "",
@@ -266,8 +283,9 @@
 						"type": "postal",
 						"label": "Postal Code",
 						"name": "postal_code",
+						"required": true,
 						"group": "address[5]",
-						"size": "sm",
+						"size": "md",
 						"placeholder": ""
 					},
 					{
@@ -280,6 +298,7 @@
 								"type": "years",
 								"label": "",
 								"name": "address_years",
+								"required": true,
 								"group": "address-time[1]",
 								"size": "md",
 								"after": "Years",
@@ -289,6 +308,7 @@
 								"type": "months",
 								"label": "",
 								"name": "address_months",
+								"required": true,
 								"group": "address-time[2]",
 								"size": "md",
 								"after": "Months",
@@ -301,6 +321,7 @@
 						"type": "tel",
 						"name": "phone_number",
 						"label": "Phone Number ",
+						"required": true,
 						"size": "md",
 						"placeholder": "(519) 555-5555"
 					},
@@ -308,6 +329,7 @@
 						"type": "email",
 						"name": "email",
 						"label": "Email Address",
+						"required": true,
 						"size": "xl",
 						"placeholder": "johndoe@gmail.com"
 					}
@@ -321,36 +343,47 @@
 			"sections": [{
 				"size": "half",
 				"title": "Housing",
-				"fields": [{
-						"type": "toggle",
-						"label": "Do you own or rent your home",
-						"name": "ownership",
-						"size": "md",
-						"placeholder": "",
-						"options": [
-							{
-								"title": "Own",
-								"value": "Own"
-							},
-							{
-								"title": "Rent",
-								"value": "Rent"
-							}
-						]
-					},
+				"fields": [
 					{
-						"type": "toggle",
-						"label": "Do you split monthly housing costs",
-						"name": "split",
-						"size": "xl",
+						"type": "row",
+						"label": "",
+						"name": "home_toggles",
+						"size": "full",
 						"placeholder": "",
-						"options": [{
-								"title": "Yes",
-								"value": "Split monthly costs"
+						"items": [
+							{
+								"type": "toggle",
+								"label": "Do you own or rent your home",
+								"name": "ownership",
+								"required": true,
+								"size": "md",
+								"placeholder": "",
+								"options": [
+									{
+										"title": "Own",
+										"value": "Own"
+									},
+									{
+										"title": "Rent",
+										"value": "Rent"
+									}
+								]
 							},
 							{
-								"title": "No",
-								"value": "Does not split monthly costs"
+								"type": "toggle",
+								"label": "Do you split monthly housing costs",
+								"name": "split",
+								"size": "xl",
+								"placeholder": "",
+								"options": [{
+										"title": "Yes",
+										"value": "Split monthly costs"
+									},
+									{
+										"title": "No",
+										"value": "Does not split monthly costs"
+									}
+								]
 							}
 						]
 					},
@@ -358,6 +391,7 @@
 						"type": "number",
 						"label": "Monthly Payment",
 						"name": "monthly_payment",
+						"required": true,
 						"size": "lg",
 						"before": "$",
 						"after": "/month",
@@ -378,9 +412,11 @@
 							"type": "radio",
 							"label": "Employment Status",
 							"name": "employment_status",
+							"required": true,
 							"size": "full",
 							"placeholder": "",
-							"options": [{
+							"options": [
+								{
 									"title": "Employed Full Time",
 									"value": "Full Time"
 								},
@@ -406,7 +442,7 @@
 								},
 								{
 									"title": "Other",
-									"value": ""
+									"value": "Other"
 								}
 							]
 						},
@@ -414,51 +450,65 @@
 							"type": "text",
 							"label": "Company Name",
 							"name": "company_name",
+							"required": "employment_status:Full Time|Part Time|Self Employed",
 							"size": "lg",
 							"placeholder": ""
 						},
 						{
 							"type": "text",
 							"label": "Your Position/title",
+							"required": "employment_status:Full Time|Part Time|Self Employed",
 							"name": "employment_title",
 							"size": "lg",
 							"placeholder": ""
 						},
 						{
-							"type": "batch",
-							"label": "Duration at employment",
-							"name": "duration_at_emplpoyment",
+							"type": "row",
+							"label": "",
+							"name": "employment_details",
 							"size": "lg",
-							"items": [{
-									"type": "years",
-									"label": "",
-									"name": "duration_at_employment_years",
-									"group": "employment-duration[1]",
-									"size": "md",
-									"after": "Years",
-									"placeholder": ""
+							"items": [
+								{
+									"type": "batch",
+									"label": "Duration at employment",
+									"name": "duration_at_emplpoyment",
+									"size": "lg",
+									"items": [
+										{
+											"type": "years",
+											"label": "",
+											"name": "duration_at_employment_years",
+											"required": "employment_status:Full Time|Part Time|Self Employed",
+											"group": "employment-duration[1]",
+											"size": "md",
+											"after": "Years",
+											"placeholder": ""
+										},
+										{
+											"type": "months",
+											"label": "",
+											"name": "duration_at_employment_months",
+											"required": "employment_status:Full Time|Part Time|Self Employed",
+											"group": "employment-duration[2]",
+											"answerAfter": "at employment",
+											"size": "md",
+											"after": "Months",
+											"placeholder": ""
+										}
+									]
 								},
 								{
-									"type": "months",
-									"label": "",
-									"name": "duration_at_employment_months",
-									"group": "employment-duration[2]",
-									"answerAfter": "at employment",
-									"size": "md",
-									"after": "Months",
-									"placeholder": ""
+									"type": "number",
+									"label": "Monthly income",
+									"name": "monthly_income",
+									"required": true,
+									"size": "lg",
+									"placeholder": "",
+									"before": "$",
+									"after": "/month",
+									"helper": "Before Taxes"
 								}
 							]
-						},
-						{
-							"type": "number",
-							"label": "Monthly income",
-							"name": "monthly_income",
-							"size": "lg",
-							"placeholder": "",
-							"before": "$",
-							"after": "/month",
-							"helper": "Before Taxes"
 						}
 					]
 				}
@@ -536,6 +586,7 @@
 					"type": "radio",
 					"label": "What is your estimated credit rating",
 					"name": "credit_rating",
+					"required": true,
 					"size": "xl",
 					"placeholder": "",
 					"options": [{
@@ -561,6 +612,10 @@
 						{
 							"title": "No Credit",
 							"value": "no credit"
+						},
+						{
+							"title": "Not Sure",
+							"value": "Not Sure"
 						}
 					]
 				}]
@@ -576,6 +631,7 @@
 					"type": "radio",
 					"label": "What is your monthly budget",
 					"name": "monthly_budget",
+					"required": true,
 					"size": "lg",
 					"placeholder": "",
 					"options": [{
@@ -649,6 +705,7 @@
 							"type": "number",
 							"label": "Year",
 							"name": "current_vehicle_year",
+							"required": "own_vehicle:Own Vehicle",
 							"group": "current-vehicle[1]",
 							"size": "sm",
 							"placeholder": "",
@@ -658,6 +715,7 @@
 							"type": "text",
 							"label": "Make",
 							"name": "current_vehicle_make",
+							"required": "own_vehicle:Own Vehicle",
 							"group": "current-vehicle[2]",
 							"size": "md",
 							"placeholder": ""
@@ -666,6 +724,7 @@
 							"type": "text",
 							"label": "Model",
 							"name": "current_vehicle_model",
+							"required": "own_vehicle:Own Vehicle",
 							"group": "current-vehicle[3]",
 							"size": "md",
 							"placeholder": ""
@@ -674,6 +733,7 @@
 							"type": "number",
 							"label": "Mileage",
 							"name": "current_vehicle_mileage",
+							"required": "own_vehicle:Own Vehicle",
 							"group": "current-vehicle[4]",
 							"size": "md",
 							"placeholder": "",
