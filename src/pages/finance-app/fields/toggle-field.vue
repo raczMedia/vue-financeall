@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-  import { computed } from 'vue';
-  import { Field, Step } from '../formTypes';
+  import { computed, onMounted } from 'vue';
+  import { Field, Step } from '../utils/formTypes';
+  import { simpleValidate } from '../utils/FormComposable';
 
   interface Props {
     field: Field,
@@ -8,7 +9,7 @@
     value: boolean | string | number | null
   }
   const props = defineProps<Props>();
-  defineEmits(['input'])
+  const emit = defineEmits(['input'])
 
   const selectedOption = computed(() => {
     if (! props.field.options) {
@@ -19,8 +20,23 @@
       ? props.field.options.find((option) => option.value === props.value) ?? props.field.options[1]
       : props.field.options[1] 
   });
-
   const booleanValue = computed(() => selectedOption.value === props.field.options![0] ? true : false);
+
+  const onChange = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const newValue = props.field.options![Number(! target.checked)].value;
+    emit('input', {
+      value: newValue,
+      validated: simpleValidate(newValue, props.field, props.currentStep)
+    })
+  }
+
+  onMounted(() => {
+    emit('input', {
+      value: selectedOption.value.value,
+      validated: simpleValidate(selectedOption.value.value, props.field, props.currentStep)
+    })
+  })
 </script>
 
 <template>
@@ -29,7 +45,7 @@
       type="checkbox"
       class="sr-only peer" 
       :checked="booleanValue" 
-      @change="e => $emit('input', {value: field.options[Number(! e.target?.checked)].value})"
+      @change="onChange($event)"
     />
     <div class="
       w-11 h-6 

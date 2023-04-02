@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-  import { Field, Step } from '../formTypes';
-  import { vMaska } from "maska"
-  import { computed, ref } from 'vue';
-
-  import { useDebounceFn } from '@vueuse/core'
+  import { Field, Step } from '../utils/formTypes';
+  import { vMaska } from "maska";
+  import { useDebounceFn } from '@vueuse/core';
+  import { maskOptions, simpleValidate, tokenOptions } from '../utils/FormComposable';
 
   interface PropsType {
     field: Field,
@@ -12,49 +11,28 @@
   }
 
   const props = defineProps<PropsType>();
-  const emit = defineEmits(['input', 'validated']);
+  const emit = defineEmits(['input']);
 
-  const maskOptions = ref({ 
-    tel: '(###) ###-####', 
-    number: 'Z.##', 
-    postal: '@#@-#@#',
-    years: '##',
-    months: '##'
-  });
   const getMask = () => props.field.mask 
-    || maskOptions.value[props.field.type as keyof typeof maskOptions.value] 
+    || maskOptions[props.field.type as keyof typeof maskOptions] 
     || '';
-
-  const tokenOptions = ref({ 
-    number: 'Z:[0-9]:multiple',
-  });
-  const getToken = () => tokenOptions.value[props.field.type as keyof typeof tokenOptions.value] || '';
+  const getToken = () => tokenOptions[props.field.type as keyof typeof tokenOptions] || '';
   const getPattern = () => {
     return { 'email': '.+@globex\.com' }[props.field.type] || ''
   };
-  const getValidation = () => {
-    return { 
-      'email': /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ 
-    }[props.field.type]
-  };
-  const forceValue = (value: string | number) => {
-    return {
-      "months": Number(value) > 11 ? "11" : value
-    }[props.field.type] || value;
-  }
-
-  const debounceEmit = useDebounceFn((value) => {
-    emit('input', { value })
-    // emit('validated', validated(value))
+  const debounceEmit = useDebounceFn((event: Event) => {
+    const target = event.target as HTMLInputElement;
+    emit('input', { 
+      value: target.value, 
+      validated: simpleValidate(target.value, props.field, props.currentStep) 
+    })
   }, 400);
 
-  const validated = (value: string) => {
-    // const regexString = getValidation();
-
-    // return regexString
-    //   ? regexString.test(value)
-    //   : true;
-  }
+  // const getValidation = () => {
+  //   return { 
+  //     'email': /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ 
+  //   }[props.field.type]
+  // };
 </script>
 
 <template>
@@ -71,7 +49,8 @@
         :value="value"
         :placeholder="field.placeholder"
         :pattern="getPattern()"
-        @input="(e) => debounceEmit(e.target?.value)"
+        :required="field.required ?? false"
+        @input="debounceEmit($event)"
       />
       <div v-if="field.after" class="pr-2 text-gray-400 flex-shrink-0">{{ field.after }}</div>
     </label>

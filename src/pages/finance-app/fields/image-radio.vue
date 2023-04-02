@@ -1,17 +1,19 @@
 <script lang="ts" setup>
-    import { nextTick, onMounted, onUnmounted, ref } from 'vue';
-    import { Field, Step, Option } from '../formTypes';
+  import { Field, Step, Option } from '../utils/formTypes';
+  import { simpleValidate } from '../utils/FormComposable';
 
-    interface Props {
-      field: Field,
-      currentStep: Step,
-      value: string | null
-    }
+  interface Props {
+    field: Field,
+    currentStep: Step,
+    value: string | null
+  }
 
-    defineProps<Props>();
-
-    const emit = defineEmits(['input'])
-    const selectOption = (option: Option) => emit('input', {value: option.value});
+  const props = defineProps<Props>();
+  const emit = defineEmits(['input']);
+  const selectOption = (option: Option) => emit(
+    'input', 
+    {value: option.value, validated: simpleValidate(option.value as string, props.field, props.currentStep)}
+  );
 </script>
 
 <template>

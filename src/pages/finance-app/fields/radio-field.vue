@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-  import { computed } from 'vue';
-  import { Field, Step } from '../formTypes';
+  import { Field, Option, Step } from '../utils/formTypes';
+  import { simpleValidate } from '../utils/FormComposable';
 
   interface Props {
     field: Field,
@@ -8,8 +8,14 @@
     value: string | null
   }
   const props = defineProps<Props>();
-  
-  defineEmits(['input'])
+  const emit = defineEmits(['input']);
+
+  const onChange = (option: Option) => {
+    emit('input', {
+      value: option.value, 
+      validated: simpleValidate(option.value as string, props.field, props.currentStep)
+    })
+  }
 </script>
 
 <template>
@@ -27,7 +33,7 @@
         :name="field.name" 
         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
         :checked="option.value === value"
-        @change="e => $emit('input', {value: option.value})"
+        @change="onChange(option)"
       />
       <span 
         class="ml-2 text-sm font-medium text-gray-600 group-hover:text-fa-blue"
