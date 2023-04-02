@@ -1,7 +1,14 @@
 <script lang="ts" setup>
-  import { ref, computed, Ref } from 'vue';
-  import { getFieldComponent, initForm, setAnswer, getAnswer, getSizing, getStatus, setStatus, getAnswers } from './fields/utils';
-  import { Status } from './formTypes';
+  import { ref, computed } from 'vue';
+  import { 
+    useForm, 
+    getStatus, 
+    setStatus, 
+    checkStepValidation,
+    getAnswers,
+    setValidationStatus,
+    getValidationStatus
+  } from './utils/FormComposable';
 
   import Form from './steps.json';
   import SubmitButton from './partials/submit-button.vue';
@@ -10,7 +17,7 @@
   import VerificationStep from './partials/verification-step.vue';
   import ProgressBar from './partials/progress-bar.vue';
 
-  initForm(Form);
+  useForm(Form);
 
   const currentStepCount = ref(0);
   const previousStep = computed(() => Form.steps[currentStepCount.value - 1]);;
@@ -23,6 +30,10 @@
   const slideDirection = ref('left');
 
   const goToNextStep = () => {
+    if (! stepIsValidated.value) {
+      return setValidationStatus('Error');
+    }
+
     slideDirection.value = 'left';
     const status = getStatus();
 
@@ -38,9 +49,8 @@
     if (status === 'Verification') {
       return setStatus('Submitted');
     }
-    // TODO: submit form
+    // TODO: submit form here
   }
-
   const goToPreviousStep = () => {
     slideDirection.value = 'right';
     const status = getStatus();
@@ -58,22 +68,25 @@
       return currentStepCount.value -= 1; 
     }
   }
-
   const goToStep = (index: number) => {
     setStatus('Progress');
     currentStepCount.value = index;
   }
 
-  const answers = getAnswers();
+  const errorrStatus = computed(() => {
+    return getValidationStatus() === 'Error'
+  });
+
+  const stepIsValidated = computed(() => checkStepValidation(currentStep.value))
 </script>
 
 <template>
   <div class="px-8 lg:px-32 py-32 relative">
     <!-- Background shapes -->
-    <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-4/5 h-screen"></div>
-    <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-full h-screen"></div>
+    <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-4/5 h-full"></div>
+    <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-full h-full"></div>
     
-    <!-- Neader -->
+    <!-- Header -->
     <section aria-label="application-header relative">
       <ProgressBar 
         class="pb-8"
@@ -84,16 +97,18 @@
         Finance Application
         <img v-if="getStatus() === 'Submitted'" src="@/assets/submitted.png" alt="" class="absolute right-0 top-0">
       </h1>
-      <div class="text-sm font-medium text-gray-400">This should only take 5 minutes. Rest assured your data is secure and encrypted.</div>
+      <div class="text-sm font-medium text-gray-400">
+        This should only take 5 minutes. Rest assured your data is secure and encrypted.
+      </div>
     </section>
 
     <!-- Body -->
     <section aria-label="form-content" class="mt-12 relative">
       <!-- hide when getStatus() === 'Submitted'"  -->
       <button 
-      :disable="! hasPreviousStep" 
         class="text-gray-400 font-medium hover:text-fa-blue hover:font-bold" 
         :class="{'opacity-0': ! hasPreviousStep}"
+        :disable="! hasPreviousStep" 
         @click=" goToPreviousStep()"
       >
         <font-awesome-icon icon="fa-solid fa-arrow-left" size="xs" />
@@ -110,6 +125,7 @@
               :key="`step-${section.title}`" 
               :currentStep="currentStep" 
               :section="section" 
+              :class="currentStep.sections.length === 2 ? 'w-1/2' : 'w-full'"
             />          
           </template>
           <VerificationStep v-else-if="getStatus() === 'Verification'" @goTo="index => goToStep(index)" />          
@@ -118,14 +134,22 @@
       </div>
     </section>
     
-    <SubmitButton 
-      v-if="getStatus() !== 'Submitted'"
-      :text="getStatus() === 'Verification' ? 'Submit' : 'Next'"
-      :icon="getStatus() === 'Verification' ? 'fa-envelope' : 'fa-arrow-right'"
-      icon-size="xs"
-      class="relative"
-      @click="goToNextStep()"
-    />
+    
+    <div class="flex items-center gap-4">
+      <SubmitButton 
+        v-if="getStatus() !== 'Submitted'"
+        :text="getStatus() === 'Verification' ? 'Submit' : 'Next'"
+        :icon="getStatus() === 'Verification' ? 'fa-envelope' : 'fa-arrow-right'"
+        icon-size="xs"
+        class="relative"
+        @click="goToNextStep()"
+      />
+      <small class="text-red-800" v-if="errorrStatus">
+        <font-awesome-icon icon="fa-solid fa-info-circle" size="xs" />
+        Please fix the following fields before continuing
+      </small>
+    </div>
+    
   </div>
 </template>
 
