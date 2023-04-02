@@ -1,49 +1,27 @@
 <script lang='ts' setup>
-  import { computed } from 'vue';
-  import FieldWrapper from '../fields/field-wrapper.vue';
-  import { Field, Section, Step } from '../formTypes';
-  import { 
-    getFieldComponent,
-    getAnswer,
-    getSizing,
-    setAnswer,
-  } from '../fields/utils';
-
+  import { Section, Step } from '../utils/formTypes';
+  import Field from '../fields/field.vue';
+  
   interface Props {
     currentStep: Step,
     section: Section,
   }
 
-  defineProps<Props>();
-
-  const getClass = (field: Field) => {
-    if (field.type === 'row' || field.type === 'batch') {
-      return undefined
-    }
-    
-    return getSizing(field) 
-  }
+  const props = defineProps<Props>();
 </script>
 
 <template>
   <section 
     class="transiiton-all duration-500 flex-shrink-0 flex-grow-0"
-    :class="section.size === 'full' ? 'w-full' : 'w-1/2'"
   >
     <h2 class="text-xl font-bold text-fa-blue mb-8 select-none">{{ section.title }}</h2>
     <div class="flex flex-wrap gap-4">
-      <template v-for="(field, fieldIndex) in section.fields" :key="`${section.title}-field-${fieldIndex}`">
-        <FieldWrapper :field="field">
-          <component 
-            :is="getFieldComponent(field.type)" 
-            :field="field" 
-            :currentStep="currentStep" 
-            :value="getAnswer(currentStep, field)" 
-            :class="getClass(field)"
-            @input="e => setAnswer(currentStep, field, e)" 
-          />
-        </FieldWrapper>
-      </template>
+      <Field 
+        v-for="(field, fieldIndex) in section.fields" 
+        :key="`${section.title}-field-${fieldIndex}`"
+        :field="field" 
+        :currentStep="currentStep"
+      />
     </div>
   </section>
 </template>

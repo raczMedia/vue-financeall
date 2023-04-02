@@ -1,7 +1,7 @@
 <script lang='ts' setup>
   import { computed } from 'vue';
-  import { getAnswers } from '../fields/utils';
-  import { Answer, AnswerStep } from '../formTypes';
+  import { getAnswers } from '../utils/FormComposable';
+  import { Answer, AnswerStep } from '../utils/formTypes';
   
   const answerLists = computed((): [AnswerStep[], AnswerStep[]] => {
     const list: AnswerStep[] = Object.values(getAnswers());
@@ -65,10 +65,12 @@
     </div>
 
     <div class="mt-8">
-      <h2 class="text-xl font-bold text-fa-blue mb-8 select-none">Authorization</h2>
-      <label class="flex items-start">
-        <input type="checkbox" class="mt-1 mr-2">
-        I certify that each of the statements made and answers given in this credit application are tru and correct and is made for the purpose of inducing and financing of the purchase of a motor vehicle. I authorize the obtaining of a consumer report to be used in evaluating this application and the obtaining and exchanging of credit information from and with other creditors and consumer reporting agencies.
+      <h2 class="text-xl font-bold text-fa-blue mb-4 select-none">Authorization</h2>
+      <label class="flex items-start px-2 py-4 bg-gray-50 border border-gray-300 rounded-lg">
+        <input type="checkbox" class="mt-1.5 mx-2">
+        <p>
+          I permit <strong>FinanceAll/That Car Place</strong> and their partners to store and process my personal data. I/WE warrant and confirm that the information given in this application form is true and correct and I/we understand that it is being used to determine my credit responsibility and to evaluate and respond to my/our request for financing, you are authorized to obtain any information you may require for these purposes from other sources, including for example credit bureaus and each source is hereby authorized to provide you with such information. I/we also understand, acknowledge and agree that the information given in this application as well as other information you obtain in relation to my credit history will be disclosed to potential lenders, insurers, and other service providers, organizations providing technological or other support services required in relation to this application and other parties whom I/we propose to have a financial relationship. I/we further acknowledge and agree that each potential lender, insurer, or service provider to whom you provide the application and/or my/our personal information is permitted to receive such application and information and maintain records relating to me/us, including my/our social insurance number if I/we provide it, and disclose personal information about me/us, you and from third persons, including credit bureaus, credit reporting agencies, collection agencies, financial institutions, past or present employers, creditors, and landlords. I/we specifically consent to the release and disclosure of personal information.
+        </p>
       </label>
     </div>
   </div>
