@@ -3,6 +3,11 @@
 font-family: 'Inter', sans-serif;
 }
 
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .clip-top-up-right {
     clip-path: polygon(0 48px, 100% 0, 100% 100%, 0% 100%);
 }

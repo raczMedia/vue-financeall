@@ -16,9 +16,16 @@
   const menuOpen = ref(false);
   const route = useRoute();
   const { scrollTop } = useOnScroll();
-  const { content, state } = await useStoryblokState('navigation');
+  
+  const content = ref();
+  onBeforeMount(async () => {
+    const results = await useStoryblokState('navigation', "draft");
+
+    content.value = results.content.value;
+  })
+
   const activeLink = computed((): Link => {
-    if (! content.value.Links) {
+    if (! content.value?.Links) {
       return { title: "Home", address: "/"};
     }
     
@@ -61,10 +68,11 @@
         class="flex items-center lg:hidden gap-1 font-semibold flex-grow justify-end cursor-pointer text-lg" 
         @click="menuOpen = !menuOpen"
       >
-        <span>{{ activeLink.title }}</span>
+        <span v-if="activeLink">{{ activeLink.title }}</span>
         <font-awesome-icon icon="fa-solid fa-chevron-down" />
       </div>
       <section 
+        v-if="content"
         class="
           flex flex-col ml-8 absolute top-16 bg-gray-100 right-8 p-4 text-right rounded-lg gap-3
           lg:flex-row lg:relative lg:bg-transparent lg:right-auto lg:top-auto lg:p-0 lg:text-left lg:gap-6

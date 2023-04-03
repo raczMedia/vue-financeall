@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-    import { computed, onMounted } from 'vue';
+    import { computed, onMounted, ref } from 'vue';
     import { useRoute } from 'vue-router';
     import Header from './partials/Header.vue';
     import Lenders from './partials/Lenders.vue';
@@ -10,14 +10,20 @@
     import { scrollToElement } from '../../composables/scrollToElementComposable';
     
     const route = useRoute();
-    onMounted(() => {
+    const content = ref();
+    const state = ref();
+    onMounted(async () => {
         if (route.query.contact === 'true') {
             scrollToElement('#contact')
         }
-    });
+        
+        const results = await useStoryblokState('home', "draft");
+        content.value = results.content.value;
+        state.value = results.state;
 
-    const { content, state } = await useStoryblokState('home');
-    useBridge(state);
+        useBridge(state);
+    });
+    
 
     const contentWrapper = computed(() => {
         let list: {
@@ -34,7 +40,7 @@
             Contact: {},
         };
 
-        if (! content) {
+        if (! content.value) {
             return list;
         }
 
@@ -48,7 +54,7 @@
 </script>
 
 <template>
-    <section>
+    <section v-if="content" class="relative">
         <Header :content="contentWrapper.Header" />
         <Lenders :content="contentWrapper.Lenders" />
         <div class="relative">

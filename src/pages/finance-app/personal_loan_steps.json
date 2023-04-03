@@ -1,0 +1,560 @@
+{
+	"steps": [
+		{
+			"title": "Personal Information",
+			"name": "personal_information",
+			"sections": [{
+				"size": "half",
+				"title": "Personal Information",
+				"fields": [
+					{
+						"type": "row",
+						"name": "name_fields",
+						"label": "",
+						"size": "half",
+						"items": [
+							{
+								"type": "dropdown",
+								"label": "Salutation",
+								"name": "salutation",
+								"group": "fullname[1]",
+								"size": "sm",
+								"options": [{
+										"title": "Mr",
+										"value": "Mr"
+									},
+									{
+										"title": "Ms",
+										"value": "Ms"
+									}
+								]
+							},
+							{
+								"type": "text",
+								"label": "First Name",
+								"name": "first_name",
+								"required": true,
+								"group": "fullname[2]",
+								"size": "lg",
+								"placeholder": ""
+							},
+							{
+								"type": "text",
+								"label": "Last Name",
+								"name": "last_name",
+								"required": true,
+								"group": "fullname[3]",
+								"size": "lg",
+								"placeholder": ""
+							}
+						]
+					},
+					
+					{
+						"type": "dropdown",
+						"label": "Marital Status",
+						"name": "marital_status",
+						"size": "md",
+						"options": [{
+								"value": "Single",
+								"title": "Single"
+							},
+							{
+								"value": "Married",
+								"title": "Married"
+							}
+						]
+					},
+					{
+						"type": "batch",
+						"name": "date_of_birth",
+						"label": "Date of Birth",
+ 						"size": "md",
+						"items": [
+							{
+								"type": "number",
+								"label": "",
+								"name": "date_of_birth_year",
+								"required": true,
+								"group": "dateOfBirth[1]",
+								"answerBefore": "Born",
+								"size": "sm",
+								"placeholder": "",
+								"helper": "YYYY",
+								"mask": "####"
+							},
+							{
+								"type": "months",
+								"label": "",
+								"name": "date_of_birth_month",
+								"required": true,
+								"group": "dateOfBirth[2]",
+								"size": "xs",
+								"placeholder": "",
+								"helper": "MM",
+								"mask": "##"
+							},
+							{
+								"type": "number",
+								"label": "",
+								"name": "date_of_birth_day",
+								"required": true,
+								"group": "dateOfBirth[3]",
+								"size": "xs",
+								"placeholder": "",
+								"helper": "DD",
+								"mask": "##"
+							}
+						]
+					}
+				]
+			}]
+		},
+		{
+			"title": "Contact Information",
+			"name": "contact_information",
+			"sections": [{
+				"size": "half",
+				"title": "Contact Information",
+				"fields": [
+					{
+						"type": "row",
+						"name": "address",
+						"label": "",
+						"size": "full",
+						"items": [
+							{
+								"type": "text",
+								"label": "Street",
+								"required": true,
+								"name": "street",
+								"group": "address[1]",
+								"size": "xl",
+								"placeholder": ""
+							},
+							{
+								"type": "text",
+								"label": "Unit/Apt",
+								"group": "address[2]",
+								"name": "unit",
+								"size": "sm",
+								"placeholder": ""
+							}
+						]
+					},
+					{
+						"type": "text",
+						"label": "City",
+						"name": "city",
+						"required": true,
+						"group": "address[3]",
+						"size": "lg",
+						"placeholder": ""
+					},
+					{
+						"type": "dropdown",
+						"label": "Province",
+						"name": "province",
+						"required": true,
+						"group": "address[4]",
+						"size": "md",
+						"placeholder": "",
+						"options": [
+							{
+								"title": "AB",
+								"value": "AB"
+							},
+							{
+								"title": "BC",
+								"value": "BC"
+							},
+							{
+								"title": "MB",
+								"value": "MB"
+							},
+							{
+								"title": "NB",
+								"value": "NB"
+							},
+							{
+								"title": "NL",
+								"value": "NL"
+							},
+							{
+								"title": "NS",
+								"value": "NS"
+							},
+							{
+								"title": "NT",
+								"value": "NT"
+							},
+							{
+								"title": "NU",
+								"value": "NU"
+							},
+							{
+								"title": "ON",
+								"value": "ON"
+							},
+							{
+								"title": "PE",
+								"value": "PE"
+							},
+							{
+								"title": "QC",
+								"value": "QC"
+							},
+							{
+								"title": "SK",
+								"value": "SK"
+							},
+							{
+								"title": "YT",
+								"value": "YT"
+							}
+						]
+					},
+					{
+						"type": "postal",
+						"label": "Postal Code",
+						"name": "postal_code",
+						"required": true,
+						"group": "address[5]",
+						"size": "md",
+						"placeholder": ""
+					},
+					{
+						"type": "row",
+						"label": "How long have you lived at this address?",
+						"name": "time_at_address",
+						"size": "full",
+						"placeholder": "",
+						"items": [{
+								"type": "years",
+								"label": "",
+								"name": "address_years",
+								"required": true,
+								"group": "address-time[1]",
+								"size": "md",
+								"after": "Years",
+								"placeholder": ""
+							},
+							{
+								"type": "months",
+								"label": "",
+								"name": "address_months",
+								"required": true,
+								"group": "address-time[2]",
+								"size": "md",
+								"after": "Months",
+								"placeholder": "",
+								"answerAfter": "at current address"
+							}
+						]
+					},
+					{
+						"type": "tel",
+						"name": "phone_number",
+						"label": "Phone Number ",
+						"required": true,
+						"size": "lg",
+						"placeholder": "(519) 555-5555"
+					},
+					{
+						"type": "email",
+						"name": "email",
+						"label": "Email Address",
+						"required": true,
+						"size": "xl",
+						"placeholder": "johndoe@gmail.com"
+					}
+				]
+			}
+			]
+		},
+		{
+			"title": "Housing",
+			"name": "housing",
+			"sections": [{
+				"size": "half",
+				"title": "Housing",
+				"fields": [
+					{
+						"type": "row",
+						"label": "",
+						"name": "home_toggles",
+						"size": "full",
+						"placeholder": "",
+						"items": [
+							{
+								"type": "toggle",
+								"label": "Do you own or rent your home",
+								"name": "ownership",
+								"required": true,
+								"size": "md",
+								"placeholder": "",
+								"options": [
+									{
+										"title": "Own",
+										"value": "Own"
+									},
+									{
+										"title": "Rent",
+										"value": "Rent"
+									}
+								]
+							},
+							{
+								"type": "toggle",
+								"label": "Do you split monthly housing costs",
+								"name": "split",
+								"size": "xl",
+								"placeholder": "",
+								"options": [{
+										"title": "Yes",
+										"value": "Split monthly costs"
+									},
+									{
+										"title": "No",
+										"value": "Does not split monthly costs"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "number",
+						"label": "Monthly Payment",
+						"name": "monthly_payment",
+						"required": true,
+						"size": "lg",
+						"before": "$",
+						"after": "/month",
+						"placeholder": ""
+					}
+				]
+			}]
+		},
+		{
+			"title": "Employment",
+			"name": "income",
+			"sections": [
+				{
+					"size": "half",
+					"title": "Employment",
+					"fields": [
+						{
+							"type": "radio",
+							"label": "Employment Status",
+							"name": "employment_status",
+							"required": true,
+							"size": "full",
+							"placeholder": "",
+							"options": [
+								{
+									"title": "Employed Full Time",
+									"value": "Full Time"
+								},
+								{
+									"title": "Employed Part Time",
+									"value": "Part Time"
+								},
+								{
+									"title": "Self Employed",
+									"value": "Self Employed"
+								},
+								{
+									"title": "Student",
+									"value": "Student"
+								},
+								{
+									"title": "Homemaker",
+									"value": "Homemaker"
+								},
+								{
+									"title": "Retired",
+									"value": "Retired"
+								},
+								{
+									"title": "Other",
+									"value": "Other"
+								}
+							]
+						},
+						{
+							"type": "text",
+							"label": "Company Name",
+							"name": "company_name",
+							"required": "employment_status:Full Time|Part Time|Self Employed",
+							"size": "lg",
+							"placeholder": ""
+						},
+						{
+							"type": "text",
+							"label": "Your Position/title",
+							"required": "employment_status:Full Time|Part Time|Self Employed",
+							"name": "employment_title",
+							"size": "lg",
+							"placeholder": ""
+						},
+						{
+							"type": "row",
+							"label": "",
+							"name": "employment_details",
+							"size": "lg",
+							"items": [
+								{
+									"type": "batch",
+									"label": "Duration at employment",
+									"name": "duration_at_emplpoyment",
+									"size": "lg",
+									"items": [
+										{
+											"type": "years",
+											"label": "",
+											"name": "duration_at_employment_years",
+											"required": "employment_status:Full Time|Part Time|Self Employed",
+											"group": "employment-duration[1]",
+											"size": "md",
+											"after": "Years",
+											"placeholder": ""
+										},
+										{
+											"type": "months",
+											"label": "",
+											"name": "duration_at_employment_months",
+											"required": "employment_status:Full Time|Part Time|Self Employed",
+											"group": "employment-duration[2]",
+											"answerAfter": "at employment",
+											"size": "md",
+											"after": "Months",
+											"placeholder": ""
+										}
+									]
+								},
+								{
+									"type": "number",
+									"label": "Monthly income",
+									"name": "monthly_income",
+									"required": true,
+									"size": "lg",
+									"placeholder": "",
+									"before": "$",
+									"after": "/month",
+									"helper": "Before Taxes"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"title": "Income",
+			"name": "income",
+			"sections": [
+				{
+					"size": "half",
+					"title": "Additional Monthly Income",
+					"fields": [
+						{
+							"type": "number",
+							"label": "Second Job",
+							"answerBefore": "Second Job",
+							"after": "/month",
+							"before": "$",
+							"name": "second_job",
+							"size": "lg",
+							"placeholder": "0"
+						},
+						{
+							"type": "number",
+							"label": "Child Tax Benefit",
+							"answerBefore": "Child Tax Benefit",
+							"after": "/month",
+							"name": "child_tax_benefit",
+							"size": "lg",
+							"before": "$",
+							"placeholder": "0"
+						},
+						{
+							"type": "number",
+							"label": "Rental income",
+							"answerBefore": "Rental income",
+							"after": "/month",
+							"name": "rental_income",
+							"size": "lg",
+							"before": "$",
+							"placeholder": "0"
+						},
+						{
+							"type": "number",
+							"label": "Investment Income",
+							"answerBefore": "Investment Income",
+							"after": "/month",
+							"name": "investment_income",
+							"size": "lg",
+							"before": "$",
+							"placeholder": "0"
+						},
+						{
+							"type": "number",
+							"label": "Pensions or Benefit",
+							"answerBefore": "Pensions or Benefit",
+							"after": "/month",
+							"name": "pensions_benefit",
+							"size": "lg",
+							"before": "$",
+							"placeholder": "0"
+						}
+					]
+				}
+			]
+		},
+		{
+			"title": "Credit Rating",
+			"name": "credit_rating",
+			"sections": [{
+				"size": "half",
+				"title": "Credit Rating",
+				"fields": [{
+					"type": "radio",
+					"label": "What is your estimated credit rating",
+					"name": "credit_rating",
+					"required": true,
+					"size": "xl",
+					"placeholder": "",
+					"options": [{
+							"title": "Good (680+ Beacon Score)",
+							"value": "Good"
+						},
+						{
+							"title": "Fair (550 - 679 Beacon Score)",
+							"value": "Fair"
+						},
+						{
+							"title": "Poor (440 - 549 Beacon Score)",
+							"value": "Poor"
+						},
+						{
+							"title": "Very Poor (399 or less)",
+							"value": "Very poor"
+						},
+						{
+							"title": "Current Bankruptcy or Proposal",
+							"value": "Bankruptcy"
+						},
+						{
+							"title": "No Credit",
+							"value": "No credit"
+						},
+						{
+							"title": "Not Sure",
+							"value": "Not Sure"
+						}
+					]
+				}]
+			}]
+		}
+	]
+}

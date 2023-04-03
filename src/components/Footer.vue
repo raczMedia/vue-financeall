@@ -1,10 +1,17 @@
 <script lang="ts" setup>
+    import { onBeforeMount, ref } from 'vue';
     import { useStoryblokState, useBridge } from '../composables/storyblokComposable';
-    const { content, state } = await useStoryblokState('footer');
+
+    const content = ref();
+    onBeforeMount(async () => {
+        const results = await useStoryblokState('footer', "draft");
+
+        content.value = results.content.value;
+    })
 </script>
 
 <template>
-    <footer class="relative -mt-10 z-10">
+    <footer v-if="content" class="relative -mt-10 z-10">
         <div class="absolute inset-0 clip-top-up-right bg-fa-blue"></div>
         <div class="
             relative min-h-64 text-white flex flex-col justify-between content-stretch px-8 pt-32 pb-16
