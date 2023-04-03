@@ -33,6 +33,7 @@ export interface Step {
 
 export type Status = 'Progress' | 'Verification' | 'Submitted';
 export type ValidationStatus = 'Standby' | 'Error';
+export type FormTypes = 'Car Loan Application' | 'Personal Loan Application';
 
 export interface Answer extends Field {
   value: string | number | boolean

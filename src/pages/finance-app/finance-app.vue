@@ -1,83 +1,42 @@
 <script lang="ts" setup>
-  import { ref, computed } from 'vue';
+  import { ref, computed, watch } from 'vue';
+  import { useRoute } from "vue-router";
   import { 
     useForm, 
     getStatus, 
-    setStatus, 
-    checkStepValidation,
-    getAnswers,
-    setValidationStatus,
-    getValidationStatus
+    getValidationStatus,
+    submitApplication,
+    previousStep,
+    currentStep,
+    hasPreviousStep,
+    stepProgress,
+    toNextStep,
+    toPreviousStep,
+    goToStep
   } from './utils/FormComposable';
 
-  import Form from './steps.json';
   import SubmitButton from './partials/submit-button.vue';
   import ProgressStep from './partials/progress-step.vue';
   import SubmittedStep from './partials/submitted-step.vue';
   import VerificationStep from './partials/verification-step.vue';
   import ProgressBar from './partials/progress-bar.vue';
 
-  useForm(Form);
+  const route = useRoute();
+  watch(() => route.name, (name) => useForm(name), { immediate: true });
 
-  const currentStepCount = ref(0);
-  const previousStep = computed(() => Form.steps[currentStepCount.value - 1]);;
-  const currentStep = computed(() => Form.steps[currentStepCount.value]);
-  const hasNextStep = computed(() => Form.steps[currentStepCount.value + 1] ? true : false);
-  const hasPreviousStep = computed(() => Form.steps[currentStepCount.value - 1] ? true : false);
-  const stepProgress = computed(() => {
-      return ((currentStepCount.value) / Form.steps.length * 100).toFixed(2);
-  });
   const slideDirection = ref('left');
 
-  const goToNextStep = () => {
-    if (! stepIsValidated.value) {
-      return setValidationStatus('Error');
-    }
-
+  const goToNextStep = async () => {
     slideDirection.value = 'left';
-    const status = getStatus();
-
-    if (hasNextStep.value) {
-      return currentStepCount.value += 1; 
-    }
-
-    if (status === 'Progress') {
-      currentStepCount.value += 1; 
-      return setStatus('Verification');
-    }
-
-    if (status === 'Verification') {
-      return setStatus('Submitted');
-    }
-    // TODO: submit form here
+    toNextStep();
   }
   const goToPreviousStep = () => {
     slideDirection.value = 'right';
-    const status = getStatus();
-
-    if (status === 'Submitted') {
-      return setStatus('Verification');
-    }
-
-    if (status === 'Verification') {
-      currentStepCount.value -= 1; 
-      return setStatus('Progress');
-    }
-
-    if (hasPreviousStep.value) {
-      return currentStepCount.value -= 1; 
-    }
-  }
-  const goToStep = (index: number) => {
-    setStatus('Progress');
-    currentStepCount.value = index;
+    toPreviousStep()
   }
 
-  const errorrStatus = computed(() => {
-    return getValidationStatus() === 'Error'
-  });
-
-  const stepIsValidated = computed(() => checkStepValidation(currentStep.value))
+  const validationStatus = computed(getValidationStatus);
+  const formStatus = computed(getStatus);
 </script>
 
 <template>
@@ -90,12 +49,12 @@
     <section aria-label="application-header relative">
       <ProgressBar 
         class="pb-8"
-        :color="getStatus() === 'Submitted' ? 'bg-green-600' : 'bg-fa-blue'"
+        :color="formStatus === 'Submitted' ? 'bg-green-600' : 'bg-fa-blue'"
         :progress="stepProgress"
       />
       <h1 class="text-4xl font-semibold py-4 relative w-full">
-        Finance Application
-        <img v-if="getStatus() === 'Submitted'" src="@/assets/submitted.png" alt="" class="absolute right-0 top-0">
+        {{ route.name }}
+        <img v-if="formStatus === 'Submitted'" src="@/assets/submitted.png" alt="" class="absolute right-0 top-0">
       </h1>
       <div class="text-sm font-medium text-gray-400">
         This should only take 5 minutes. Rest assured your data is secure and encrypted.
@@ -104,7 +63,7 @@
 
     <!-- Body -->
     <section aria-label="form-content" class="mt-12 relative">
-      <!-- hide when getStatus() === 'Submitted'"  -->
+      <!-- hide when formStatus === 'Submitted'"  -->
       <button 
         class="text-gray-400 font-medium hover:text-fa-blue hover:font-bold" 
         :class="{'opacity-0': ! hasPreviousStep}"
@@ -119,7 +78,7 @@
         <transition-group
             :name="slideDirection === 'right' ? 'slide-fade-right' : 'slide-fade-left'"
         >
-          <template v-if="getStatus() === 'Progress'">
+          <template v-if="formStatus === 'Progress'">
             <ProgressStep 
               v-for="section in currentStep.sections" 
               :key="`step-${section.title}`" 
@@ -128,23 +87,22 @@
               :class="currentStep.sections.length === 2 ? 'w-1/2' : 'w-full'"
             />          
           </template>
-          <VerificationStep v-else-if="getStatus() === 'Verification'" @goTo="index => goToStep(index)" />          
-          <SubmittedStep v-else-if="getStatus() === 'Submitted'" />
+          <VerificationStep v-else-if="formStatus === 'Verification'" @goTo="index => goToStep(index)" />          
+          <SubmittedStep v-else-if="formStatus === 'Submitted'" />
         </transition-group>
       </div>
     </section>
     
-    
     <div class="flex items-center gap-4">
       <SubmitButton 
-        v-if="getStatus() !== 'Submitted'"
-        :text="getStatus() === 'Verification' ? 'Submit' : 'Next'"
-        :icon="getStatus() === 'Verification' ? 'fa-envelope' : 'fa-arrow-right'"
+        v-if="formStatus !== 'Submitted'"
+        :text="formStatus === 'Verification' ? 'Submit' : 'Next'"
+        :icon="formStatus === 'Verification' ? 'fa-envelope' : 'fa-arrow-right'"
         icon-size="xs"
         class="relative"
         @click="goToNextStep()"
       />
-      <small class="text-red-800" v-if="errorrStatus">
+      <small class="text-red-800" v-if="validationStatus === 'Error'">
         <font-awesome-icon icon="fa-solid fa-info-circle" size="xs" />
         Please fix the following fields before continuing
       </small>
