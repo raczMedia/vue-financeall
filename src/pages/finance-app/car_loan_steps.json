@@ -14,52 +14,52 @@
 						{
 							"value": "Sedan",
 							"title": "Sedan",
-							"asset": "sedan@2x.png"
+							"asset": "https://a.storyblok.com/f/155950/256x128/64c040e343/sedan-2x.png"
 						},
 						{
 							"value": "SUV",
 							"title": "SUV",
-							"asset": "suv@2x.png"
+							"asset": "https://a.storyblok.com/f/155950/254x128/929ddad3a1/suv-2x.png"
 						},
 						{
 							"value": "Wagon",
 							"title": "Wagon",
-							"asset": "wagon@2x.png"
+							"asset": "https://a.storyblok.com/f/155950/254x126/12f724916f/wagon-2x.png"
 						},
 						{
 							"value": "Coupe",
 							"title": "Coupe",
-							"asset": "coupe@2x.png"
+							"asset": "https://a.storyblok.com/f/155950/256x126/822b21c60e/coupe-2x.png"
 						},
 						{
 							"value": "Pickup",
 							"title": "Pickup",
-							"asset": "pickup@2x.png"
+							"asset": "https://a.storyblok.com/f/155950/256x126/bf3e48763e/pickup-2x.png"
 						},
 						{
 							"value": "Hatchback",
 							"title": "Hatchback",
-							"asset": "hatchback@2x.png"
+							"asset": "https://a.storyblok.com/f/155950/254x128/af55543dd6/hatchback-2x.png"
 						},
 						{
 							"value": "Compact",
 							"title": "Compact",
-							"asset": "compact@2x.png"
+							"asset": "https://a.storyblok.com/f/155950/256x128/65c83ba87e/compact-2x.png"
 						},
 						{
 							"value": "Sport Coupe",
 							"title": "Sport Coupe",
-							"asset": "sport-coupe@2x.png"
+							"asset": "https://a.storyblok.com/f/155950/254x126/8347cb9fdc/sport-coupe-2x.png"
 						},
 						{
 							"value": "Van",
 							"title": "Van",
-							"asset": "van@2x.png"
+							"asset": "https://a.storyblok.com/f/155950/254x126/aff5327f8d/van-2x.png"
 						},
 						{
 							"value": "Crossover",
 							"title": "Crossover",
-							"asset": "crossover@2x.png"
+							"asset": "https://a.storyblok.com/f/155950/254x126/55927aaa62/crossover-2x.png"
 						}
 					]
 				}]

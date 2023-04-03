@@ -56,7 +56,7 @@
       />
       <h1 class="text-4xl font-semibold py-4 relative w-full">
         {{ route.name }}
-        <img v-if="formStatus === 'Submitted'" src="@/assets/submitted.png" alt="" class="absolute right-0 top-0">
+        <img v-if="formStatus === 'Submitted'" src="https://a.storyblok.com/f/155950/1054x1054/2540a341ef/submitted-2x.png" alt="" class="absolute right-0 top-0">
       </h1>
       <div class="text-sm font-medium text-gray-400">
         This should only take 5 minutes. Rest assured your data is secure and encrypted.
