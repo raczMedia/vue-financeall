@@ -8,7 +8,7 @@
     <Suspense>
       <main class="max-w-[1600px] w-full shadow-lg min-h-screen bg-white">
         <Navigation />
-        <section class="min-h-screen">
+        <section class="flex flex-col min-h-screen">
           <slot />
         </section>
         <Footer />
