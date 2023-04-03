@@ -13,6 +13,7 @@
 
 <template>
     <section 
+        v-if="props.content"
         id="contact"
         aria-label="Contact section" 
         class="min-h-64 py-[8rem] px-8 lg:px-32 -mt-12 bg-gray-100"
