@@ -1,6 +1,6 @@
 <script lang="ts" setup>
     import { onBeforeMount, ref } from 'vue';
-    import { useStoryblokState, useBridge } from '../composables/storyblokComposable';
+    import { useStoryblokState } from '../composables/storyblokComposable';
 
     const content = ref();
     onBeforeMount(async () => {

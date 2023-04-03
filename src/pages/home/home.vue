@@ -11,7 +11,6 @@
     
     const route = useRoute();
     const content = ref();
-    const state = ref();
     onMounted(async () => {
         if (route.query.contact === 'true') {
             scrollToElement('#contact')
@@ -19,10 +18,10 @@
         
         const results = await useStoryblokState('home', "draft");
         content.value = results.content.value;
-        state.value = results.state;
 
-        useBridge(state);
+        useBridge(results.state);
     });
+
     
 
     const contentWrapper = computed(() => {
