@@ -3,11 +3,12 @@ import { reactive, computed, onMounted } from 'vue';
 import { useStoryblokBridge, useStoryblokApi, StoryblokEventPayload } from "@storyblok/vue";
 
 // @ts-ignore
-export async function useStoryblokState(story) {
+export async function useStoryblokState(story, passedMode = "published") {
     const storyblokApi = useStoryblokApi();
+
     const mode = location.href.includes('draft--')
         ? 'draft'
-        : 'published';
+        : passedMode;
 
     const { data } = await storyblokApi.get(`cdn/stories/${story}`, {
         version: mode,
