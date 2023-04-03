@@ -16,9 +16,16 @@
   const menuOpen = ref(false);
   const route = useRoute();
   const { scrollTop } = useOnScroll();
-  const { content, state } = await useStoryblokState('navigation');
+  
+  const content = ref();
+  onBeforeMount(async () => {
+    const results = await useStoryblokState('navigation', "draft");
+
+    content.value = results.content.value;
+  })
+
   const activeLink = computed((): Link => {
-    if (! content.value.Links) {
+    if (! content.value?.Links) {
       return { title: "Home", address: "/"};
     }
     
@@ -65,6 +72,7 @@
         <font-awesome-icon icon="fa-solid fa-chevron-down" />
       </div>
       <section 
+        v-if="content"
         class="
           flex flex-col ml-8 absolute top-16 bg-gray-100 right-8 p-4 text-right rounded-lg gap-3
           lg:flex-row lg:relative lg:bg-transparent lg:right-auto lg:top-auto lg:p-0 lg:text-left lg:gap-6
@@ -96,12 +104,6 @@
             {{ link.title }}
           </router-link>
         </template>  
-        <router-link 
-          to="/finance-app"
-          class="pb-1 link cursor-pointer border-b border-transparent hover:border-fa-secondary-blue transition-all duration-200"
-        >
-          Application
-        </router-link>
       </section>
     </div>
     <div class="h-[1px] bg-gray-400 opacity-30 w-full mt-4"></div>  
