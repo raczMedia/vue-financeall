@@ -2,7 +2,7 @@
   import { Field, Step } from '../utils/formTypes';
   import { vMaska } from "maska";
   import { useDebounceFn } from '@vueuse/core';
-  import { maskOptions, simpleValidate, tokenOptions } from '../utils/FormComposable';
+  import { maskOptions, simpleValidate, tokenOptions, evaluateRequirement } from '../utils/FormComposable';
 
   interface PropsType {
     field: Field,
@@ -49,7 +49,7 @@
         :value="value"
         :placeholder="field.placeholder"
         :pattern="getPattern()"
-        :required="field.required ?? false"
+        :required="evaluateRequirement(field, currentStep)"
         @input="debounceEmit($event)"
       />
       <div v-if="field.after" class="pr-2 text-gray-400 flex-shrink-0">{{ field.after }}</div>

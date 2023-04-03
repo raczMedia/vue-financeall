@@ -5,7 +5,6 @@
     useForm, 
     getStatus, 
     getValidationStatus,
-    submitApplication,
     previousStep,
     currentStep,
     hasPreviousStep,
@@ -20,9 +19,12 @@
   import SubmittedStep from './partials/submitted-step.vue';
   import VerificationStep from './partials/verification-step.vue';
   import ProgressBar from './partials/progress-bar.vue';
+  import { FormTypes } from './utils/formTypes';
 
   const route = useRoute();
-  watch(() => route.name, (name) => useForm(name), { immediate: true });
+  watch(() => route.name, (name) => {
+    useForm(route.name as FormTypes)
+  }, { immediate: true });
 
   const slideDirection = ref('left');
 

@@ -2,7 +2,7 @@
   import { ref } from 'vue';
   import { Field, Step } from '../utils/formTypes';
   import { onClickOutside } from '@vueuse/core'
-  import { simpleValidate } from '../utils/FormComposable';
+  import { simpleValidate, evaluateRequirement } from '../utils/FormComposable';
 
   interface Props {
     field: Field,
@@ -29,7 +29,7 @@
       <input 
         type="text" 
         class="px-4 py-2 outline-none cursor-pointer w-full" 
-        :required="field.required ?? false"
+        :required="evaluateRequirement(field, currentStep)"
         :value="value" 
         readonly 
       />
@@ -49,7 +49,7 @@
         <div 
           v-for="option in field.options"
           :key="`${field.name}-option-${option.value}`"
-          class="py-2 px-4 hover:bg-fa-blue/10" @click="selectItem(option.value)"
+          class="py-2 px-4 hover:bg-fa-blue/10" @click="selectItem(String(option.value))"
         >
           {{ option.title }}
         </div>
