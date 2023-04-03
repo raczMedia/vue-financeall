@@ -262,7 +262,7 @@ export const submitApplication = () => {
 
   // test de50c81a9d27
   // prod 58cc6f22c23c
-  axios.post('https://usebasin.com/f/de50c81a9d27', data)
+  axios.post('https://usebasin.com/f/58cc6f22c23c', data)
     .then(response => {
       if (response.status === 200) {
         console.log("success", {response});
