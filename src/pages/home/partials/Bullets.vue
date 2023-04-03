@@ -34,7 +34,7 @@
                 :key="`bullet-${index}`" 
                 class="flex gap-4 lg:text-lg xl:text-xl"
             >
-                <div class="rounded-full w-6 h-6 bg-gray-300 flex-shrink-0"></div>
+                <div class="rounded-full w-3 h-3 mt-2 bg-gray-300 flex-shrink-0"></div>
                 {{ bullet.info }}
             </li>
         </ul>
