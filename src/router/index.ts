@@ -15,8 +15,13 @@ const routes: Array<RouteRecordRaw> = [
     component: Inventory,
   },
   {
-    path: "/finance-app",
-    name: "FinanceApp",
+    path: "/car-loan-application",
+    name: "Car Loan Application",
+    component: FinanceApp,
+  },
+  {
+    path: "/personal-loan-application",
+    name: "Personal Loan Application",
     component: FinanceApp,
   }
 ];
