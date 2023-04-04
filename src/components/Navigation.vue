@@ -17,7 +17,7 @@
   const route = useRoute();
 
   // data from storyblok
-  const {content, state} = await useStoryblokState('dealers');
+  const {content, state} = await useStoryblokState('navigation');
   useBridge(state);
 
   const activeLink = computed((): Link => {
