@@ -15,7 +15,7 @@
   const { isDesktop, isMobile } = useViewport();
   const menuOpen = ref(false);
   const route = useRoute();
-  const { scrollTop } = useOnScroll();
+  
   
   const content = ref();
   onBeforeMount(async () => {
@@ -35,8 +35,15 @@
     menuOpen.value = isDesktop.value;
   }
 
+  const scrollY = ref(0);
+  const updateScroll = (e) => {
+    scrollY.value = window.scrollY;
+  }
+
   onBeforeMount(() => {
     window.addEventListener('resize', resetMenuOpen);
+
+    window.addEventListener('scroll', updateScroll)
   });
 
   watch(route, (to) => {
@@ -49,13 +56,14 @@
 
   onUnmounted(() => {
     window.removeEventListener('resize', resetMenuOpen);
+    window.removeEventListener('scroll', updateScroll);
   });
 </script>
 
 <template>
   <nav 
+    :class="scrollY > 0 ? 'bg-white/95': 'bg-white lg:bg-transparent'"
     class="fixed top-0 w-full pt-4 max-w-[1600px] transition-all duration-300 z-30" 
-    :class="scrollTop ? 'bg-white/95': 'bg-white lg:bg-transparent'"
     aria-label="primary"
   >
     <div class="flex items-center px-8 lg:px-32 py-2">
