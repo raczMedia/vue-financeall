@@ -1,54 +1,54 @@
 <script lang="ts" setup>
-  import { useOnScroll } from "vue-composable";
-  import { useBridge, useStoryblokState } from '../composables/storyblokComposable';
+  import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
   import { useRoute } from 'vue-router';
   import { computed, ref, onBeforeMount, onUnmounted, onMounted, watch } from 'vue';
-  import { scrollToElement } from '../composables/scrollToElementComposable';
-  import { useViewport } from '../composables/viewportComposable';
+  import { scrollToElement } from '@/composables/scrollToElementComposable';
+  import { useViewport } from '@/composables/viewportComposable';
 
-  type Link = {
-    address: string,
-    title: string
-  }
-  
   const scrollTo = (identifier: string) => scrollToElement(identifier);
-  const { isDesktop, isMobile } = useViewport();
+  const { isDesktop } = useViewport();
   const menuOpen = ref(false);
   const route = useRoute();
-
-  // data from storyblok
   const {content, state} = await useStoryblokState('navigation');
+
   useBridge(state);
 
-  const activeLink = computed((): Link => {
+  // link logic
+  const activeLink = computed((): {
+    address: string,
+    title: string
+  } => {
     if (! content.value?.Links) {
       return { title: "Home", address: "/"};
     }
     
-    return content.value.Links.find((link: Link) => `/${link.address}` == route.path || link.address == route.path)
+    return content.value.Links.find(
+      (link: { address: string, title: string }) => `/${link.address}` == route.path || link.address == route.path
+    )
   })
-  const resetMenuOpen = () => {
-    menuOpen.value = isDesktop.value;
-  }
 
+  // scroll logic
   const scrollY = ref(0);
   const updateScroll = () => {
     scrollY.value = window.scrollY;
   }
 
+  // menu
+  const resetMenuOpen = () => {
+    menuOpen.value = isDesktop.value;
+  }
+  watch(route, () => {
+    menuOpen.value = isDesktop.value;
+  }, {flush: 'pre', immediate: true, deep: true})
+
+  // lifecycle
   onBeforeMount(() => {
     window.addEventListener('resize', resetMenuOpen);
     window.addEventListener('scroll', updateScroll)
   });
-
-  watch(route, (to) => {
-    menuOpen.value = isDesktop.value;
-  }, {flush: 'pre', immediate: true, deep: true})
-
   onMounted(() => {
     resetMenuOpen();
   });
-
   onUnmounted(() => {
     window.removeEventListener('resize', resetMenuOpen);
     window.removeEventListener('scroll', updateScroll);
