@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Home from "../pages/home/home.vue";
 import Inventory from "../pages/inventory/inventory.vue";
-import FinanceApp from "../pages/finance-app/finance-app.vue"
+import FinanceApp from "../pages/finance-app/finance-app.vue";
+import Dealers from "../pages/dealers/dealers.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -23,6 +24,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/personal-loan-application",
     name: "Personal Loan Application",
     component: FinanceApp,
+  },
+  {
+    path: "/dealers",
+    name: "Dealers",
+    component: Dealers,
   }
 ];
 
