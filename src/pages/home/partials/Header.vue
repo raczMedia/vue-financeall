@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-    import { defineProps } from 'vue';
-
     type Content = {
         header_image: { filename: string }
         all_image: { filename: string }
