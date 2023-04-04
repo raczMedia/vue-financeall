@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { useOnScroll } from "vue-composable";
-  import { useStoryblokState } from '../composables/storyblokComposable';
+  import { useBridge, useStoryblokState } from '../composables/storyblokComposable';
   import { useRoute } from 'vue-router';
   import { computed, ref, onBeforeMount, onUnmounted, onMounted, watch } from 'vue';
   import { scrollToElement } from '../composables/scrollToElementComposable';
@@ -15,14 +15,10 @@
   const { isDesktop, isMobile } = useViewport();
   const menuOpen = ref(false);
   const route = useRoute();
-  
-  
-  const content = ref();
-  onBeforeMount(async () => {
-    const results = await useStoryblokState('navigation');
 
-    content.value = results.content.value;
-  })
+  // data from storyblok
+  const {content, state} = await useStoryblokState('dealers');
+  useBridge(state);
 
   const activeLink = computed((): Link => {
     if (! content.value?.Links) {
@@ -42,7 +38,6 @@
 
   onBeforeMount(() => {
     window.addEventListener('resize', resetMenuOpen);
-
     window.addEventListener('scroll', updateScroll)
   });
 
