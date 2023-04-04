@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-  import { computed, onBeforeMount, ref } from 'vue';
+  import { computed, onBeforeMount, ref, watch } from 'vue';
   import { Ref } from "vue";
   import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
   import { LooseObject } from '@/composables/jsUtils';
@@ -13,13 +13,19 @@
 
   // data from storyblok
   const page: Ref<{Title: string, body: LooseObject[]} | null> = ref(null);
+  const state: Ref<{story: any} | null> = ref(null);
+
   onBeforeMount(async () => {
     const results = await useStoryblokState('dealers');
 
     page.value = results.content.value;
+    state.value = results.state
+  });
 
-
-    useBridge(results.state);
+  watch(state, () => {
+    if (state.value) {
+      useBridge(state.value);
+    }
   });
 
   // data filtering
