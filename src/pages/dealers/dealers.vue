@@ -14,7 +14,7 @@
   // data from storyblok
   const page: Ref<{Title: string, body: LooseObject[]} | null> = ref(null);
   onBeforeMount(async () => {
-    const results = await useStoryblokState('dealers', "draft");
+    const results = await useStoryblokState('dealers');
 
     page.value = results.content.value;
   });

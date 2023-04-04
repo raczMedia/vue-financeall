@@ -12,7 +12,7 @@
     const route = useRoute();
     const content = ref();
     onMounted(async () => {
-        const results = await useStoryblokState('home', "draft");
+        const results = await useStoryblokState('home');
         content.value = results.content.value;
 
         if (route.query.contact === 'true') {

@@ -4,7 +4,7 @@
 
     const content = ref();
     onBeforeMount(async () => {
-        const results = await useStoryblokState('footer', "draft");
+        const results = await useStoryblokState('footer');
 
         content.value = results.content.value;
     })

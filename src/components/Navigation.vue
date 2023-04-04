@@ -19,7 +19,7 @@
   
   const content = ref();
   onBeforeMount(async () => {
-    const results = await useStoryblokState('navigation', "draft");
+    const results = await useStoryblokState('navigation');
 
     content.value = results.content.value;
   })
