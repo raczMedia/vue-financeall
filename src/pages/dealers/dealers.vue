@@ -1,7 +1,7 @@
 <script lang='ts' setup>
   import { computed, onBeforeMount, ref } from 'vue';
   import { Ref } from "vue";
-  import { useStoryblokState } from '@/composables/storyblokComposable';
+  import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
   import { LooseObject } from '@/composables/jsUtils';
   import axios from 'axios';
   import { vMaska } from "maska";
@@ -17,6 +17,9 @@
     const results = await useStoryblokState('dealers');
 
     page.value = results.content.value;
+
+
+    useBridge(results.state);
   });
 
   // data filtering
