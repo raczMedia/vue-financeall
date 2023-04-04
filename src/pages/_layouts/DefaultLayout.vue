@@ -9,7 +9,7 @@
       <main class="max-w-[1600px] w-full shadow-lg min-h-screen bg-white">
         <Navigation />
         <section class="flex flex-col min-h-screen" id="content">
-            <slot />
+          <slot />
         </section>
         <Footer />
       </main>
