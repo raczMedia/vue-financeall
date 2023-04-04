@@ -36,7 +36,7 @@
   }
 
   const scrollY = ref(0);
-  const updateScroll = (e) => {
+  const updateScroll = () => {
     scrollY.value = window.scrollY;
   }
 
