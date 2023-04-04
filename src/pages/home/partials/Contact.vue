@@ -26,8 +26,9 @@
     });
     formStatus.value = "Sending";
     
-    // prod: b568ab20cad8  // dev: de50c81a9d27
-    axios.post('https://usebasin.com/f/de50c81a9d27', data) 
+    // prod: b568ab20cad8  
+    // dev: de50c81a9d27
+    axios.post('https://usebasin.com/f/b568ab20cad8', data) 
       .then(response => {
         if (response.status === 200) {
           console.log("success", {response});
