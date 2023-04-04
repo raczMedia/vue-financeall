@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-  import { computed, onBeforeMount, ref } from 'vue';
+  import { computed, onBeforeMount, ref, watch } from 'vue';
   import { Ref } from "vue";
   import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
   import { LooseObject } from '@/composables/jsUtils';
@@ -12,22 +12,15 @@
   const answers = ref();
 
   // data from storyblok
-  const page: Ref<{Title: string, body: LooseObject[]} | null> = ref(null);
-  onBeforeMount(async () => {
-    const results = await useStoryblokState('dealers');
-
-    page.value = results.content.value;
-
-
-    useBridge(results.state);
-  });
+  const {content, state} = await useStoryblokState('dealers');
+  useBridge(state);
 
   // data filtering
   const bullets = computed(() => {
-    return page.value?.body.find((section: LooseObject) => section.component === "Bullets")
+    return content.value?.body.find((section: LooseObject) => section.component === "Bullets")
   });
   const contact = computed(() => {
-    const results = page.value?.body.find((section: LooseObject) => section.component === "Contact");
+    const results = content.value?.body.find((section: LooseObject) => section.component === "Contact");
     answers.value = results?.fields ?? null;
 
     return results;
@@ -87,7 +80,7 @@
 
     <section aria-label="Intro" class="relative">
       <h3 class="text-3xl font-bold mb-8">
-        {{ page?.Title }}
+        {{ content?.Title }}
       </h3>
 
       <template v-if="bullets?.Items">

@@ -1,13 +1,9 @@
 <script lang="ts" setup>
-    import { onBeforeMount, ref } from 'vue';
-    import { useStoryblokState } from '../composables/storyblokComposable';
-
-    const content = ref();
-    onBeforeMount(async () => {
-        const results = await useStoryblokState('footer');
-
-        content.value = results.content.value;
-    })
+  import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
+    
+  // data from storyblok
+  const {content, state} = await useStoryblokState('footer');
+  useBridge(state);
 </script>
 
 <template>
