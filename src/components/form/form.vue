@@ -1,39 +1,28 @@
 <script lang="ts" setup>
-  import { ref, computed, watch, onMounted, ShallowReactive, ComputedRef } from 'vue';
+  import { ref, ShallowReactive, ComputedRef } from 'vue';
   import { useRoute } from "vue-router";
-  import { 
-    useForm,
-    getValidationStatus,
-  } from './utils/FormComposable';
+  import { useForm } from './utils/FormComposable';
 
   import SubmitButton from './partials/submit-button.vue';
   import ProgressStep from './partials/progress-step.vue';
   import SubmittedStep from './partials/submitted-step.vue';
   import VerificationStep from './partials/verification-step.vue';
   import ProgressBar from './partials/progress-bar.vue';
-  import { FormPageType, FormTypes, Step } from './utils/formTypes';
+  import { FormPageType } from './utils/formTypes';
   import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
   import { LooseObject } from '@/composables/jsUtils';
 
-  // interface StoryblokStateType {
-  //   content: ComputedRef<FormPageType>
-  //   state: ShallowReactive<{story: LooseObject}>
-  // }
-
+  const props = defineProps<{ application: string }>();
   const route = useRoute();  
-  let application = route.name === 'Car Loan Application' ? 'car-loan-application' : 'personal-loan-application';
-  // watch(() => route.name, async (name) => {
-  //   application = route.name === 'Car Loan Application' ? 'car-loan-application' : 'personal-loan-application';
-  // }, { immediate: true });
 
   interface StoryblokStateType {
-  content: ComputedRef<FormPageType>
-  state: ShallowReactive<{story: LooseObject}>
-}
-  const {content, state}: StoryblokStateType = await useStoryblokState(application, 'draft');
+    content: ComputedRef<FormPageType>
+    state: ShallowReactive<{story: LooseObject}>
+  }
+  const {content, state}: StoryblokStateType = await useStoryblokState(props.application, 'draft');
   useBridge(state);
-  const formComposable = await useForm(content)
 
+  const formComposable = await useForm(content);
   const slideDirection = ref('left');
 
   const goToNextStep = async () => {
@@ -44,12 +33,10 @@
     slideDirection.value = 'right';
     formComposable.toPreviousStep()
   }
-
-  const validationStatus = computed(getValidationStatus);
 </script>
 
 <template>
-  <div v-if="formComposable.currentStep" class="flex-grow px-8 lg:px-32 py-32 relative">
+  <div class="flex-grow px-8 lg:px-32 py-32 relative">
     <!-- Background shapes -->
     <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-4/5 h-full"></div>
     <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-full h-full"></div>
@@ -111,7 +98,7 @@
         class="relative"
         @click="goToNextStep()"
       />
-      <small class="text-red-800" v-if="validationStatus === 'Error'">
+      <small class="text-red-800" v-if="formComposable.validationStatus.value === 'Error'">
         <font-awesome-icon icon="fa-solid fa-info-circle" size="xs" />
         Please fix the following fields before continuing
       </small>

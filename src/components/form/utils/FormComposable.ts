@@ -5,18 +5,16 @@ import GroupField from '../fields/group-field.vue';
 import DropdownField from '../fields/dropdown-field.vue';
 import RadioField from '../fields/radio-field.vue';
 import ToggleField from '../fields/toggle-field.vue';
-import { Answer, AnswerStep, Field, FormPageType, FormTypes, Status, Step, ValidationStatus } from './formTypes';
+import { Answer, AnswerStep, Field, FormPageType, Status, Step, ValidationStatus } from './formTypes';
 import axios from 'axios';
-import CarLoanForm from '../car_loan_steps.json';
-import PersonalLoanForm from '../personal_loan_steps.json';
-import { LooseObject, toSnakeCase } from '@/composables/jsUtils';
-import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
+import { toSnakeCase } from '@/composables/jsUtils';
 
-const form = ref<{steps: Step[]} | null>(null);
+import CarLoanForm from '@/components/form/car_loan_steps.json';
+import PersonalLoanForm from '@/components/form/personal_loan_steps.json';
+
 const url = ref<string | null>(null);
 const applicationType = ref<string>("Your Form");
 const answers = ref();
-
 const validationStatus = ref<ValidationStatus>('Standby');
 
 
@@ -167,6 +165,7 @@ export const useForm = async (content: ComputedRef<FormPageType>) => {
     hasPreviousStep,
     stepProgress,
     status,
+    validationStatus,
     setStatus,
     toNextStep,
     toPreviousStep,
