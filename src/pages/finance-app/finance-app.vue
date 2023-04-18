@@ -23,6 +23,8 @@
   import { FormPageType, FormTypes, Step } from './utils/formTypes';
   import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
   import { LooseObject } from '@/composables/jsUtils';
+
+  // @ts-ignore
   import { useStoryblokBridge, StoryblokEventPayload } from "@storyblok/vue";
 
   interface StoryblokStateType {
