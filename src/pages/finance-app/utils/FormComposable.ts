@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+import { ref, computed, ComputedRef, ShallowReactive } from 'vue';
 import ImageRadio from '../fields/image-radio.vue';
 import TextField from '../fields/text-field.vue';
 import GroupField from '../fields/group-field.vue';
@@ -9,7 +9,8 @@ import { Answer, AnswerStep, Field, FormPageType, FormTypes, Status, Step, Valid
 import axios from 'axios';
 import CarLoanForm from '../car_loan_steps.json';
 import PersonalLoanForm from '../personal_loan_steps.json';
-import { toSnakeCase } from '@/composables/jsUtils';
+import { LooseObject, toSnakeCase } from '@/composables/jsUtils';
+import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
 
 const form = ref<{steps: Step[]} | null>(null);
 const url = ref<string | null>(null);
@@ -54,11 +55,17 @@ export const stepProgress = computed(() => {
 
     return ((currentStepCount.value) / form.value!.steps.length * 100).toFixed(2);
 });
+ interface StoryblokStateType {
+  content: ComputedRef<FormPageType>
+  state: ShallowReactive<{story: LooseObject}>
+}
+export const useForm = async (application: string) => {
+  const {content, state}: StoryblokStateType = await useStoryblokState(application, 'draft');
+  useBridge(state);
 
-export const useForm = (requestForm: FormPageType) => {
-  applicationType.value = requestForm.body[0].name;
-  form.value = requestForm.body[0]
-  url.value = requestForm.body[0].location;
+  applicationType.value = content.value.body[0].name;
+  form.value = content.value.body[0]
+  url.value = content.value.body[0].location;
   currentStepCount.value = 0;
   status.value = "Progress";
   validationStatus.value = "Standby";

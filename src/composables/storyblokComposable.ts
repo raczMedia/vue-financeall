@@ -27,9 +27,7 @@ export async function useStoryblokState(story, passedMode = "published") {
 
 // @ts-ignore
 export async function useBridge(state) {
-    onMounted(() => {
         useStoryblokBridge(state.story.id, (event: StoryblokEventPayload) => {
             state.story = event
         })
-    })
 }

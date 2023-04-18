@@ -24,19 +24,17 @@
   import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
   import { LooseObject } from '@/composables/jsUtils';
 
-  // @ts-ignore
-  import { useStoryblokBridge, StoryblokEventPayload } from "@storyblok/vue";
-
-  interface StoryblokStateType {
-    content: ComputedRef<FormPageType>
-    state: ShallowReactive<{story: LooseObject}>
-  }
+  // interface StoryblokStateType {
+  //   content: ComputedRef<FormPageType>
+  //   state: ShallowReactive<{story: LooseObject}>
+  // }
 
   const route = useRoute();  
-  const application = route.name === 'Car Loan Application' ? 'car-loan-application' : 'personal-loan-application';
-  const {content, state}: StoryblokStateType = await useStoryblokState(application, 'draft');
-  useForm(content.value)
-  useBridge(state)
+
+  watch(() => route.name, async (name) => {
+    const application = route.name === 'Car Loan Application' ? 'car-loan-application' : 'personal-loan-application';
+    await useForm(application)
+  }, { immediate: true });
 
   const slideDirection = ref('left');
 
