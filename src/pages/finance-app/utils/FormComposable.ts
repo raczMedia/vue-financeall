@@ -16,7 +16,7 @@ const form = ref<{steps: Step[]} | null>(null);
 const url = ref<string | null>(null);
 const applicationType = ref<string>("Your Form");
 const answers = ref();
-const status = ref<Status>('Progress');
+
 const validationStatus = ref<ValidationStatus>('Standby');
 
 
@@ -65,6 +65,7 @@ export const tokenOptions = {
 };
 
 export const useForm = async (content: ComputedRef<FormPageType>) => {
+  const status = ref<Status>('Progress');
   const currentStepCount = ref(0);
   const previousStep = computed(() => {
     if (! content.value) {
@@ -102,7 +103,7 @@ export const useForm = async (content: ComputedRef<FormPageType>) => {
       return ((currentStepCount.value) / content.value.body[0].steps.length * 100).toFixed(2);
   });
   const stepIsValidated = () => {
-    if (getStatus() === 'Verification' || ! currentStep.value) {
+    if (status.value === 'Verification' || ! currentStep.value) {
       return true;
     }
   
@@ -114,31 +115,27 @@ export const useForm = async (content: ComputedRef<FormPageType>) => {
       return setValidationStatus('Error');
     }
   
-    const status = getStatus();
-  
     if (hasNextStep.value) {
       return currentStepCount.value += 1; 
     }
   
-    if (status === 'Progress') {
+    if (status.value === 'Progress') {
       currentStepCount.value += 1; 
       return setStatus('Verification');
     }
   
-    if (status === 'Verification') {
+    if (status.value === 'Verification') {
       await submitApplication();
   
       return setStatus('Submitted');
     }
   }
   const toPreviousStep = () => {
-    const status = getStatus();
-  
-    if (status === 'Submitted') {
+    if (status.value === 'Submitted') {
       return setStatus('Verification');
     }
   
-    if (status === 'Verification') {
+    if (status.value === 'Verification') {
       currentStepCount.value -= 1; 
       return setStatus('Progress');
     }
@@ -151,9 +148,7 @@ export const useForm = async (content: ComputedRef<FormPageType>) => {
     setStatus('Progress');
     currentStepCount.value = index;
   }
-  
-
-  
+  const setStatus = (newVal: Status) => status.value = newVal;
 
   applicationType.value = content.value.body[0].name;
   
@@ -171,6 +166,8 @@ export const useForm = async (content: ComputedRef<FormPageType>) => {
     hasNextStep,
     hasPreviousStep,
     stepProgress,
+    status,
+    setStatus,
     toNextStep,
     toPreviousStep,
     goToStep,
@@ -179,8 +176,6 @@ export const useForm = async (content: ComputedRef<FormPageType>) => {
 
 
 // Form status
-export const getStatus = () => status.value;
-export const setStatus = (newVal: Status) => status.value = newVal;
 
 // groups
 const getGroupName = (field: Required<Field>) => field.group.split("[")[0];

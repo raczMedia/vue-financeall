@@ -2,8 +2,7 @@
   import { ref, computed, watch, onMounted, ShallowReactive, ComputedRef } from 'vue';
   import { useRoute } from "vue-router";
   import { 
-    useForm, 
-    getStatus, 
+    useForm,
     getValidationStatus,
   } from './utils/FormComposable';
 
@@ -47,7 +46,6 @@
   }
 
   const validationStatus = computed(getValidationStatus);
-  const formStatus = computed(getStatus);
 </script>
 
 <template>
@@ -60,12 +58,12 @@
     <section aria-label="application-header relative">
       <ProgressBar 
         class="pb-8"
-        :color="formStatus === 'Submitted' ? 'bg-green-600' : 'bg-fa-blue'"
+        :color="formComposable.status.value === 'Submitted' ? 'bg-green-600' : 'bg-fa-blue'"
         :progress="formComposable.stepProgress.value"
       />
       <h1 class="text-4xl font-semibold py-4 relative w-full">
         {{ route.name }}
-        <img v-if="formStatus === 'Submitted'" src="https://a.storyblok.com/f/155950/1054x1054/2540a341ef/submitted-2x.png" alt="" class="absolute right-0 top-0">
+        <img v-if="formComposable.status.value === 'Submitted'" src="https://a.storyblok.com/f/155950/1054x1054/2540a341ef/submitted-2x.png" alt="" class="absolute right-0 top-0">
       </h1>
       <div class="text-sm font-medium text-gray-400">
         This should only take 5 minutes. Rest assured your data is secure and encrypted.
@@ -89,7 +87,7 @@
         <transition-group
             :name="slideDirection === 'right' ? 'slide-fade-right' : 'slide-fade-left'"
         >
-          <template v-if="formStatus === 'Progress' && formComposable.currentStep.value">
+          <template v-if="formComposable.status.value === 'Progress' && formComposable.currentStep.value">
             <ProgressStep 
               v-for="section in formComposable.currentStep.value.sections" 
               :key="`step-${section.title}`" 
@@ -98,17 +96,17 @@
               :class="formComposable.currentStep.value.sections.length === 2 ? 'w-1/2' : 'w-full'"
             />          
           </template>
-          <VerificationStep v-else-if="formStatus === 'Verification'" @goTo="index => formComposable.goToStep(index)" />          
-          <SubmittedStep v-else-if="formStatus === 'Submitted'" />
+          <VerificationStep v-else-if="formComposable.status.value === 'Verification'" @goTo="index => formComposable.goToStep(index)" />          
+          <SubmittedStep v-else-if="formComposable.status.value === 'Submitted'" />
         </transition-group>
       </div>
     </section>
     
     <div class="flex items-center gap-4">
       <SubmitButton 
-        v-if="formStatus !== 'Submitted'"
-        :text="formStatus === 'Verification' ? 'Submit' : 'Next'"
-        :icon="formStatus === 'Verification' ? 'fa-envelope' : 'fa-arrow-right'"
+        v-if="formComposable.status.value !== 'Submitted'"
+        :text="formComposable.status.value === 'Verification' ? 'Submit' : 'Next'"
+        :icon="formComposable.status.value === 'Verification' ? 'fa-envelope' : 'fa-arrow-right'"
         icon-size="xs"
         class="relative"
         @click="goToNextStep()"
