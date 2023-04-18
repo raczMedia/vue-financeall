@@ -33,12 +33,11 @@
   }
 
   const route = useRoute();  
+  const application = route.name === 'Car Loan Application' ? 'car-loan-application' : 'personal-loan-application';
+  const data: StoryblokStateType = await useStoryblokState(application, 'draft');
+  useForm(data.content.value)
 
   onMounted(async () => {
-    const application = route.name === 'Car Loan Application' ? 'car-loan-application' : 'personal-loan-application';
-    const data: StoryblokStateType = await useStoryblokState(application, 'draft');
-
-    useForm(data.content.value)
     useStoryblokBridge(data.state.story.id, (event: StoryblokEventPayload) => {
       data.state.story = event
     });
