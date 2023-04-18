@@ -19,58 +19,9 @@ const answers = ref();
 const status = ref<Status>('Progress');
 const validationStatus = ref<ValidationStatus>('Standby');
 
-export const currentStepCount = ref(0);
-export const previousStep = computed(() => {
-  if (! form.value) {
-    return null;
-  }
-
-  return form.value!.steps[currentStepCount.value - 1]
-});
-export const currentStep = computed(() => {
-  if (! form.value) {
-    return null;
-  }
-
-  return form.value!.steps[currentStepCount.value]
-});
-export const hasNextStep = computed(() => {
-  if (! form.value) {
-    return false;
-  }
-
-  return form.value!.steps[currentStepCount.value + 1] ? true : false
-});
-export const hasPreviousStep = computed(() => {
-  if (! form.value) {
-    return false;
-  }
-  
-  return form.value.steps[currentStepCount.value - 1] ? true : false
-});
-export const stepProgress = computed(() => {
-    if (! form.value) {
-      return '0';
-    }
-
-    return ((currentStepCount.value) / form.value!.steps.length * 100).toFixed(2);
-});
- interface StoryblokStateType {
+interface StoryblokStateType {
   content: ComputedRef<FormPageType>
   state: ShallowReactive<{story: LooseObject}>
-}
-export const useForm = async (application: string) => {
-  const {content, state}: StoryblokStateType = await useStoryblokState(application, 'draft');
-  useBridge(state);
-
-  applicationType.value = content.value.body[0].name;
-  form.value = content.value.body[0]
-  url.value = content.value.body[0].location;
-  currentStepCount.value = 0;
-  status.value = "Progress";
-  validationStatus.value = "Standby";
-    
-  initAnswers(form.value.steps);
 }
 
 // options
@@ -116,6 +67,121 @@ export const maskOptions = {
 export const tokenOptions = { 
   number: 'Z:[0-9]:multiple',
 };
+
+export const useForm = async (application: string) => {
+  const currentStepCount = ref(0);
+  const previousStep = computed(() => {
+    if (! form.value) {
+      return null;
+    }
+
+    return form.value!.steps[currentStepCount.value - 1]
+  });
+  const currentStep = computed(() => {
+    if (! form.value) {
+      return null;
+    }
+
+    return form.value!.steps[currentStepCount.value]
+  });
+  const hasNextStep = computed(() => {
+    if (! form.value) {
+      return false;
+    }
+
+    return form.value!.steps[currentStepCount.value + 1] ? true : false
+  });
+  const hasPreviousStep = computed(() => {
+    if (! form.value) {
+      return false;
+    }
+    
+    return form.value.steps[currentStepCount.value - 1] ? true : false
+  });
+  const stepProgress = computed(() => {
+      if (! form.value) {
+        return '0';
+      }
+
+      return ((currentStepCount.value) / form.value!.steps.length * 100).toFixed(2);
+  });
+  const stepIsValidated = () => {
+    if (getStatus() === 'Verification' || ! currentStep.value) {
+      return true;
+    }
+  
+    return checkStepValidation(currentStep.value);
+  }
+  // form navigation
+  const toNextStep = async () => {
+    if (! stepIsValidated()) {
+      return setValidationStatus('Error');
+    }
+  
+    const status = getStatus();
+  
+    if (hasNextStep.value) {
+      return currentStepCount.value += 1; 
+    }
+  
+    if (status === 'Progress') {
+      currentStepCount.value += 1; 
+      return setStatus('Verification');
+    }
+  
+    if (status === 'Verification') {
+      await submitApplication();
+  
+      return setStatus('Submitted');
+    }
+  }
+  const toPreviousStep = () => {
+    const status = getStatus();
+  
+    if (status === 'Submitted') {
+      return setStatus('Verification');
+    }
+  
+    if (status === 'Verification') {
+      currentStepCount.value -= 1; 
+      return setStatus('Progress');
+    }
+  
+    if (hasPreviousStep.value) {
+      return currentStepCount.value -= 1; 
+    }
+  }
+  const goToStep = (index: number) => {
+    setStatus('Progress');
+    currentStepCount.value = index;
+  }
+  
+
+  const {content, state}: StoryblokStateType = await useStoryblokState(application, 'draft');
+  useBridge(state);
+
+  applicationType.value = content.value.body[0].name;
+  form.value = content.value.body[0]
+  url.value = content.value.body[0].location;
+  currentStepCount.value = 0;
+  status.value = "Progress";
+  validationStatus.value = "Standby";
+    
+  initAnswers(form.value.steps);
+
+  return {
+    currentStepCount,
+    previousStep,
+    currentStep,
+    hasNextStep,
+    hasPreviousStep,
+    stepProgress,
+    toNextStep,
+    toPreviousStep,
+    goToStep,
+  }
+}
+
 
 // Form status
 export const getStatus = () => status.value;
@@ -270,13 +336,8 @@ export const evaluateRequirement = (field: Field, step: Step): boolean => {
 }
 export const getValidationStatus = () => validationStatus.value;
 export const setValidationStatus = (status: ValidationStatus) => validationStatus.value = status;
-const stepIsValidated = () => {
-  if (getStatus() === 'Verification' || ! currentStep.value) {
-    return true;
-  }
 
-  return checkStepValidation(currentStep.value);
-}
+
 
 // submission
 export const submitApplication = () => {
@@ -309,49 +370,6 @@ export const submitApplication = () => {
     });
 }
 
-// form navigation
-export const toNextStep = async () => {
-  if (! stepIsValidated()) {
-    return setValidationStatus('Error');
-  }
-
-  const status = getStatus();
-
-  if (hasNextStep.value) {
-    return currentStepCount.value += 1; 
-  }
-
-  if (status === 'Progress') {
-    currentStepCount.value += 1; 
-    return setStatus('Verification');
-  }
-
-  if (status === 'Verification') {
-    await submitApplication();
-
-    return setStatus('Submitted');
-  }
-}
-export const toPreviousStep = () => {
-  const status = getStatus();
-
-  if (status === 'Submitted') {
-    return setStatus('Verification');
-  }
-
-  if (status === 'Verification') {
-    currentStepCount.value -= 1; 
-    return setStatus('Progress');
-  }
-
-  if (hasPreviousStep.value) {
-    return currentStepCount.value -= 1; 
-  }
-}
-export const goToStep = (index: number) => {
-  setStatus('Progress');
-  currentStepCount.value = index;
-}
 
 // to move later
 function capitalize(word: string) {

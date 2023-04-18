@@ -5,14 +5,6 @@
     useForm, 
     getStatus, 
     getValidationStatus,
-    previousStep,
-    currentStep,
-    hasPreviousStep,
-    stepProgress,
-    toNextStep,
-    toPreviousStep,
-    goToStep,
-    getAnswers
   } from './utils/FormComposable';
 
   import SubmitButton from './partials/submit-button.vue';
@@ -30,21 +22,22 @@
   // }
 
   const route = useRoute();  
-
+  let application = route.name === 'Car Loan Application' ? 'car-loan-application' : 'personal-loan-application';
   watch(() => route.name, async (name) => {
-    const application = route.name === 'Car Loan Application' ? 'car-loan-application' : 'personal-loan-application';
-    await useForm(application)
+    application = route.name === 'Car Loan Application' ? 'car-loan-application' : 'personal-loan-application';
   }, { immediate: true });
+
+  const formComposable = await useForm(application)
 
   const slideDirection = ref('left');
 
   const goToNextStep = async () => {
     slideDirection.value = 'left';
-    toNextStep();
+    formComposable.toNextStep();
   }
   const goToPreviousStep = () => {
     slideDirection.value = 'right';
-    toPreviousStep()
+    formComposable.toPreviousStep()
   }
 
   const validationStatus = computed(getValidationStatus);
@@ -52,7 +45,7 @@
 </script>
 
 <template>
-  <div v-if="currentStep" class="flex-grow px-8 lg:px-32 py-32 relative">
+  <div v-if="formComposable.currentStep" class="flex-grow px-8 lg:px-32 py-32 relative">
     <!-- Background shapes -->
     <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-4/5 h-full"></div>
     <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-full h-full"></div>
@@ -62,7 +55,7 @@
       <ProgressBar 
         class="pb-8"
         :color="formStatus === 'Submitted' ? 'bg-green-600' : 'bg-fa-blue'"
-        :progress="stepProgress"
+        :progress="formComposable.stepProgress.value"
       />
       <h1 class="text-4xl font-semibold py-4 relative w-full">
         {{ route.name }}
@@ -78,28 +71,28 @@
       <!-- hide when formStatus === 'Submitted'"  -->
       <button 
         class="text-gray-400 font-medium hover:text-fa-blue hover:font-bold" 
-        :class="{'opacity-0': ! hasPreviousStep}"
-        :disable="! hasPreviousStep" 
+        :class="{'opacity-0': ! formComposable.hasPreviousStep}"
+        :disable="! formComposable.hasPreviousStep" 
         @click=" goToPreviousStep()"
       >
         <font-awesome-icon icon="fa-solid fa-arrow-left" size="xs" />
-        <span v-if="previousStep" class="pl-1 text-sm">Back to {{ previousStep.title }}</span>
+        <span v-if="formComposable.previousStep" class="pl-1 text-sm">Back to {{ formComposable.previousStep.title }}</span>
       </button>
 
       <div class="flex gap-4 relative overflow-x-hidden pb-12 min-h-[500px]">
         <transition-group
             :name="slideDirection === 'right' ? 'slide-fade-right' : 'slide-fade-left'"
         >
-          <template v-if="formStatus === 'Progress'">
+          <template v-if="formStatus === 'Progress' && formComposable.currentStep.value">
             <ProgressStep 
-              v-for="section in currentStep.sections" 
+              v-for="section in formComposable.currentStep.value.sections" 
               :key="`step-${section.title}`" 
-              :currentStep="currentStep" 
+              :currentStep="formComposable.currentStep.value" 
               :section="section" 
-              :class="currentStep.sections.length === 2 ? 'w-1/2' : 'w-full'"
+              :class="formComposable.currentStep.value.sections.length === 2 ? 'w-1/2' : 'w-full'"
             />          
           </template>
-          <VerificationStep v-else-if="formStatus === 'Verification'" @goTo="index => goToStep(index)" />          
+          <VerificationStep v-else-if="formStatus === 'Verification'" @goTo="index => formComposable.goToStep(index)" />          
           <SubmittedStep v-else-if="formStatus === 'Submitted'" />
         </transition-group>
       </div>
