@@ -1,12 +1,18 @@
 export interface Option {
   value: string | boolean,
   title: string,
-  asset?: string,
+  asset?: {
+    filename: string,
+    id: number,
+    name: string,
+    title: string
+  },
 }
 export interface Field {
   type: string,
+  label: string,
   name: string,
-  label?: string,
+  showLabel: boolean,
   placeholder?: string,
   size?: string,
   helper?: string,
@@ -18,7 +24,8 @@ export interface Field {
   answerAfter?: string,
   options?: Option[],
   items?: Field[],
-  required?: boolean | string
+  required: boolean | string,
+  requiredDetail?: string
 }
 export interface Section {
   size: string, 
@@ -43,4 +50,15 @@ export interface AnswerStep {
   title: string,
   order: number,
   fields: {string: Answer | Answer[]}
+}
+
+export interface FormPageType {
+  Title: string,
+  component: string,
+  body: {
+    steps: Step[],
+    component: string,
+    location: string,
+    name: string
+  }[]
 }
