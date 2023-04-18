@@ -33,9 +33,8 @@
       ]"
       @click="selectOption(option)"
     >
-    <!-- :src="`../../src/assets/${option.asset}`"  -->
       <img 
-        :src="`${option.asset}`" 
+        :src="`${option.asset?.filename}`" 
         class="w-4/5 transition-all duration-500 ease-in-out" 
       />
       <p class="-mt-2 transition-all delay-600 duration-500">{{ option.title }}</p>
