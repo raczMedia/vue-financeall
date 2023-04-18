@@ -49,7 +49,7 @@ export const hasPreviousStep = computed(() => {
 });
 export const stepProgress = computed(() => {
     if (! form.value) {
-      return 0;
+      return '0';
     }
 
     return ((currentStepCount.value) / form.value!.steps.length * 100).toFixed(2);
@@ -264,7 +264,7 @@ export const evaluateRequirement = (field: Field, step: Step): boolean => {
 export const getValidationStatus = () => validationStatus.value;
 export const setValidationStatus = (status: ValidationStatus) => validationStatus.value = status;
 const stepIsValidated = () => {
-  if (getStatus() === 'Verification') {
+  if (getStatus() === 'Verification' || ! currentStep.value) {
     return true;
   }
 
