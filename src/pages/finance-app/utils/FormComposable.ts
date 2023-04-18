@@ -5,40 +5,60 @@ import GroupField from '../fields/group-field.vue';
 import DropdownField from '../fields/dropdown-field.vue';
 import RadioField from '../fields/radio-field.vue';
 import ToggleField from '../fields/toggle-field.vue';
-import { Answer, AnswerStep, Field, FormTypes, Status, Step, ValidationStatus } from './formTypes';
+import { Answer, AnswerStep, Field, FormPageType, FormTypes, Status, Step, ValidationStatus } from './formTypes';
 import axios from 'axios';
 import CarLoanForm from '../car_loan_steps.json';
 import PersonalLoanForm from '../personal_loan_steps.json';
+import { toSnakeCase } from '@/composables/jsUtils';
 
 const form = ref<{steps: Step[]} | null>(null);
-const applicationType = ref<FormTypes>("Car Loan Application");
+const url = ref<string | null>(null);
+const applicationType = ref<string>("Your Form");
 const answers = ref();
 const status = ref<Status>('Progress');
 const validationStatus = ref<ValidationStatus>('Standby');
 
 export const currentStepCount = ref(0);
-export const previousStep = computed(() => form.value!.steps[currentStepCount.value - 1]);
-export const currentStep = computed(() => form.value!.steps[currentStepCount.value]);
-export const hasNextStep = computed(() => form.value!.steps[currentStepCount.value + 1] ? true : false);
-export const hasPreviousStep = computed(() => form.value!.steps[currentStepCount.value - 1] ? true : false);
+export const previousStep = computed(() => {
+  if (! form.value) {
+    return null;
+  }
+
+  return form.value!.steps[currentStepCount.value - 1]
+});
+export const currentStep = computed(() => {
+  if (! form.value) {
+    return null;
+  }
+
+  return form.value!.steps[currentStepCount.value]
+});
+export const hasNextStep = computed(() => {
+  if (! form.value) {
+    return false;
+  }
+
+  return form.value!.steps[currentStepCount.value + 1] ? true : false
+});
+export const hasPreviousStep = computed(() => {
+  if (! form.value) {
+    return false;
+  }
+  
+  return form.value.steps[currentStepCount.value - 1] ? true : false
+});
 export const stepProgress = computed(() => {
+    if (! form.value) {
+      return 0;
+    }
+
     return ((currentStepCount.value) / form.value!.steps.length * 100).toFixed(2);
 });
 
-export const useForm = (type: FormTypes) => {
-  applicationType.value = type;
-  switch (type) {
-    case "Car Loan Application":
-      form.value = CarLoanForm
-      break;
-    case "Personal Loan Application":
-      form.value = PersonalLoanForm
-      break;
-    default:
-      form.value = CarLoanForm
-      break;
-  }
-
+export const useForm = (requestForm: FormPageType) => {
+  applicationType.value = requestForm.body[0].name;
+  form.value = requestForm.body[0]
+  url.value = requestForm.body[0].location;
   currentStepCount.value = 0;
   status.value = "Progress";
   validationStatus.value = "Standby";
@@ -146,8 +166,9 @@ export const getAnswer = (
     return answers.value[step.name].fields[groupName][groupPosition].value ?? null
   }
 
-  return answers.value[step.name]?.fields[field.name]?.value ?? null
+  return answers.value[step.name]?.fields[toSnakeCase(field.label)]?.value ?? null
 }
+
 export const setAnswer = (
   step: Step, 
   field: Field, 
@@ -157,6 +178,7 @@ export const setAnswer = (
 
   const results = {
     ...field,
+    name: toSnakeCase(field.label),
     value: answer.value,
     validated: answer.validated
   };
@@ -172,7 +194,7 @@ export const setAnswer = (
     return answers.value[step.name].fields[groupName][groupPosition] = results;
   }
 
-  answers.value[step.name].fields[field.name] = results;
+  answers.value[step.name].fields[toSnakeCase(field.label)] = results;
 }
 
 // fields
@@ -201,7 +223,7 @@ export const checkStepValidation = (step: Step) => {
   const requiredFields = allFieldsForStep.filter(field => evaluateRequirement(field, step));
   const hasInvalidAnswers = answerFields!.some((field: Answer) => field.validated === false);
   
-  return hasInvalidAnswers || requiredFields.some(field => !answerFields?.find(item => item.name === field.name))
+  return hasInvalidAnswers || requiredFields.some(field => !answerFields?.find(item => item.name === toSnakeCase(field.label)))
     ? false
     : true
 }
@@ -215,25 +237,29 @@ export const simpleValidate = (value: string | number | boolean | null, field: F
   return value ? true : false;
 }
 export const evaluateRequirement = (field: Field, step: Step): boolean => {
-  if (! field.required) {
+  if (field.required === 'false') {
     return false;
   }
 
-  if (typeof field.required === "boolean") {
+  if (field.required === 'true') {
     return true;
   }
 
-  const dependantFieldName = field.required.split(":")[0];
-  const dependantFieldValue = field.required.split(":")[1];
+  if (field.required === "required-when") {
+    const dependantFieldName = field.requiredDetail!.split(":")[0];
+    const dependantFieldValue = field.requiredDetail!.split(":")[1];
 
-  const fields = getAnswerFields(step.name);
-  const dependantField = fields?.find((f) => f.name === dependantFieldName);
-  
-  if (! dependantField) {
-    return false;
+    const fields = getAnswerFields(step.name);
+    const dependantField = fields?.find((f) => toSnakeCase(f.label) === dependantFieldName);
+    
+    if (! dependantField) {
+      return false;
+    }
+
+    return dependantFieldValue.split("|").some(val => dependantField.value === val);
   }
 
-  return dependantFieldValue.split("|").some(val => dependantField.value === val);
+  return false;
 }
 export const getValidationStatus = () => validationStatus.value;
 export const setValidationStatus = (status: ValidationStatus) => validationStatus.value = status;
@@ -262,7 +288,7 @@ export const submitApplication = () => {
 
   // test de50c81a9d27
   // prod 58cc6f22c23c
-  axios.post('https://usebasin.com/f/58cc6f22c23c', data)
+  axios.post(url.value as string, data)
     .then(response => {
       if (response.status === 200) {
         console.log("success", {response});
