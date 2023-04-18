@@ -1,5 +1,6 @@
 {
-	"steps": [{
+	"steps": [
+		{
 			"title": "Car Type",
 			"name": "desired_vehicle",
 			"sections": [{
@@ -178,7 +179,8 @@
 		{
 			"title": "Contact Information",
 			"name": "contact_information",
-			"sections": [{
+			"sections": [
+				{
 				"size": "half",
 				"title": "Contact Information",
 				"fields": [
@@ -323,7 +325,7 @@
 						"label": "Phone Number ",
 						"required": true,
 						"size": "lg",
-						"placeholder": "(519) 555-5555"
+						"placeholder": "(555) 555-5555"
 					},
 					{
 						"type": "email",
@@ -340,7 +342,8 @@
 		{
 			"title": "Housing",
 			"name": "housing",
-			"sections": [{
+			"sections": [
+				{
 				"size": "half",
 				"title": "Housing",
 				"fields": [
@@ -579,85 +582,96 @@
 		{
 			"title": "Credit Rating",
 			"name": "credit_rating",
-			"sections": [{
-				"size": "half",
-				"title": "Credit Rating",
-				"fields": [{
-					"type": "radio",
-					"label": "What is your estimated credit rating",
-					"name": "credit_rating",
-					"required": true,
-					"size": "xl",
-					"placeholder": "",
-					"options": [{
-							"title": "Good (680+ Beacon Score)",
-							"value": "Good"
-						},
+			"sections": [
+				{
+					"size": "half",
+					"title": "Credit Rating",
+					"fields": [
 						{
-							"title": "Fair (550 - 679 Beacon Score)",
-							"value": "Fair"
-						},
-						{
-							"title": "Poor (440 - 549 Beacon Score)",
-							"value": "Poor"
-						},
-						{
-							"title": "Very Poor (399 or less)",
-							"value": "Very poor"
-						},
-						{
-							"title": "Current Bankruptcy or Proposal",
-							"value": "Bankruptcy"
-						},
-						{
-							"title": "No Credit",
-							"value": "No credit"
-						},
-						{
-							"title": "Not Sure",
-							"value": "Not Sure"
+							"type": "radio",
+							"label": "What is your estimated credit rating",
+							"name": "credit_rating",
+							"required": true,
+							"size": "xl",
+							"placeholder": "",
+							"options": [
+								{
+									"title": "Good (680+ Beacon Score)",
+									"value": "Good"
+								},
+								{
+									"title": "Fair (550 - 679 Beacon Score)",
+									"value": "Fair"
+								},
+								{
+									"title": "Poor (440 - 549 Beacon Score)",
+									"value": "Poor"
+								},
+								{
+									"title": "Very Poor (399 or less)",
+									"value": "Very poor"
+								},
+								{
+									"title": "Current Bankruptcy or Proposal",
+									"value": "Bankruptcy"
+								},
+								{
+									"title": "No Credit",
+									"value": "No credit"
+								},
+								{
+									"title": "Not Sure",
+									"value": "Not Sure"
+								}
+							]
 						}
 					]
-				}]
-			}]
+				}
+			]
 		},
 		{
 			"title": "Budget",
 			"name": "budget",
-			"sections": [{
-				"size": "half",
-				"title": "Budget",
-				"fields": [{
-					"type": "radio",
-					"label": "What is your monthly budget",
-					"name": "monthly_budget",
-					"required": true,
-					"size": "lg",
-					"placeholder": "",
-					"options": [{
-							"title": "Under $250 /month",
-							"value": "Under $250 /month"
-						},
-						{
-							"title": "$250 - $375 /month",
-							"value": "$250 - $375 /month"
-						},
-						{
-							"title": "$376 - $500 /month",
-							"value": "$376 - $500 /month"
-						},
-						{
-							"title": "$501+ /month",
-							"value": "$501+ /month"
-						}
+			"sections": [
+				{
+					"size": "half",
+					"title": "Budget",
+					"fields": [
+							{
+								"type": "radio",
+								"label": "What is your monthly budget",
+								"name": "monthly_budget",
+								"required": true,
+								"size": "lg",
+								"placeholder": "",
+								"options": [
+									{
+										"title": "Under $250 /month",
+										"value": "Under $250 /month"
+									},
+									{
+										"title": "$250 - $375 /month",
+										"value": "$250 - $375 /month"
+									},
+									{
+										"title": "$376 - $500 /month",
+										"value": "$376 - $500 /month"
+									},
+									{
+										"title": "$501+ /month",
+										"value": "$501+ /month"
+									}
+								]
+							}
 					]
-				}]
-			}]
+				}
+			]
 		},
 		{
 			"title": "Current Vehicle",
 			"name": "current_vehicle",
-			"sections": [{
+			"sections": [
+				{
 					"size": "half",
 					"title": "Current Vehicle",
 					"fields": [
