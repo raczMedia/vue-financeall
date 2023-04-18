@@ -69,41 +69,44 @@ export const tokenOptions = {
 };
 
 export const useForm = async (application: string) => {
+  const {content, state}: StoryblokStateType = await useStoryblokState(application, 'draft');
+  useBridge(state);
+
   const currentStepCount = ref(0);
   const previousStep = computed(() => {
-    if (! form.value) {
+    if (! content.value) {
       return null;
     }
 
-    return form.value!.steps[currentStepCount.value - 1]
+    return content.value.body[0].steps[currentStepCount.value - 1]
   });
   const currentStep = computed(() => {
-    if (! form.value) {
+    if (! content.value.body[0]) {
       return null;
     }
 
-    return form.value!.steps[currentStepCount.value]
+    return content.value.body[0].steps[currentStepCount.value]
   });
   const hasNextStep = computed(() => {
-    if (! form.value) {
+    if (! content.value.body[0]) {
       return false;
     }
 
-    return form.value!.steps[currentStepCount.value + 1] ? true : false
+    return content.value.body[0].steps[currentStepCount.value + 1] ? true : false
   });
   const hasPreviousStep = computed(() => {
-    if (! form.value) {
+    if (! content.value.body[0]) {
       return false;
     }
     
-    return form.value.steps[currentStepCount.value - 1] ? true : false
+    return content.value.body[0].steps[currentStepCount.value - 1] ? true : false
   });
   const stepProgress = computed(() => {
-      if (! form.value) {
+      if (! content.value.body[0]) {
         return '0';
       }
 
-      return ((currentStepCount.value) / form.value!.steps.length * 100).toFixed(2);
+      return ((currentStepCount.value) / content.value.body[0].steps.length * 100).toFixed(2);
   });
   const stepIsValidated = () => {
     if (getStatus() === 'Verification' || ! currentStep.value) {
@@ -157,17 +160,16 @@ export const useForm = async (application: string) => {
   }
   
 
-  const {content, state}: StoryblokStateType = await useStoryblokState(application, 'draft');
-  useBridge(state);
+  
 
   applicationType.value = content.value.body[0].name;
-  form.value = content.value.body[0]
+  
   url.value = content.value.body[0].location;
   currentStepCount.value = 0;
   status.value = "Progress";
   validationStatus.value = "Standby";
     
-  initAnswers(form.value.steps);
+  initAnswers(content.value.body[0].steps);
 
   return {
     currentStepCount,
