@@ -34,7 +34,7 @@
 
   const route = useRoute();  
 
-  watch(() => route.name, async (name) => {
+  onMounted(async () => {
     const application = route.name === 'Car Loan Application' ? 'car-loan-application' : 'personal-loan-application';
     const data: StoryblokStateType = await useStoryblokState(application, 'draft');
 
@@ -42,7 +42,7 @@
     useStoryblokBridge(data.state.story.id, (event: StoryblokEventPayload) => {
       data.state.story = event
     });
-  }, { immediate: true });
+  });
 
   const slideDirection = ref('left');
 
