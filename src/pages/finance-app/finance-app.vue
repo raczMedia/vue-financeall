@@ -23,11 +23,17 @@
 
   const route = useRoute();  
   let application = route.name === 'Car Loan Application' ? 'car-loan-application' : 'personal-loan-application';
-  watch(() => route.name, async (name) => {
-    application = route.name === 'Car Loan Application' ? 'car-loan-application' : 'personal-loan-application';
-  }, { immediate: true });
+  // watch(() => route.name, async (name) => {
+  //   application = route.name === 'Car Loan Application' ? 'car-loan-application' : 'personal-loan-application';
+  // }, { immediate: true });
 
-  const formComposable = await useForm(application)
+  interface StoryblokStateType {
+  content: ComputedRef<FormPageType>
+  state: ShallowReactive<{story: LooseObject}>
+}
+  const {content, state}: StoryblokStateType = await useStoryblokState(application, 'draft');
+  useBridge(state);
+  const formComposable = await useForm(content)
 
   const slideDirection = ref('left');
 

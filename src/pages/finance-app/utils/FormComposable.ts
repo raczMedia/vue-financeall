@@ -19,10 +19,6 @@ const answers = ref();
 const status = ref<Status>('Progress');
 const validationStatus = ref<ValidationStatus>('Standby');
 
-interface StoryblokStateType {
-  content: ComputedRef<FormPageType>
-  state: ShallowReactive<{story: LooseObject}>
-}
 
 // options
 export const sizeOptions = {
@@ -68,10 +64,7 @@ export const tokenOptions = {
   number: 'Z:[0-9]:multiple',
 };
 
-export const useForm = async (application: string) => {
-  const {content, state}: StoryblokStateType = await useStoryblokState(application, 'draft');
-  useBridge(state);
-
+export const useForm = async (content: ComputedRef<FormPageType>) => {
   const currentStepCount = ref(0);
   const previousStep = computed(() => {
     if (! content.value) {
