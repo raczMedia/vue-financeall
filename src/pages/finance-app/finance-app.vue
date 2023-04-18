@@ -76,7 +76,7 @@
         @click=" goToPreviousStep()"
       >
         <font-awesome-icon icon="fa-solid fa-arrow-left" size="xs" />
-        <span v-if="formComposable.previousStep" class="pl-1 text-sm">Back to {{ formComposable.previousStep.title }}</span>
+        <span v-if="formComposable.previousStep" class="pl-1 text-sm">Back to {{ formComposable.previousStep.value?.title }}</span>
       </button>
 
       <div class="flex gap-4 relative overflow-x-hidden pb-12 min-h-[500px]">
