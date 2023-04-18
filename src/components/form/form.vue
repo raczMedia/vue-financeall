@@ -62,12 +62,12 @@
       <!-- hide when formStatus === 'Submitted'"  -->
       <button 
         class="text-gray-400 font-medium hover:text-fa-blue hover:font-bold" 
-        :class="{'opacity-0': ! formComposable.hasPreviousStep}"
-        :disable="! formComposable.hasPreviousStep" 
+        :class="{'opacity-0': ! formComposable.hasPreviousStep.value}"
+        :disable="! formComposable.hasPreviousStep.value" 
         @click=" goToPreviousStep()"
       >
         <font-awesome-icon icon="fa-solid fa-arrow-left" size="xs" />
-        <span v-if="formComposable.previousStep" class="pl-1 text-sm">Back to {{ formComposable.previousStep.value?.title }}</span>
+        <span v-if="formComposable.previousStep.value" class="pl-1 text-sm">Back to {{ formComposable.previousStep.value?.title }}</span>
       </button>
 
       <div class="flex gap-4 relative overflow-x-hidden pb-12 min-h-[500px]">
