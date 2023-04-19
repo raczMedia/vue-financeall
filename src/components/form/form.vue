@@ -8,6 +8,7 @@
   import SubmittedStep from './partials/submitted-step.vue';
   import VerificationStep from './partials/verification-step.vue';
   import ProgressBar from './partials/progress-bar.vue';
+  
   import { FormPageType } from './utils/formTypes';
   import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
   import { LooseObject } from '@/composables/jsUtils';
@@ -19,10 +20,10 @@
     content: ComputedRef<FormPageType>
     state: ShallowReactive<{story: LooseObject}>
   }
-  const {content, state}: StoryblokStateType = await useStoryblokState(props.application, 'draft');
+  const {state}: StoryblokStateType = await useStoryblokState(props.application, 'draft');
   useBridge(state);
 
-  const formComposable = await useForm(content);
+  const formComposable = await useForm(state.story.content);
   const slideDirection = ref('left');
 
   const goToNextStep = async () => {

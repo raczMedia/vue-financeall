@@ -65,6 +65,7 @@ export const tokenOptions = {
 export const useForm = async (content: ComputedRef<FormPageType>) => {
   const status = ref<Status>('Progress');
   const currentStepCount = ref(0);
+
   const previousStep = computed(() => {
     if (! content.value) {
       return null;
@@ -100,6 +101,7 @@ export const useForm = async (content: ComputedRef<FormPageType>) => {
 
       return ((currentStepCount.value) / content.value.body[0].steps.length * 100).toFixed(2);
   });
+  
   const stepIsValidated = () => {
     if (status.value === 'Verification' || ! currentStep.value) {
       return true;
@@ -107,7 +109,6 @@ export const useForm = async (content: ComputedRef<FormPageType>) => {
   
     return checkStepValidation(currentStep.value);
   }
-  // form navigation
   const toNextStep = async () => {
     if (! stepIsValidated()) {
       return setValidationStatus('Error');
