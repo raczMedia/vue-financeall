@@ -16,24 +16,24 @@
   const props = defineProps<{ application: string }>();
   const route = useRoute();  
 
-  interface StoryblokStateType {
-    content: ComputedRef<FormPageType>
-    state: ShallowReactive<{story: LooseObject}>
-  }
-  const { state, content }: StoryblokStateType = await useStoryblokState(props.application, 'draft');
+  // interface StoryblokStateType {
+  //   content: ComputedRef<FormPageType>
+  //   state: ShallowReactive<{story: LooseObject}>
+  // }
+  const { state, content } = await useStoryblokState(props.application, 'draft');
   useBridge(state);
 
-  const formComposable = await useForm(state.story.content);
-  const slideDirection = ref('left');
+  // const formComposable = await useForm(state.story.content);
+  // const slideDirection = ref('left');
 
-  const goToNextStep = async () => {
-    slideDirection.value = 'left';
-    formComposable.toNextStep();
-  }
-  const goToPreviousStep = () => {
-    slideDirection.value = 'right';
-    formComposable.toPreviousStep()
-  }
+  // const goToNextStep = async () => {
+  //   slideDirection.value = 'left';
+  //   formComposable.toNextStep();
+  // }
+  // const goToPreviousStep = () => {
+  //   slideDirection.value = 'right';
+  //   formComposable.toPreviousStep()
+  // }
 </script>
 
 <template>
