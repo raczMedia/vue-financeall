@@ -62,44 +62,44 @@ export const tokenOptions = {
   number: 'Z:[0-9]:multiple',
 };
 
-export const useForm = async (content: ComputedRef<FormPageType>) => {
+export const useForm = async (content: FormPageType) => {
   const status = ref<Status>('Progress');
   const currentStepCount = ref(0);
 
   const previousStep = computed(() => {
-    if (! content.value) {
+    if (! content) {
       return null;
     }
 
-    return content.value.body[0].steps[currentStepCount.value - 1]
+    return content.body[0].steps[currentStepCount.value - 1]
   });
   const currentStep = computed(() => {
-    if (! content.value.body[0]) {
+    if (! content.body[0]) {
       return null;
     }
 
-    return content.value.body[0].steps[currentStepCount.value]
+    return content.body[0].steps[currentStepCount.value]
   });
   const hasNextStep = computed(() => {
-    if (! content.value.body[0]) {
+    if (! content.body[0]) {
       return false;
     }
 
-    return content.value.body[0].steps[currentStepCount.value + 1] ? true : false
+    return content.body[0].steps[currentStepCount.value + 1] ? true : false
   });
   const hasPreviousStep = computed(() => {
-    if (! content.value.body[0]) {
+    if (! content.body[0]) {
       return false;
     }
     
-    return content.value.body[0].steps[currentStepCount.value - 1] ? true : false
+    return content.body[0].steps[currentStepCount.value - 1] ? true : false
   });
   const stepProgress = computed(() => {
-      if (! content.value.body[0]) {
+      if (! content.body[0]) {
         return '0';
       }
 
-      return ((currentStepCount.value) / content.value.body[0].steps.length * 100).toFixed(2);
+      return ((currentStepCount.value) / content.body[0].steps.length * 100).toFixed(2);
   });
   
   const stepIsValidated = () => {
@@ -149,14 +149,14 @@ export const useForm = async (content: ComputedRef<FormPageType>) => {
   }
   const setStatus = (newVal: Status) => status.value = newVal;
 
-  applicationType.value = content.value.body[0].name;
+  applicationType.value = content.body[0].name;
   
-  url.value = content.value.body[0].location;
+  url.value = content.body[0].location;
   currentStepCount.value = 0;
   status.value = "Progress";
   validationStatus.value = "Standby";
     
-  initAnswers(content.value.body[0].steps);
+  initAnswers(content.body[0].steps);
 
   return {
     currentStepCount,
