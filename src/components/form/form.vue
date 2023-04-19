@@ -13,15 +13,13 @@
   import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
   import { LooseObject } from '@/composables/jsUtils';
 
-  const props = defineProps<{ application: string }>();
-  const route = useRoute();  
+  const props = defineProps<{ content: LooseObject }>();
 
   // interface StoryblokStateType {
   //   content: ComputedRef<FormPageType>
   //   state: ShallowReactive<{story: LooseObject}>
   // }
-  const { state, content } = await useStoryblokState(props.application, 'draft');
-  useBridge(state);
+  
 
   // const formComposable = await useForm(state.story.content);
   // const slideDirection = ref('left');
