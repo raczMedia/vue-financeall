@@ -39,7 +39,7 @@
 <template>
   <div class="flex-grow px-8 lg:px-32 py-32 relative">
     <div>Hi There</div>
-    <div>{{ content.body[0].name }}</div>
+    <div>{{ content.Title }}</div>
   </div>
 </template>
 
