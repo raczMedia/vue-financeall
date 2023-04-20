@@ -59,7 +59,7 @@ export const tokenOptions = {
   number: 'Z:[0-9]:multiple',
 };
 
-export const useForm = async (content: FormPageType) => {
+export const useForm = (content: FormPageType) => {
   const status = ref<Status>('Progress');
   const currentStepCount = ref(0);
 
@@ -121,7 +121,7 @@ export const useForm = async (content: FormPageType) => {
     }
   
     if (status.value === 'Verification') {
-      await submitApplication();
+      submitApplication();
   
       return setStatus('Submitted');
     }
@@ -170,9 +170,6 @@ export const useForm = async (content: FormPageType) => {
     goToStep,
   }
 }
-
-
-// Form status
 
 // groups
 const getGroupName = (field: Required<Field>) => field.group.split("[")[0];
