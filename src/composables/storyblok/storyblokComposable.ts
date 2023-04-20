@@ -29,7 +29,7 @@ export async function useStoryblokState(story, passedMode = "published") {
 export async function useBridge(state) {
     onMounted(() => {
         useStoryblokBridge(state.story.id, (event: StoryblokEventPayload) => {
-            state = { ...state, story: event }
+            state.story = event
         })
     })
 }
