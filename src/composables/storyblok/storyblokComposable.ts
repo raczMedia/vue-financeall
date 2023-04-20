@@ -5,10 +5,11 @@ import { LooseObject } from '../jsUtils';
 
 export async function useStoryblokState(story: string, passedMode: string = "published") {
     const storyblokApi = useStoryblokApi();
-
+    
     const mode = location.href.includes('draft--')
         ? 'draft'
         : passedMode;
+        // : import.meta.env.VITE_STORYBLOK_MODE || passedMode;
 
     const { data } = await storyblokApi.get(`cdn/stories/${story}`, {
         version: mode,
