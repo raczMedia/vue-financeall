@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { computed, ref } from 'vue';
   import { useForm } from './utils/FormComposable';
-  
-  import ProgressStep from './partials/progress-step.vue';
-  import SubmittedStep from './partials/submitted-step.vue';
-  import VerificationStep from './partials/verification-step.vue';
-  
   import { FormPageType } from './utils/formTypes';
 
+  import ProgressStep from '@/components/form/partials/progress-step.vue';
+  import SubmittedStep from '@/components/form/partials/submitted-step.vue';
+  import VerificationStep from '@/components/form/partials/verification-step.vue';
+  import SlideTransition from '@/components/form/partials/slideTransition.vue';
+  
   const props = defineProps<{ content: FormPageType }>();
   const form = useForm(props.content);
   
@@ -38,65 +38,26 @@
         <span v-if="form.previousStep.value" class="pl-1 text-sm">Back to {{ form.previousStep.value?.title }}</span>
       </button>
 
-      <div class="flex gap-4 relative overflow-x-hidden pb-12 min-h-[500px]" v-if="form.currentStep.value">
-        <transition-group :name="slideDirection === 'right' ? 'slide-fade-right' : 'slide-fade-left'">
+      <div
+        class="flex gap-4 relative overflow-x-hidden pb-12 min-h-[500px]" 
+      >
+        <SlideTransition :slideDirection="slideDirection">
           <VerificationStep 
             v-if="form.status.value === 'Verification'" 
             @goTo="index => form.goToStep(index)" 
           />          
-          
           <SubmittedStep 
             v-if="form.status.value === 'Submitted'" 
           />
-          
-          <template v-if="form.status.value === 'Submitted'">
-            <ProgressStep 
-              v-for="section in form.currentStep.value.sections" 
-              :key="`step-${section.title}`" 
-              :currentStep="form.currentStep.value" 
-              :section="section" 
-              :class="form.currentStep.value.sections.length === 2 ? 'w-1/2' : 'w-full'"
-            />          
-          </template>
-        </transition-group>
+          <ProgressStep 
+            v-if="form.status.value === 'Progress' && form.currentStep.value"
+            :currentStep="form.currentStep.value"
+            :slideDirection="slideDirection"
+          />          
+        </SlideTransition>
       </div>
     </section>
     
     <slot name="after" :form="form" :goToNextStep="goToNextStep" />
   </div>
 </template>
-
-<style scoped>
-    .section-0,
-    .section-1 {
-        transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
-    }
-    .slide-fade-left-enter-active.section-1,
-    .slide-fade-right-enter-active.section-1{
-        position: absolute;
-        left: 50%;
-    }
-
-    .slide-fade-left-leave-active ,
-    .slide-fade-right-leave-active{
-        position: absolute;
-        
-    }
-
-    .slide-fade-right-enter-from {
-        transform: translateX(-10%);
-        opacity: 0;
-    }
-    .slide-fade-left-enter-from {
-        transform: translateX(10%);
-        opacity: 0;
-    }
-    .slide-fade-right-leave-to {
-        transform: translateX(10%);
-        opacity: 0;
-    }
-    .slide-fade-left-leave-to {
-        transform: translateX(-10%);
-        opacity: 0;
-    }
-</style>
