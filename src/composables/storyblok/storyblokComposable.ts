@@ -1,6 +1,7 @@
-import { reactive, computed, onMounted } from 'vue';
 // @ts-ignore
 import { useStoryblokBridge, useStoryblokApi, StoryblokEventPayload } from "@storyblok/vue";
+import { reactive, computed, onMounted } from 'vue';
+import { LooseObject } from '../jsUtils';
 
 export async function useStoryblokState(story: string, passedMode: string = "published") {
     const storyblokApi = useStoryblokApi();
@@ -21,20 +22,13 @@ export async function useStoryblokState(story: string, passedMode: string = "pub
         return state.story.content;
     })
 
-
-    useStoryblokBridge(state.story.id, (event: StoryblokEventPayload) => {
-        state.story = event
-    })
-
     return { state, content };
 }
 
-// @ts-ignore
-export async function useBridge(state) {
-//     onMounted(() => {
-//         useStoryblokBridge(state.story.id, (event: StoryblokEventPayload) => {
-//             state.story = event
-//         })
-//     })
-    console.log(state)
+export async function useBridge(state: LooseObject) {
+    onMounted(() => {
+        useStoryblokBridge(state.story.id, (event: StoryblokEventPayload) => {
+            state.story = event
+        })
+    })
 }
