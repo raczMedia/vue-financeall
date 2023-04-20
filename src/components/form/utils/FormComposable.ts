@@ -9,9 +9,6 @@ import { Answer, AnswerStep, Field, FormPageType, Status, Step, ValidationStatus
 import axios from 'axios';
 import { toSnakeCase } from '@/composables/jsUtils';
 
-import CarLoanForm from '@/components/form/car_loan_steps.json';
-import PersonalLoanForm from '@/components/form/personal_loan_steps.json';
-
 const url = ref<string | null>(null);
 const applicationType = ref<string>("Your Form");
 const answers = ref();
