@@ -8,8 +8,7 @@
 </script>
 
 <template>
-  {{ content.Title }}
-  <!-- <Form :content="content" class="flex-grow px-8 lg:px-32 py-32 relative" content-class="relative">
+  <Form :content="content" class="flex-grow px-8 lg:px-32 py-32 relative" content-class="relative">
     <template #before="{ form }">
       <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-4/5 h-full"></div>
       <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-full h-full"></div>
@@ -51,5 +50,5 @@
         </small>
       </div>
     </template>
-  </Form> -->
+  </Form>
 </template>

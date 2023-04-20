@@ -18,12 +18,12 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/car-loan-application",
-    name: "Car Loan Application",
+    name: "car-loan-application",
     component: CarLoanApp,
   },
   {
     path: "/personal-loan-application",
-    name: "Personal Loan Application",
+    name: "personal-loan-application",
     component: PersonalLoanApp,
   },
   {
