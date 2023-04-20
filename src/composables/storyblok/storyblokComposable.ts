@@ -8,8 +8,7 @@ export async function useStoryblokState(story: string, passedMode: string = "pub
     
     const mode = location.href.includes('draft--')
         ? 'draft'
-        : passedMode;
-        // : import.meta.env.VITE_STORYBLOK_MODE || passedMode;
+        : import.meta.env.VITE_STORYBLOK_MODE || passedMode;
 
     const { data } = await storyblokApi.get(`cdn/stories/${story}`, {
         version: mode,
