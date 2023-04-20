@@ -9,10 +9,10 @@
   import { FormPageType } from './utils/formTypes';
 
   const props = defineProps<{ content: FormPageType }>();
-  const form = await useForm(props.content);
+  const form = useForm(props.content);
   
   const slideDirection = ref('left');
-  const goToNextStep = async () => {
+  const goToNextStep = () => {
     slideDirection.value = 'left';
     form.toNextStep();
   }
@@ -46,16 +46,18 @@
           />          
           
           <SubmittedStep 
-            v-else-if="form.status.value === 'Submitted'" 
+            v-if="form.status.value === 'Submitted'" 
           />
-          <ProgressStep 
-            v-else
-            v-for="section in form.currentStep.value.sections" 
-            :key="`step-${section.title}`" 
-            :currentStep="form.currentStep.value" 
-            :section="section" 
-            :class="form.currentStep.value.sections.length === 2 ? 'w-1/2' : 'w-full'"
-          />          
+          
+          <template v-if="form.status.value === 'Submitted'">
+            <ProgressStep 
+              v-for="section in form.currentStep.value.sections" 
+              :key="`step-${section.title}`" 
+              :currentStep="form.currentStep.value" 
+              :section="section" 
+              :class="form.currentStep.value.sections.length === 2 ? 'w-1/2' : 'w-full'"
+            />          
+          </template>
         </transition-group>
       </div>
     </section>
