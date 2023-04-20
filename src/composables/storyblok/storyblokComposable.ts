@@ -29,11 +29,12 @@ export async function useStoryblokState(story: string, passedMode: string = "pub
     return { state, content };
 }
 
-// // @ts-ignore
-export async function useBridge() {
+// @ts-ignore
+export async function useBridge(state) {
 //     onMounted(() => {
 //         useStoryblokBridge(state.story.id, (event: StoryblokEventPayload) => {
 //             state.story = event
 //         })
 //     })
+    console.log(state)
 }
