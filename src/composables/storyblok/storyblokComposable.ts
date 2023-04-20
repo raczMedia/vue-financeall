@@ -2,8 +2,7 @@ import { reactive, computed, onMounted } from 'vue';
 // @ts-ignore
 import { useStoryblokBridge, useStoryblokApi, StoryblokEventPayload } from "@storyblok/vue";
 
-// @ts-ignore
-export async function useStoryblokState(story, passedMode = "published") {
+export async function useStoryblokState(story: string, passedMode: string = "published") {
     const storyblokApi = useStoryblokApi();
 
     const mode = location.href.includes('draft--')
@@ -22,14 +21,19 @@ export async function useStoryblokState(story, passedMode = "published") {
         return state.story.content;
     })
 
+
+    useStoryblokBridge(state.story.id, (event: StoryblokEventPayload) => {
+        state.story = event
+    })
+
     return { state, content };
 }
 
-// @ts-ignore
+// // @ts-ignore
 export async function useBridge(state) {
-    onMounted(() => {
-        useStoryblokBridge(state.story.id, (event: StoryblokEventPayload) => {
-            state.story = event
-        })
-    })
+//     onMounted(() => {
+//         useStoryblokBridge(state.story.id, (event: StoryblokEventPayload) => {
+//             state.story = event
+//         })
+//     })
 }

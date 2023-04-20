@@ -3,7 +3,7 @@
   import SubmitButton from '@/components/form/partials/submit-button.vue';
   import ProgressBar from '@/components/form/partials/progress-bar.vue';
   import { FormPageType } from '@/components/form/utils/formTypes';
-
+  
   defineProps<{ content: FormPageType }>();
 </script>
 

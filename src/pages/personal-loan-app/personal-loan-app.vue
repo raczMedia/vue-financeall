@@ -4,8 +4,8 @@
   import FinanceApplication from '@/components/FinanceApplication.vue';
 
   const { state, content }: StoryblokStateType = await useStoryblokState("personal-loan-application", 'draft');
-  useBridge(state);
+  // useBridge(state);
 </script>
 <template>
-  <FinanceApplication v-editable="content" :content="content" />
+  <FinanceApplication :content="content" />
 </template>
