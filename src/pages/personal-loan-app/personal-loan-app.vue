@@ -7,5 +7,5 @@
   useBridge(state);
 </script>
 <template>
-  <FinanceApplication :content="content" />
+  <FinanceApplication v-editable="content" :content="content" />
 </template>
