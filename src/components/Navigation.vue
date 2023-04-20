@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
+  import { useBridge, useStoryblokState } from '@/composables/storyblok/storyblokComposable';
   import { useRoute } from 'vue-router';
   import { computed, ref, onBeforeMount, onUnmounted, onMounted, watch } from 'vue';
   import { scrollToElement } from '@/composables/scrollToElementComposable';

@@ -6,7 +6,7 @@
   import Bullets from './partials/Bullets.vue';
   import Reviews from './partials/Reviews.vue';
   import Contact from './partials/Contact.vue';
-  import { useStoryblokState, useBridge } from '@/composables/storyblokComposable';
+  import { useStoryblokState, useBridge } from '@/composables/storyblok/storyblokComposable';
   import { scrollToElement } from '@/composables/scrollToElementComposable';
   import { LooseObject } from '@/composables/jsUtils';
   

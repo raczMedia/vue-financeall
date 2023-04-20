@@ -1,10 +1,11 @@
 <script lang='ts' setup>
-  import Form from '@/components/form/form.vue';
-  import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
+  import { useBridge, useStoryblokState } from '@/composables/storyblok/storyblokComposable';
+  import { StoryblokStateType } from '@/composables/storyblok/storyblok.types';
+  import FinanceApplication from '@/components/FinanceApplication.vue';
 
-  const { state, content } = await useStoryblokState("personal-loan-application", 'draft');
+  const { state, content }: StoryblokStateType = await useStoryblokState("personal-loan-application", 'draft');
   useBridge(state);
 </script>
 <template>
-  <Form :content="content" />
+  <FinanceApplication :content="content" />
 </template>
