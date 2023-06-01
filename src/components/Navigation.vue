@@ -65,7 +65,7 @@
       <img 
         class="w-[125px]"
         aria-label="Navigation Logo"
-        src="https://a.storyblok.com/f/155950/x/0726342c27/financeall-logo.svg" 
+        src="https://a.storyblok.com/f/155950/218x32/6135bff94b/financifi-logo-default.svg" 
       />
       <div 
         class="flex items-center lg:hidden gap-1 font-semibold flex-grow justify-end cursor-pointer text-lg" 
@@ -87,14 +87,14 @@
             <div
               v-if="route.name === 'Home'"
               @click="scrollTo('#contact')"
-              class="pb-1 link cursor-pointer border-b border-transparent hover:border-fa-secondary-blue transition-all duration-200"
+              class="link cursor-pointer border-b border-transparent hover:border-fa-secondary-blue transition-all duration-200"
             >
               Contact
             </div>
             <router-link 
               v-else
               to="/?contact=true"
-              class="pb-1 link cursor-pointer border-b border-transparent hover:border-fa-secondary-blue transition-all duration-200"
+              class="link cursor-pointer border-b border-transparent hover:border-fa-secondary-blue transition-all duration-200"
             >
               {{ link.title }}
             </router-link>
@@ -102,7 +102,7 @@
           <router-link 
             v-else
             :to="link.address"
-            class="pb-1 link cursor-pointer border-b border-transparent hover:border-fa-secondary-blue transition-all duration-200"
+            class="link cursor-pointer border-b border-transparent hover:border-fa-secondary-blue transition-all duration-200"
           >
             {{ link.title }}
           </router-link>
