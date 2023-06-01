@@ -26,7 +26,6 @@
                 {{ props.content.title }}
             </p>
             <div class="flex gap-2 items-center pt-4">
-                <img :src="props.content?.all_image.filename" alt="" class="w-12 lg:w-auto">
                 <p class="font-bold text-fa-blue text-3xl lg:text-5xl">
                     {{ props.content.title_line_2 }}
                 </p>
