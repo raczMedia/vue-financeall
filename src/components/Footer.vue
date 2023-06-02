@@ -16,21 +16,21 @@
         ">
             <section class="
                 flex flex-col gap-8 mb-8 
-                md:gap-0 md:mb-0
+                md:gap-0 md:mb-0 justify-between
             ">
                 <img 
                     :src="content?.logo?.filename" 
                     alt="" 
-                    class="flex-grow-0 self-start"
+                    class="w-[140px] flex-grow-0 self-start mb-8"
                 />
-                <p class="text-gray-400 flex-grow flex items-end">
+                <p class="text-gray-400">
                     {{ content.copyright }}
                 </p>
             </section>
-            <section class="flex flex-col">
+            <section class="flex flex-col w-1/2">
                 <ul class="
                     flex flex-col gap-4 text-gray-300
-                    md:flex-row
+                    md:flex-row pt-2
                 ">
                     <li 
                         v-for="(link, linkIndex) in content.links" 
@@ -49,26 +49,6 @@
                         md:gap-0"
                     >
                         <li 
-                            v-for="(social, socialIndex) in content.socials" 
-                            :key="`footer-socials-${socialIndex}`"
-                            class="
-                                flex gap-4
-                                md:justify-between 
-                            "
-                        >
-                            <span>
-                                <font-awesome-icon :icon="`fa-brands fa-${social.icon}`" />
-                            </span>
-                            <p class="text-gray-300">
-                                {{ social.title }}
-                            </p>
-                        </li>
-                    </ul>
-                    <ul class="
-                        flex flex-col gap-4 
-                        md:gap-0"
-                    >
-                        <li 
                             v-for="(contacts, contactsIndex) in content.contacts" 
                             :key="`footer-contacts-${contactsIndex}`"
                             class="
@@ -80,6 +60,18 @@
                             </span>
                             <p class="text-gray-300">
                                 {{ contacts.title }}
+                            </p>
+                        </li>
+                        <li 
+                            v-for="(social, socialIndex) in content.socials" 
+                            :key="`footer-socials-${socialIndex}`"
+                            class="flex gap-4"
+                        >
+                            <span>
+                                <font-awesome-icon :icon="`fa-brands fa-${social.icon}`" />
+                            </span>
+                            <p class="text-gray-300">
+                                {{ social.title }}
                             </p>
                         </li>
                     </ul>
