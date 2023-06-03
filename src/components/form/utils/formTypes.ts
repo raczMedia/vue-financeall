@@ -1,3 +1,5 @@
+import { LooseObject } from "@/composables/jsUtils";
+
 export interface Option {
   value: string | boolean,
   title: string,
@@ -25,7 +27,8 @@ export interface Field {
   options?: Option[],
   items?: Field[],
   required: boolean | string,
-  requiredDetail?: string
+  requiredDetail?: string,
+  meta?: LooseObject
 }
 export interface Section {
   size: string, 

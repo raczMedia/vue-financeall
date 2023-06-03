@@ -10,7 +10,7 @@
   }
 
   const props = defineProps<Props>();
-  const emits = defineEmits(['update:isValidated']);
+  const emits = defineEmits(['update:isValidated', 'nextStep']);
 
   const answer = computed(() => getAnswer(props.currentStep, props.field))
 
@@ -27,6 +27,7 @@
       :value="answer" 
       :class="getClass(field)"
       @input="setAnswer(props.currentStep, props.field, $event)" 
+      @nextStep="$emit('nextStep')"
     />
   </FieldWrapper>
 </template>

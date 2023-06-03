@@ -9,15 +9,16 @@
   }
 
   const props = defineProps<Props>();
+  defineEmits(['nextStep'])
 </script>
 
 <template>
-  <div>
+  <div class="w-full">
     <SlideTransition :slideDirection="slideDirection">
       <section 
         v-for="section in currentStep.sections" 
         :key="`step-${section.title}`" 
-        class="transiiton-all duration-500 flex-shrink-0 flex-grow-0"
+        class="transiiton-all duration-500 flex-shrink-0"
         :class="currentStep.sections.length === 2 ? 'w-1/2' : 'w-full'"
       >
         <h2 class="text-xl font-bold text-fa-blue mb-8 select-none">{{ section.title }}</h2>
@@ -27,6 +28,7 @@
             :key="`${section.title}-field-${fieldIndex}`"
             :field="field" 
             :currentStep="currentStep"
+            @nextStep="$emit('nextStep')"
           />
         </div>
       </section>

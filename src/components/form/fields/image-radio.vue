@@ -1,6 +1,7 @@
 <script lang="ts" setup>
   import { Field, Step, Option } from '../utils/formTypes';
   import { simpleValidate } from '../utils/FormComposable';
+import { ref } from 'vue';
 
   interface Props {
     field: Field,
@@ -8,16 +9,21 @@
     value: string | null
   }
 
+  const selected = ref(false);
   const props = defineProps<Props>();
-  const emit = defineEmits(['input']);
-  const selectOption = (option: Option) => emit(
-    'input', 
-    {value: option.value, validated: simpleValidate(option.value as string, props.field, props.currentStep)}
-  );
+  const emit = defineEmits(['input', 'nextStep']);
+  const selectOption = (option: Option) => {
+    emit('input', {
+      value: option.value, 
+      validated: simpleValidate(option.value as string, props.field, props.currentStep)
+    });
+    setTimeout(() => emit('nextStep'), 400)
+    selected.value = true;
+  }
 </script>
 
 <template>
-  <div class="grid grid-cols-5 gap-2 select-none">
+  <div class="grid grid-cols-4 w-full gap-4 select-none">
     <div 
       v-for="option in field.options"
       :key="`image-${option.value}`"
@@ -28,8 +34,10 @@
         transition-all duration-300
       "
       :class="[
-        {'shadow-lg bg-fa-blue/30 font-bold': value === option.value},
+        {'shadow-lg bg-fa-blue text-white font-bold': value === option.value},
         {'bg-fa-blue/10 hover:bg-fa-blue/20 font-medium': value !== option.value},
+        {'transform -translate-x-10 opacity-0': selected && value !== option.value},
+        {'delay-300 -translate-x-10 opacity-0': selected && value === option.value},
       ]"
       @click="selectOption(option)"
     >
@@ -37,7 +45,7 @@
         :src="`${option.asset?.filename}`" 
         class="w-4/5 transition-all duration-500 ease-in-out" 
       />
-      <p class="-mt-2 transition-all delay-600 duration-500">{{ option.title }}</p>
+      <p>{{ option.title }}</p>
     </div>
   </div>
 </template>

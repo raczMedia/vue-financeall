@@ -37,7 +37,7 @@
     <template #after="{ form, goToNextStep }">
       <div class="flex items-center gap-4">
         <SubmitButton 
-          v-if="form.status.value !== 'Submitted'"
+          v-if="form.status.value !== 'Submitted' && form.currentStep.value?.name !== 'desired_vehicle'"
           :text="form.status.value === 'Verification' ? 'Submit' : 'Next'"
           :icon="form.status.value === 'Verification' ? 'fa-envelope' : 'fa-arrow-right'"
           icon-size="xs"

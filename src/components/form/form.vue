@@ -39,7 +39,7 @@
       </button>
 
       <div
-        class="flex gap-4 relative overflow-x-hidden pb-12 min-h-[500px]" 
+        class="flex gap-4 relative overflow-x-hidden pb-12" 
       >
         <SlideTransition :slideDirection="slideDirection">
           <VerificationStep 
@@ -53,6 +53,7 @@
             v-if="form.status.value === 'Progress' && form.currentStep.value"
             :currentStep="form.currentStep.value"
             :slideDirection="slideDirection"
+            @nextStep="goToNextStep"
           />          
         </SlideTransition>
       </div>
