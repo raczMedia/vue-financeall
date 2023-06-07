@@ -28,7 +28,7 @@ export interface Field {
   items?: Field[],
   required: boolean | string,
   requiredDetail?: string,
-  meta?: LooseObject
+  progressOnSelect: Boolean
 }
 export interface Section {
   size: string, 

@@ -17,8 +17,17 @@ import { ref } from 'vue';
       value: option.value, 
       validated: simpleValidate(option.value as string, props.field, props.currentStep)
     });
-    setTimeout(() => emit('nextStep'), 400)
-    selected.value = true;
+    console.log(
+      props.field,
+      props.field.required,
+      props.field.progressOnSelect
+    )
+
+    if (props.field.progressOnSelect) {
+      console.log('happened')
+      setTimeout(() => emit('nextStep'), 400)
+      selected.value = true;
+    }
   }
 </script>
 
