@@ -1,11 +1,9 @@
 <script lang="ts" setup>
   import { Ref, ref } from 'vue';
-  import { LooseObject } from '../../../composables/jsUtils';
+  import { LooseObject } from '@/composables/jsUtils';
   import axios from 'axios';
 
-  const props = defineProps({
-      content: Object
-  })
+  const props = defineProps<{content: LooseObject}>()
 
   const answers = ref(props.content!.fields);
   type Formstatus = "Standby" | "Sending" | "Sent";

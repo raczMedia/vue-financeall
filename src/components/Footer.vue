@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
+  import { useBridge, useStoryblokState } from '@/composables/storyblok/storyblokComposable';
     
   // data from storyblok
   const {content, state} = await useStoryblokState('footer');

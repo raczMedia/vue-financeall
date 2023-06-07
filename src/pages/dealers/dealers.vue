@@ -1,7 +1,7 @@
 <script lang='ts' setup>
   import { computed, onBeforeMount, ref, watch } from 'vue';
   import { Ref } from "vue";
-  import { useBridge, useStoryblokState } from '@/composables/storyblokComposable';
+  import { useBridge, useStoryblokState } from '@/composables/storyblok/storyblokComposable';
   import { LooseObject } from '@/composables/jsUtils';
   import axios from 'axios';
   import { vMaska } from "maska";

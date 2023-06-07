@@ -20,13 +20,14 @@
   <div class="flex flex-col rounded-lg p-1" :class="[
     {'w-full p-0': field.type === 'row'},
     {'p-0': field.type === 'batch'},
+    field.type !== 'row' && field.type !== 'batch' ? getFieldSizing(field) : '',
     errorrStatus ? 'bg-red-100' : 'border-transparent'
   ]">
     <label 
-      v-if="field.label?.length" 
+      v-if="field.showLabel" 
       class="font-medium" 
       :class="[
-        // getFieldSizing(field),
+        getFieldSizing(field),
         {'pt-1 -mb-1': field.type === 'batch'},
         {'pl-1': field.type === 'row' || field.type === 'batch'},
       ]"

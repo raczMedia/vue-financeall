@@ -1,14 +1,14 @@
-import { reactive, computed, onMounted } from 'vue';
 // @ts-ignore
 import { useStoryblokBridge, useStoryblokApi, StoryblokEventPayload } from "@storyblok/vue";
+import { reactive, computed, onMounted } from 'vue';
+import { LooseObject } from '../jsUtils';
 
-// @ts-ignore
-export async function useStoryblokState(story, passedMode = "published") {
+export async function useStoryblokState(story: string, passedMode: string = "published") {
     const storyblokApi = useStoryblokApi();
-
+    
     const mode = location.href.includes('draft--')
         ? 'draft'
-        : passedMode;
+        : import.meta.env.VITE_STORYBLOK_MODE || passedMode;
 
     const { data } = await storyblokApi.get(`cdn/stories/${story}`, {
         version: mode,
@@ -25,8 +25,7 @@ export async function useStoryblokState(story, passedMode = "published") {
     return { state, content };
 }
 
-// @ts-ignore
-export async function useBridge(state) {
+export async function useBridge(state: LooseObject) {
     onMounted(() => {
         useStoryblokBridge(state.story.id, (event: StoryblokEventPayload) => {
             state.story = event

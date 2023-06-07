@@ -1,50 +1,19 @@
-import { ref, computed } from 'vue';
+import { ref, computed, ComputedRef, ShallowReactive } from 'vue';
 import ImageRadio from '../fields/image-radio.vue';
 import TextField from '../fields/text-field.vue';
 import GroupField from '../fields/group-field.vue';
 import DropdownField from '../fields/dropdown-field.vue';
 import RadioField from '../fields/radio-field.vue';
 import ToggleField from '../fields/toggle-field.vue';
-import { Answer, AnswerStep, Field, FormTypes, Status, Step, ValidationStatus } from './formTypes';
+import { Answer, AnswerStep, Field, FormPageType, Status, Step, ValidationStatus } from './formTypes';
 import axios from 'axios';
-import CarLoanForm from '../car_loan_steps.json';
-import PersonalLoanForm from '../personal_loan_steps.json';
+import { toSnakeCase } from '@/composables/jsUtils';
 
-const form = ref<{steps: Step[]} | null>(null);
-const applicationType = ref<FormTypes>("Car Loan Application");
+const url = ref<string | null>(null);
+const applicationType = ref<string>("Your Form");
 const answers = ref();
-const status = ref<Status>('Progress');
 const validationStatus = ref<ValidationStatus>('Standby');
 
-export const currentStepCount = ref(0);
-export const previousStep = computed(() => form.value!.steps[currentStepCount.value - 1]);
-export const currentStep = computed(() => form.value!.steps[currentStepCount.value]);
-export const hasNextStep = computed(() => form.value!.steps[currentStepCount.value + 1] ? true : false);
-export const hasPreviousStep = computed(() => form.value!.steps[currentStepCount.value - 1] ? true : false);
-export const stepProgress = computed(() => {
-    return ((currentStepCount.value) / form.value!.steps.length * 100).toFixed(2);
-});
-
-export const useForm = (type: FormTypes) => {
-  applicationType.value = type;
-  switch (type) {
-    case "Car Loan Application":
-      form.value = CarLoanForm
-      break;
-    case "Personal Loan Application":
-      form.value = PersonalLoanForm
-      break;
-    default:
-      form.value = CarLoanForm
-      break;
-  }
-
-  currentStepCount.value = 0;
-  status.value = "Progress";
-  validationStatus.value = "Standby";
-    
-  initAnswers(form.value.steps);
-}
 
 // options
 export const sizeOptions = {
@@ -90,9 +59,117 @@ export const tokenOptions = {
   number: 'Z:[0-9]:multiple',
 };
 
-// Form status
-export const getStatus = () => status.value;
-export const setStatus = (newVal: Status) => status.value = newVal;
+export const useForm = (content: FormPageType) => {
+  const status = ref<Status>('Progress');
+  const currentStepCount = ref(0);
+
+  const previousStep = computed(() => {
+    if (! content) {
+      return null;
+    }
+
+    return content.body[0].steps[currentStepCount.value - 1]
+  });
+  const currentStep = computed(() => {
+    if (! content.body[0]) {
+      return null;
+    }
+
+    return content.body[0].steps[currentStepCount.value]
+  });
+  const hasNextStep = computed(() => {
+    if (! content.body[0]) {
+      return false;
+    }
+
+    return content.body[0].steps[currentStepCount.value + 1] ? true : false
+  });
+  const hasPreviousStep = computed(() => {
+    if (! content.body[0]) {
+      return false;
+    }
+    
+    return content.body[0].steps[currentStepCount.value - 1] ? true : false
+  });
+  const stepProgress = computed(() => {
+      if (! content.body[0]) {
+        return '0';
+      }
+
+      return ((currentStepCount.value) / content.body[0].steps.length * 100).toFixed(2);
+  });
+  
+  const stepIsValidated = () => {
+    if (status.value === 'Verification' || ! currentStep.value) {
+      return true;
+    }
+  
+    return checkStepValidation(currentStep.value);
+  }
+  const toNextStep = async () => {
+    if (! stepIsValidated()) {
+      return setValidationStatus('Error');
+    }
+  
+    if (hasNextStep.value) {
+      return currentStepCount.value += 1; 
+    }
+  
+    if (status.value === 'Progress') {
+      currentStepCount.value += 1; 
+      return setStatus('Verification');
+    }
+  
+    if (status.value === 'Verification') {
+      submitApplication();
+  
+      return setStatus('Submitted');
+    }
+  }
+  const toPreviousStep = () => {
+    if (status.value === 'Submitted') {
+      return setStatus('Verification');
+    }
+  
+    if (status.value === 'Verification') {
+      currentStepCount.value -= 1; 
+      return setStatus('Progress');
+    }
+  
+    if (hasPreviousStep.value) {
+      return currentStepCount.value -= 1; 
+    }
+  }
+  const goToStep = (index: number) => {
+    setStatus('Progress');
+    currentStepCount.value = index;
+  }
+  const setStatus = (newVal: Status) => status.value = newVal;
+
+  applicationType.value = content.body[0].name;
+  
+  url.value = content.body[0].location;
+  currentStepCount.value = 0;
+  status.value = "Progress";
+  validationStatus.value = "Standby";
+    
+  initAnswers(content.body[0].steps);
+
+  return {
+    currentStepCount,
+    previousStep,
+    currentStep,
+    hasNextStep,
+    hasPreviousStep,
+    stepProgress,
+    status,
+    validationStatus,
+    setStatus,
+    toNextStep,
+    toPreviousStep,
+    goToStep,
+  }
+}
 
 // groups
 const getGroupName = (field: Required<Field>) => field.group.split("[")[0];
@@ -146,8 +223,9 @@ export const getAnswer = (
     return answers.value[step.name].fields[groupName][groupPosition].value ?? null
   }
 
-  return answers.value[step.name]?.fields[field.name]?.value ?? null
+  return answers.value[step.name]?.fields[toSnakeCase(field.label)]?.value ?? null
 }
+
 export const setAnswer = (
   step: Step, 
   field: Field, 
@@ -157,6 +235,7 @@ export const setAnswer = (
 
   const results = {
     ...field,
+    name: toSnakeCase(field.label),
     value: answer.value,
     validated: answer.validated
   };
@@ -172,7 +251,7 @@ export const setAnswer = (
     return answers.value[step.name].fields[groupName][groupPosition] = results;
   }
 
-  answers.value[step.name].fields[field.name] = results;
+  answers.value[step.name].fields[toSnakeCase(field.label)] = results;
 }
 
 // fields
@@ -201,7 +280,7 @@ export const checkStepValidation = (step: Step) => {
   const requiredFields = allFieldsForStep.filter(field => evaluateRequirement(field, step));
   const hasInvalidAnswers = answerFields!.some((field: Answer) => field.validated === false);
   
-  return hasInvalidAnswers || requiredFields.some(field => !answerFields?.find(item => item.name === field.name))
+  return hasInvalidAnswers || requiredFields.some(field => !answerFields?.find(item => item.name === toSnakeCase(field.label)))
     ? false
     : true
 }
@@ -215,35 +294,34 @@ export const simpleValidate = (value: string | number | boolean | null, field: F
   return value ? true : false;
 }
 export const evaluateRequirement = (field: Field, step: Step): boolean => {
-  if (! field.required) {
+  if (field.required === 'false') {
     return false;
   }
 
-  if (typeof field.required === "boolean") {
+  if (field.required === 'true') {
     return true;
   }
 
-  const dependantFieldName = field.required.split(":")[0];
-  const dependantFieldValue = field.required.split(":")[1];
+  if (field.required === "required-when") {
+    const dependantFieldName = field.requiredDetail!.split(":")[0];
+    const dependantFieldValue = field.requiredDetail!.split(":")[1];
 
-  const fields = getAnswerFields(step.name);
-  const dependantField = fields?.find((f) => f.name === dependantFieldName);
-  
-  if (! dependantField) {
-    return false;
+    const fields = getAnswerFields(step.name);
+    const dependantField = fields?.find((f) => toSnakeCase(f.label) === dependantFieldName);
+    
+    if (! dependantField) {
+      return false;
+    }
+
+    return dependantFieldValue.split("|").some(val => dependantField.value === val);
   }
 
-  return dependantFieldValue.split("|").some(val => dependantField.value === val);
+  return false;
 }
 export const getValidationStatus = () => validationStatus.value;
 export const setValidationStatus = (status: ValidationStatus) => validationStatus.value = status;
-const stepIsValidated = () => {
-  if (getStatus() === 'Verification') {
-    return true;
-  }
 
-  return checkStepValidation(currentStep.value);
-}
+
 
 // submission
 export const submitApplication = () => {
@@ -262,7 +340,7 @@ export const submitApplication = () => {
 
   // test de50c81a9d27
   // prod 58cc6f22c23c
-  axios.post('https://usebasin.com/f/58cc6f22c23c', data)
+  axios.post(url.value as string, data)
     .then(response => {
       if (response.status === 200) {
         console.log("success", {response});
@@ -276,49 +354,6 @@ export const submitApplication = () => {
     });
 }
 
-// form navigation
-export const toNextStep = async () => {
-  if (! stepIsValidated()) {
-    return setValidationStatus('Error');
-  }
-
-  const status = getStatus();
-
-  if (hasNextStep.value) {
-    return currentStepCount.value += 1; 
-  }
-
-  if (status === 'Progress') {
-    currentStepCount.value += 1; 
-    return setStatus('Verification');
-  }
-
-  if (status === 'Verification') {
-    await submitApplication();
-
-    return setStatus('Submitted');
-  }
-}
-export const toPreviousStep = () => {
-  const status = getStatus();
-
-  if (status === 'Submitted') {
-    return setStatus('Verification');
-  }
-
-  if (status === 'Verification') {
-    currentStepCount.value -= 1; 
-    return setStatus('Progress');
-  }
-
-  if (hasPreviousStep.value) {
-    return currentStepCount.value -= 1; 
-  }
-}
-export const goToStep = (index: number) => {
-  setStatus('Progress');
-  currentStepCount.value = index;
-}
 
 // to move later
 function capitalize(word: string) {

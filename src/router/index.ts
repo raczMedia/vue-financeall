@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Home from "../pages/home/home.vue";
 import Inventory from "../pages/inventory/inventory.vue";
-import FinanceApp from "../pages/finance-app/finance-app.vue";
+import CarLoanApp from "../pages/car-loan-app/car-loan-app.vue";
+import PersonalLoanApp from "../pages/personal-loan-app/personal-loan-app.vue";
 import Dealers from "../pages/dealers/dealers.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -17,13 +18,13 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/car-loan-application",
-    name: "Car Loan Application",
-    component: FinanceApp,
+    name: "car-loan-application",
+    component: CarLoanApp,
   },
   {
     path: "/personal-loan-application",
-    name: "Personal Loan Application",
-    component: FinanceApp,
+    name: "personal-loan-application",
+    component: PersonalLoanApp,
   },
   {
     path: "/dealers",
