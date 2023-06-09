@@ -35,7 +35,7 @@
       {{ field.label }}
       <span v-if="evaluateRequirement(field, currentStep)" class="text-red-400">*</span>
     </label>
-    <div v-if="field.type === 'row' || field.type === 'batch'" class="gap-4 inline-flex">
+    <div v-if="field.type === 'row' || field.type === 'batch'" class="gap-4 inline-flex md:flex-nowrap flex-wrap">
       <slot />
     </div>
     <slot v-else />

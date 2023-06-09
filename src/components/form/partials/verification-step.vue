@@ -2,7 +2,9 @@
   import { computed } from 'vue';
   import { getAnswers } from '../utils/FormComposable';
   import { Answer, AnswerStep } from '../utils/formTypes';
-  
+  import { ismobile } from ''
+
+
   const answerLists = computed((): [AnswerStep[], AnswerStep[]] => {
     const list: AnswerStep[] = Object.values(getAnswers());
     const half = Math.ceil(list.length / 2);
@@ -40,7 +42,7 @@
 <template>
   <div class="w-full">
     <h2 class="text-xl font-bold text-fa-blue mb-8 select-none">Verification</h2>
-    <div class="grid grid-cols-2 gap-4 w-full">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
       <div v-for="(list, listIndex) in answerLists" :key="`list-column-${listIndex}`" class="flex flex-col gap-y-4">
         <div v-for="answer in list" :key="`step-${answer.order}`" class="flex flex-col items-start">
           <h3 

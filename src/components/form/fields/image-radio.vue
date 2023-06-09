@@ -32,7 +32,7 @@ import { ref } from 'vue';
 </script>
 
 <template>
-  <div class="grid grid-cols-4 w-full gap-4 select-none">
+  <div class="grid sm:grid-cols-2 md:grid-cols-4 grid-cols-1 w-full gap-4 select-none">
     <div 
       v-for="option in field.options"
       :key="`image-${option.value}`"

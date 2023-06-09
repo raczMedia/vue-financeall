@@ -17,15 +17,15 @@ const validationStatus = ref<ValidationStatus>('Standby');
 
 // options
 export const sizeOptions = {
-  xs: "w-16",
-  sm: "w-24",
-  md: "w-32",
-  lg: "w-48",
-  xl: "w-64",
-  '2xl': "w-96",
-  querter: "w-1/4",
-  third: "w-1/3",
-  half: "w-1/2",
+  xs: "sm:w-16 w-full",
+  sm: "sm:w-24 w-full",
+  md: "sm:w-32 w-full",
+  lg: "sm:w-48 w-full",
+  xl: "sm:w-64 w-full",
+  '2xl': "sm:w-96 w-full",
+  querter: "sm:w-1/4",
+  third: "sm:w-1/3",
+  half: "sm:w-1/2",
   full: "w-full",
   "": ""
 }
