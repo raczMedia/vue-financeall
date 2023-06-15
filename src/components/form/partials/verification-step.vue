@@ -2,8 +2,6 @@
   import { computed } from 'vue';
   import { getAnswers } from '../utils/FormComposable';
   import { Answer, AnswerStep } from '../utils/formTypes';
-  import { ismobile } from ''
-
 
   const answerLists = computed((): [AnswerStep[], AnswerStep[]] => {
     const list: AnswerStep[] = Object.values(getAnswers());
