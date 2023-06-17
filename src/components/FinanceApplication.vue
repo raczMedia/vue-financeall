@@ -25,7 +25,7 @@
             v-if="form.status.value === 'Submitted'" 
             src="https://a.storyblok.com/f/155950/1054x1054/2540a341ef/submitted-2x.png" 
             alt="success badge" 
-            class="absolute right-0 top-0"
+            class="absolute right-0 top-0 w-3/5"
           />
         </h1>
         <div class="text-sm font-medium text-gray-400">
