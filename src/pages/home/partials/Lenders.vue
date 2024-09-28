@@ -35,8 +35,11 @@
             <div class="absolute z-0 clip-right-up-right bg-gray-400/5 left-0 top-0 w-2/3 h-full"></div>
             <div class="absolute z-0 clip-right-up-right bg-gray-400/5 left-0 top-0 w-2/4 h-full"></div>
         </div>
+        <div class="my-8 mb-16 px-32">
+            <div class="AskAva-cta rounded-lg overflow-hidden shadow-lg" data-product="creditTool" data-type="banner"></div>
+        </div>
 
-        <p class="z-10 text-center text-2xl font-bold">
+        <p class="z-10 px-32 text-center text-2xl font-bold">
             {{ props.content.title }}
         </p>
         

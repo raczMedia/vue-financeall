@@ -57,14 +57,20 @@
     aria-label="Contact section" 
     class="min-h-64 py-[8rem] px-8 lg:px-32 -mt-12 bg-gray-100"
   >
-    <div class="relative z-20 flex content-between">
-      <section aria-label="Contact Form">
-        <h3 class="text-4xl font-bold">
-          {{ props.content.title }}
-        </h3>
-        <p class="text-gray-400">
-          {{ props.content.subtitle }}
-        </p>
+    <div class="pl-2">
+      <h3 class="text-4xl font-bold">
+        {{ props.content.title }}
+      </h3>
+      <p class="text-gray-400 mb-8">
+        {{ props.content.subtitle }}
+      </p>
+    </div>
+    <div class="relative z-20 flex gap-8 content-between">
+      <section aria-label="Contact Form" class="w-1/2 max-w-[700px]">
+        
+        <div class="AskAva-embed" data-product="creditTool"></div>
+
+        <!-- 
         <div class="flex flex-wrap mt-8 gap-y-4">
           <label 
             v-for="(field, index) in props.content.fields" 
@@ -99,10 +105,10 @@
             <template v-else-if="formStatus === 'Sending'">Sending</template>
             <template v-else-if="formStatus === 'Sent'">Sent</template>
           </button>
-        </div>
+        </div> -->
       </section>
-      <section aria-label="Location Map" class="hidden lg:flex w-2/4 flex-shrink-0">
-        <img :src="props.content.map.filename" alt="">
+      <section aria-label="Location Map" class="hidden lg:block flex-grow">
+        <img :src="props.content.map.filename" alt="" class="w-full">
       </section>
     </div>
   </section>
