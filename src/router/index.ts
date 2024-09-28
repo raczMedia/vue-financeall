@@ -4,6 +4,7 @@ import Inventory from "../pages/inventory/inventory.vue";
 import CarLoanApp from "../pages/car-loan-app/car-loan-app.vue";
 import PersonalLoanApp from "../pages/personal-loan-app/personal-loan-app.vue";
 import Dealers from "../pages/dealers/dealers.vue";
+import Deals from "../pages/deals/deals.vue";
 import FrameLayout from '../pages/_layouts/FrameLayout.vue';
 
 const routes: Array<RouteRecordRaw> = [
@@ -39,6 +40,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/dealers",
     name: "Dealers",
     component: Dealers,
+  },
+  {
+    path: "/deals",
+    name: "deals",
+    component: Deals,
   }
 ];
 
