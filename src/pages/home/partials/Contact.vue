@@ -66,7 +66,7 @@
       </p>
     </div>
     <div class="relative z-20 flex gap-8 content-between">
-      <section aria-label="Contact Form" class="w-1/2 max-w-[700px]">
+      <section aria-label="Contact Form" class="w-full md:w-1/2 max-w-[700px]">
         
         <div class="AskAva-embed" data-product="creditTool"></div>
 
