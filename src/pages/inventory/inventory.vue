@@ -3,6 +3,6 @@
 
 <template>
     <section class="px-8 lg:px-32 py-32">
-        no more inventory
+        <iframe src="https://financifi.dealerpage.ca/" frameborder="0"></iframe>
     </section>
 </template>
