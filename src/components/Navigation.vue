@@ -107,12 +107,6 @@
             {{ link.title }}
           </router-link>
         </template>  
-        <router-link 
-          to="inventory"
-          class="link cursor-pointer border-b border-transparent hover:border-fa-secondary-blue transition-all duration-200"
-        >
-          Inventory
-        </router-link>
       </section>
     </div>
     <div class="h-[1px] bg-gray-400 opacity-30 w-full mt-4"></div>  
