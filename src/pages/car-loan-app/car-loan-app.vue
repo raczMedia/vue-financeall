@@ -8,5 +8,7 @@
 </script>
 
 <template>
-  <FinanceApplication :content="content" />
+  <section class="py-32">
+    <div class="AskAva-embed" data-product="creditTool"></div>
+  </section>
 </template>

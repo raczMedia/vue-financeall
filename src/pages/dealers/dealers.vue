@@ -1,10 +1,14 @@
 <script lang='ts' setup>
-  import { computed, onBeforeMount, ref, watch } from 'vue';
+  import { computed, ref } from 'vue';
   import { Ref } from "vue";
   import { useBridge, useStoryblokState } from '@/composables/storyblok/storyblokComposable';
   import { LooseObject } from '@/composables/jsUtils';
   import axios from 'axios';
   import { vMaska } from "maska";
+  import Modal from '@/components/Modal.vue'
+  import { StoryblokStateType } from '@/composables/storyblok/storyblok.types';
+  import FinanceApplication from '@/components/FinanceApplication.vue';
+  
 
   // form setup
   type Formstatus = "Standby" | "Sending" | "Sent";
@@ -12,7 +16,8 @@
   const answers = ref();
 
   // data from storyblok
-  const {content, state} = await useStoryblokState('dealers');
+  const { state: appState, content: appContent } = await useStoryblokState("car-loan-application");
+  const { content, state } = await useStoryblokState('dealers');
   useBridge(state);
 
   // data filtering
@@ -105,50 +110,71 @@
       </template>
     </section>
 
-    <section v-if="contact" aria-label="Dealer Form" class="relative w-1/2 mt-16">
-      <h3 class="text-3xl font-bold">
-        {{ contact.title }}
-      </h3>
-      <p class="text-gray-500 mt-2 mb-4">
-        {{ contact.subtitle }}
-      </p>
-      <div class="flex flex-wrap mt-8 gap-y-4">
-        <label 
-          v-for="(field, index) in contact.fields" 
-          :key="field._uid"
-          class="flex flex-col lg:pr-8"
-          :class="field.size === 'half' ? 'w-1/2' : 'w-full'"
-          
-        >
-          <span class="pb-2 font-semibold text-fa-blue">{{ field.label }}</span>
-          <textarea 
-              v-if="field.size == 'textarea'" 
-              class="px-8 py-4" 
-              rows="4"
-              v-model="answers[index].value"
-          />
-          <input 
-              v-else 
-              v-maska
-              :data-maska="getMask(field)"
-              type="text" 
-              class="px-8 py-4"
-              v-model="answers[index].value"
-          />
-        </label>
-      </div>
-      <div class="flex justify-end lg:pr-8 pt-2">
-        <button 
-          class="text-white px-4 py-2 rounded mt-4 transition-all duration-300"
-          :class="formStatus === 'Sent' ? 'bg-green-500' : 'bg-fa-blue'"
-          @click="submitContactForm"
-        >
-          <template v-if="formStatus === 'Standby'">Send</template>
-          <template v-else-if="formStatus === 'Sending'">Sending</template>
-          <template v-else-if="formStatus === 'Sent'">Sent</template>
-        </button>
-      </div>
+    <section v-if="contact" class="flex gap-4 mt-8">
+      <Modal 
+        size="md" 
+        title="Join Our Team" 
+        class="bg-fa-blue text-white px-4 py-2 rounded-lg"
+      >
+        <template #body>
+          <section aria-label="Dealer Form" class="relative">
+            <h3 class="text-3xl font-bold">
+              {{ contact.title }}
+            </h3>
+            <p class="text-gray-500 mt-2 mb-4">
+              {{ contact.subtitle }}
+            </p>
+            <div class="flex flex-wrap mt-8 gap-y-4">
+              <label 
+                v-for="(field, index) in contact.fields" 
+                :key="field._uid"
+                class="flex flex-col px-2"
+                :class="field.size === 'half' ? 'w-1/2' : 'w-full'"
+                
+              >
+                <span class="pb-2 font-semibold text-fa-blue">{{ field.label }}</span>
+                <textarea 
+                    v-if="field.size == 'textarea'" 
+                    class="px-8 py-4" 
+                    rows="4"
+                    v-model="answers[index].value"
+                />
+                <input 
+                    v-else 
+                    v-maska
+                    :data-maska="getMask(field)"
+                    type="text" 
+                    class="px-8 py-4"
+                    v-model="answers[index].value"
+                />
+              </label>
+            </div>
+          </section>
+        </template>
+        <template #footer>
+          <button 
+            class="text-white px-4 py-2 rounded transition-all duration-300"
+            :class="formStatus === 'Sent' ? 'bg-green-500' : 'bg-fa-blue'"
+            @click="submitContactForm"
+          >
+            <template v-if="formStatus === 'Standby'">Send</template>
+            <template v-else-if="formStatus === 'Sending'">Sending</template>
+            <template v-else-if="formStatus === 'Sent'">Sent</template>
+          </button>
+        </template>
+      </Modal>
+
+      <Modal 
+        size="lg" 
+        title="Car Loan Application"
+        class="bg-fa-blue text-white px-4 py-2 rounded-lg"
+      >
+        <template #body>
+          <FinanceApplication :content="appContent" />
+        </template>
+      </Modal>
     </section>
+    
   </section>
 </template>
 
