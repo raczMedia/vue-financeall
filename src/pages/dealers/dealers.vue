@@ -166,7 +166,7 @@
 
       <Modal 
         size="lg" 
-        title="Car Loan Application"
+        title="Dealer Car Loan Application"
         class="bg-fa-blue text-white px-4 py-2 rounded-lg"
       >
         <template #body>
