@@ -2,7 +2,7 @@
 </script>
 
 <template>
-	<section>
+	<section class="pb-32">
 		<iframe 
 			class="w-full min-h-screen" 
 			src="https://financifi.dealerpage.ca/" 
