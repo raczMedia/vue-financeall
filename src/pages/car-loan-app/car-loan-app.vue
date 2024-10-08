@@ -3,8 +3,8 @@
 </script>
 
 <template>
-  <section class="py-32 px-8 lg:px-32 flex gap-16">
-    <div class="w-1/3">
+  <section class="py-32 px-8 lg:px-32 md:flex gap-16">
+    <div class="w-full md:w-1/3">
       <h1 class=" text-3xl font-bold">
         Drive Your Perfect Car—We’ll Handle the Financing!
       </h1>
@@ -38,7 +38,7 @@
         </p>
       </div>
     </div>
-    <div class="w-2/3 border-l-8 border-fa-blue p-2 rounded-lg">
+    <div class="w-full md:w-2/3 md:border-l-8 md:border-fa-blue md:mt-0 mt-8 md:p-2 rounded-lg">
       <div class="AskAva-embed" data-product="creditTool"></div>
     </div>
   </section>
