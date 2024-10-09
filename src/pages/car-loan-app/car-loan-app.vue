@@ -21,7 +21,7 @@
   
         <div class="shadow-lg mt-4 p-6 pt-12 relative">
           <div
-            class="absolute inset-0 w-full h-full bg-cover opacity-10 bg-[center_top_-8rem] transform" 
+            class="absolute inset-0 w-full h-full bg-cover opacity-10 bg-[right_-10rem_top_-8rem]" 
             style="background-image: url('https://a.storyblok.com/f/155950/1024x1792/e44b0f3d17/car-loan-background.png')"
           ></div>
           <div class="relative z-20">
