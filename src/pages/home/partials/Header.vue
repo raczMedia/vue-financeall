@@ -39,12 +39,14 @@
             {{ props.content.description }}
         </p>
         <div class="flex gap-4 my-4 lg:my-8">
-            <button 
-                class="bg-fa-blue text-white p-4 lg:px-8 rounded-lg" 
-                onclick="window.askAva.openModal({ product: 'creditTool' });"
+            <router-link 
+                to="/car-loan-application"
+                class="link cursor-pointer border-b border-transparent hover:border-fa-secondary-blue transition-all duration-200"
             >
-                {{ props.content.button_1 }}
-            </button>
+                <button class="bg-fa-blue text-white p-4 lg:px-8 rounded-lg">
+                    {{ props.content.button_1 }}
+                </button>
+            </router-link>
         </div>
     </header>
 </template>

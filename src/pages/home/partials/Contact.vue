@@ -67,10 +67,6 @@
     </div>
     <div class="relative z-20 flex gap-8 content-between">
       <section aria-label="Contact Form" class="w-full md:w-1/2 max-w-[700px]">
-        
-        <div class="AskAva-embed" data-product="creditTool"></div>
-
-        <!-- 
         <div class="flex flex-wrap mt-8 gap-y-4">
           <label 
             v-for="(field, index) in props.content.fields" 
@@ -105,7 +101,7 @@
             <template v-else-if="formStatus === 'Sending'">Sending</template>
             <template v-else-if="formStatus === 'Sent'">Sent</template>
           </button>
-        </div> -->
+        </div>
       </section>
       <section aria-label="Location Map" class="hidden lg:block flex-grow">
         <img :src="props.content.map.filename" alt="" class="w-full">
