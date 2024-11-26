@@ -16,7 +16,7 @@
   const answers = ref();
 
   // data from storyblok
-  const { state: appState, content: appContent } = await useStoryblokState("car-loan-application");
+  const { state: appState, content: appContent } = await useStoryblokState("car-loan-dealers");
   const { content, state } = await useStoryblokState('dealers');
   useBridge(state);
 
