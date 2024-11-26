@@ -40,10 +40,6 @@
             relative z-20 flex flex-col py-[8rem] px-8 min-h-64 overflow-x-auto no-scrollbar
             lg:px-32
         ">           
-            <div class="my-8 mb-16 px-0 md:px-32">
-                <div class="AskAva-cta rounded-lg overflow-hidden shadow-lg" data-product="creditTool" data-type="banner"></div>
-            </div>
-
             <section 
                 aria-label="title" 
                 class="

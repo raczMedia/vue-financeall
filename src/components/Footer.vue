@@ -10,7 +10,7 @@
     <footer v-if="content" class="relative -mt-10 z-10">
         <div class="absolute inset-0 clip-top-up-right bg-fa-blue"></div>
         <div class="
-            relative min-h-64 text-white flex flex-col justify-between content-stretch px-8 pt-32 pb-16
+            relative min-h-64 text-white flex flex-col justify-between content-stretch px-8 py-32
             lg:px-32 
             md:flex-row
         ">
@@ -18,31 +18,34 @@
                 flex flex-col gap-8 mb-8 
                 md:gap-0 md:mb-0 justify-between
             ">
-                <img 
-                    :src="content?.logo?.filename" 
-                    alt="" 
-                    class="w-[140px] flex-grow-0 self-start mb-8"
-                />
+                <div>
+                    <img 
+                        :src="content?.logo?.filename" 
+                        alt="" 
+                        class="w-[140px] flex-grow-0 self-start mb-2"
+                    />
+
+                    <ul class="
+                        flex flex-col gap-4 text-gray-300
+                        md:flex-row 
+                    ">
+                        <li 
+                            v-for="(link, linkIndex) in content.links" 
+                            :key="`footer-link-${linkIndex}`"
+                        >
+                            {{ link.title }}
+                        </li>
+                    </ul>
+                </div>
                 <p class="text-gray-400">
                     {{ content.copyright }}
                 </p>
             </section>
             <section class="flex flex-col w-1/2">
-                <ul class="
-                    flex flex-col gap-4 text-gray-300
-                    md:flex-row pt-2
-                ">
-                    <li 
-                        v-for="(link, linkIndex) in content.links" 
-                        :key="`footer-link-${linkIndex}`"
-                    >
-                        {{ link.title }}
-                    </li>
-                </ul>
                 <div class="
                     flex flex-col gap-8 mt-8
                     lg:gap-16 
-                    md:mt-16 md:flex-row
+                    md:flex-row
                 ">
                     <ul class="
                         flex flex-col gap-4 

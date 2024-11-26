@@ -18,13 +18,14 @@
     }
 
     const props = defineProps<Props>();
+    const sloganList = props.content.slogan.split(', ');
 </script>
 
 <template>
     <section 
         aria-label="Lenders section" 
         class="
-            relative text-white min-h-64 pt-24 pb-12 px-8 flex flex-col -mt-12
+            relative text-white min-h-64 pt-24 pb-32 px-8 flex flex-col -mt-12
             lg:px-32
         "
     >
@@ -35,17 +36,10 @@
             <div class="absolute z-0 clip-right-up-right bg-gray-400/5 left-0 top-0 w-2/3 h-full"></div>
             <div class="absolute z-0 clip-right-up-right bg-gray-400/5 left-0 top-0 w-2/4 h-full"></div>
         </div>
-        <div class="my-8 mb-16 px-0 md:px-32">
-            <div class="AskAva-cta rounded-lg overflow-hidden shadow-lg" data-product="creditTool" data-type="banner"></div>
-        </div>
-
-        <p class="z-10 px-0 md:px-32 text-center text-2xl font-bold">
-            {{ props.content.title }}
-        </p>
         
         <section 
             class="
-                z-10 flex justify-between mt-4 flex-wrap 
+                z-10 flex justify-between flex-wrap 
                 lg:flex-nowrap
             "
         >
@@ -66,15 +60,23 @@
 
         <div class="
             relative flex flex-col mt-8 items-start w-full z-10 px-4
-            lg:flex-row lg:justify-between lg:mt-32 lg:px-auto md:items-center
+            lg:flex-row lg:justify-between lg:mt-32 lg:px-auto md:items-center pb-48
         ">
-            <article class="
-                border-white pb-48 text-5xl text-center leading-normal font-semibold mt-8
-                lg:pb-0 lg:text-left lg:border-l-4 lg:pl-3 lg:w-1/5 lg:text-4xl lg:font-normal lg:leading-[48px]
-                xl:w-2/5 xl:mt-32 xl:text-5xl xl:leading-[64px] xl:pl-6
-            ">
-                {{ props.content.slogan }}
-            </article>
+            <div class="lg:w-1/5 xl:w-2/5 xl:mt-32 mt-8">
+                <article class="
+                    border-white pb-48 text-5xl text-center leading-normal font-semibold 
+                    lg:pb-0 lg:text-left lg:border-l-4 lg:pl-3 lg:text-4xl lg:font-normal lg:leading-[48px]
+                    xl:text-5xl xl:leading-[64px] xl:pl-6
+                ">
+                    <div v-for="(part, index) in sloganList">
+                        {{ part }}<span v-if="index != sloganList.length - 1">,</span>
+                    </div>
+                </article>
+
+                <p class="z-10 pt-8 pr-8 text-2xl font-bold">
+                    {{ props.content.title }}
+                </p>
+            </div>
             <img 
                 :src="props.content.sloganImage.filename" 
                 class="
