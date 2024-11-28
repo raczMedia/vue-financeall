@@ -8,5 +8,5 @@
 </script>
 
 <template>
-  <FinanceApplication :content="content" />
+  <FinanceApplication :content="content" class="lg:px-32 py-32 relative" />
 </template>
