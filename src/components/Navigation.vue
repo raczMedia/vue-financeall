@@ -57,7 +57,11 @@
 
 <template>
   <nav 
-    :class="scrollY > 0 ? 'bg-white/95': 'bg-white lg:bg-transparent'"
+    :class="
+      scrollY > 0 || activeLink.address == 'inventory' 
+        ? 'bg-white/95'
+        : 'bg-white lg:bg-transparent'
+    "
     class="fixed top-0 w-full pt-4 max-w-[1600px] transition-all duration-300 z-30" 
     aria-label="primary"
   >

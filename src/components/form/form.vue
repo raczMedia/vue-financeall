@@ -32,7 +32,7 @@
         class="text-gray-400 font-medium hover:text-fa-blue hover:font-bold" 
         :class="{'opacity-0': ! form.hasPreviousStep.value}"
         :disable="! form.hasPreviousStep.value" 
-        @click=" goToPreviousStep()"
+        @click="goToPreviousStep()"
       >
         <font-awesome-icon icon="fa-solid fa-arrow-left" size="xs" />
         <span v-if="form.previousStep.value" class="pl-1 text-sm">Back to {{ form.previousStep.value?.title }}</span>

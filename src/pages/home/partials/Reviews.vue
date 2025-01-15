@@ -35,10 +35,11 @@
                 >
             </div>
         </div>
+
         <div class="
             relative z-20 flex flex-col py-[8rem] px-8 min-h-64 overflow-x-auto no-scrollbar
             lg:px-32
-        ">            
+        ">           
             <section 
                 aria-label="title" 
                 class="

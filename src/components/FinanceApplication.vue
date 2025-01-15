@@ -4,14 +4,19 @@
   import ProgressBar from '@/components/form/partials/progress-bar.vue';
   import { FormPageType } from '@/components/form/utils/formTypes';
   
-  defineProps<{ content: FormPageType }>();
+  withDefaults(
+    defineProps<{ content: FormPageType, useBackground?: boolean }>(),
+    { useBackground: true }
+  );
 </script>
 
 <template>
-  <Form :content="content" class="flex-grow px-8 lg:px-32 py-32 relative" content-class="relative">
+  <Form :content="content" class="flex-grow px-8 relative" content-class="relative">
     <template #before="{ form }">
-      <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-4/5 h-full"></div>
-      <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-full h-full"></div>
+      <template v-if="useBackground">
+        <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-4/5 h-full"></div>
+        <div class="absolute clip-right-up-right bg-gray-300/20 left-0 top-0 w-full h-full"></div>
+      </template>
       
       <section aria-label="application-header" class="relative mb-12">
         <ProgressBar 

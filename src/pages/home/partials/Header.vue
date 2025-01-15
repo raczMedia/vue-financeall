@@ -39,17 +39,12 @@
             {{ props.content.description }}
         </p>
         <div class="flex gap-4 my-4 lg:my-8">
-            <router-link to="/car-loan-application">
-                <button 
-                    class="bg-fa-blue text-white p-4 lg:px-8 rounded-lg" 
-                    :id="props.content.button_1.toLowerCase().replaceAll(' ', '-')"
-                >
+            <router-link 
+                to="/car-loan-application"
+                class="link cursor-pointer border-b border-transparent hover:border-fa-secondary-blue transition-all duration-200"
+            >
+                <button class="bg-fa-blue text-white p-4 lg:px-8 rounded-lg">
                     {{ props.content.button_1 }}
-                </button>
-            </router-link>
-            <router-link to="/personal-loan-application">
-                <button class="bg-fa-secondary-blue text-white py-4 px-4 lg:px-8 rounded-lg" :id="props.content.button_2.toLowerCase().replaceAll(' ', '-')">
-                    {{ props.content.button_2 }}
                 </button>
             </router-link>
         </div>
