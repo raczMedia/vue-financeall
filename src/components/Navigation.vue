@@ -24,7 +24,7 @@
     
     return content.value.Links.find(
       (link: { address: string, title: string }) => `/${link.address}` == route.path || link.address == route.path
-    )
+    ) ?? null
   })
 
   // scroll logic
@@ -56,9 +56,9 @@
 </script>
 
 <template>
-  <nav 
+  <nav
     :class="
-      scrollY > 0 || activeLink.address == 'inventory' 
+      scrollY > 0 || activeLink?.address == 'inventory' 
         ? 'bg-white/95'
         : 'bg-white lg:bg-transparent'
     "
