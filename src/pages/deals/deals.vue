@@ -3,63 +3,12 @@
   import VDropdown from '@/components/elements/v-dropdown.vue';
   import BgShapes from '@/components/bgShapes.vue';
   import Status from './status.vue';
-  import { DealType } from './dealsTypes.ts';
+  import { DealType, StatusType } from './dealsTypes';
   import { useDeals } from './dealsComposable';
-
-  const deals = ref([
-    {
-      id: 1,
-      name: "Kyle J", 
-      vehicle: "2020 Lincoln Nautilus",
-      mileage: "24,445 km",
-      vin: "12345678912345678",
-      status: 'new'
-    },
-    {
-      id: 2,
-      name: "Matthew B", 
-      vehicle: "2018 Porche 911",
-      mileage: "3,445 km",
-      vin: "12345678912345678",
-      status: 'new'
-    },
-    {
-      id: 3,
-      name: "Graham K", 
-      vehicle: "1989 Ford Mustang",
-      mileage: "124,445 km",
-      vin: "12336748912345678",
-      status: 'intro'
-    },
-    {
-      id: 4,
-      name: "Joe J", 
-      vehicle: "2021 Chrysler 300",
-      mileage: "33,145 km",
-      vin: "12345674412345678",
-      status: 'pre-approved'
-    },
-  ])
-  const statusList = [
-    {
-      name: 'New App',
-      value: 'new',
-    },
-    {
-      name: "Intro Call / Doc Collection",
-      value: 'intro',
-    },
-    {
-      name: "Pre-Approved",
-      value: 'pre-approved'
-    }
-  ];
-
-  const { setStatuses, statuses } = useDeals();
-
-  onMounted(() => {
-    setStatuses(statusList);
-  })
+  import { useFlipKit } from 'flipkit';
+  
+  const { deals, statuses, setStatuses, getDealsForStatus } = useDeals();
+  const { flip, measure } = useFlipKit();
 
   const options = ref([
     {value: 'all', title: 'All Companies'},
@@ -67,11 +16,29 @@
     {value: '2', title: '2'},
   ])
   const selected = ref(options.value[0]);
-  const moveDeal = ({deal, status}: {deal: DealType, status: Status}) => {
+  const moveDeal = ({deal, status}: {deal: DealType, status: StatusType}) => {
+    const dealsForStatus = getDealsForStatus(deal.status)
+    const dealsForTargetStatus = getDealsForStatus(status.value)
+    
+    measure([
+      ...dealsForStatus.map(d => `deal-${d.id}`), 
+      ...dealsForTargetStatus.map(d => `deal-${d.id}`),
+      ...statuses.value.map(s => `status-${s.value}`)
+    ]);
+
     const item = deals.value.find(d => d.id === deal.id);
 
     if (item) {
       item.status = status.value;
+      
+      flip([
+        { keys: [`deal-${deal.id}`], animate: ['position'], "z-index": 2 },
+        { keys: [...statuses.value.map(s => `status-${s.value}`)], animate: ['height'] },
+        { 
+          keys: [ ...dealsForStatus.filter((d) => d.id != deal.id), ...dealsForTargetStatus].map(d => `deal-${d.id}`), 
+          animate: ['position'], "z-index": 1 
+        },
+      ]);
     }
   }
 

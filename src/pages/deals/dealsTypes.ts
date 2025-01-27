@@ -7,7 +7,7 @@ export type DealType = {
   status: string;
 }
 
-export type Status = {
+export type StatusType = {
   name: string;
   value: string;
 }

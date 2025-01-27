@@ -1,12 +1,12 @@
 <script lang='ts' setup>
-  import { DealType, Status } from './dealsTypes.ts';
+  import { DealType, StatusType } from './dealsTypes';
   import { ref, computed, watch } from 'vue';
   import Deal from './deal.vue';
   
   const emit = defineEmits(['moveDeal']);
   const props = defineProps<{
     deals: DealType[],
-    status: Status
+    status: StatusType,
   }>();
 
   const open = ref(true);
@@ -33,18 +33,22 @@
   )
 </script>
 <template>
-  <div >
+  <div :data-flip-key="`status-${props.status.value}`">
     <h3 
-      class="text-fa-blue font-bold text-2xl mb-4 cursor-pointer" 
+      class="text-fa-blue font-bold text-2xl mb-4 cursor-pointer inline-flex gap-2 items-center" 
       @click="open = !open"
     >
       <font-awesome-icon icon="fa-solid fa-chevron-down" :class="{'-rotate-90': !open}" />
       {{ status.name }} 
       <span class="text-gray-400 text-sm">({{ filteredDeals.length }})</span>
     </h3>
-    <div class="grid grid-cols-3 gap-4 overflow-y-hidden transition-all duration-200" :class="{'h-0': !open}">
+    <div 
+      class="grid grid-cols-3 gap-4 transition-all duration-200 relative" 
+      :class="{'h-0 overflow-hidden': !open}"
+    >
       <template v-for="deal in filteredDeals" :key="`deal-${deal.id}`">
         <Deal 
+          :data-flip-key="`deal-${deal.id}`"
           :deal="deal"
           @moveDeal="status => $emit('moveDeal', { deal, status })"
         />
@@ -52,4 +56,3 @@
     </div>
   </div>
 </template>
-./dealsTypes.js

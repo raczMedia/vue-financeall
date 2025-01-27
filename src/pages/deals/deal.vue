@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-  import { DealType } from './dealsTypes.ts';
   import { useDeals } from './dealsComposable';
-  import { Status } from './dealsTypes';
-  import { computed, onMounted } from 'vue';
+  import { DealType, StatusType } from './dealsTypes';
+  import { computed } from 'vue';
   import VDropdown from '@/components/elements/v-dropdown.vue';
 
   const { statuses } = useDeals();
@@ -17,20 +16,27 @@
       return null;
     }
 
-    return statuses.value.map((status: Status) => {
-      status.title = status.name;
-      
-      return status;
-    })
+  return [
+      {
+        title: 'Status Change', 
+        isHeading: true, 
+        value: 'Status Change'
+      },
+      ...statuses.value.map((status) => ({
+        value: status.value,
+        title: status.name,
+        isHeading: false,
+      }))
+    ]
   });
   
-  const changeStatus = (status: Status) => {
+  const changeStatus = (status: StatusType) => {
     emit('moveDeal', status);
   }
 </script>
 
 <template>
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2 relative">
     <div class="flex justify-between">
       <div class="flex items-center gap-2">
         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-fa-blue text-white">
@@ -39,19 +45,21 @@
         <h4>{{ deal.name }}</h4>
       </div>
       <VDropdown 
-        :options="statusOptions"
-        :modelValue="statusOptions.find(stat => stat.value == props.deal.status)"
+        v-if="statusOptions"
+        :options="statusOptions!"
+        :modelValue="statusOptions.find(stat => stat.value == props.deal.status)!"
+        direction="right"
         @update:modelValue="status => changeStatus(status)"
         class="flex"
       >
         <template v-slot:toggle="{ toggleOpen }">
           <div class="
-            relative flex flex-grow items-center justify-center gap-1 cursor-pointer rounded-full px-3
-            bg-blue-400 hover:bg-blue-500 text-xs
+            relative flex flex-grow items-center justify-center 
+            pl-3 cursor-pointer rounded-full
           "
           @click="toggleOpen()"
         >
-            <font-awesome-icon icon="fa-solid fa-pencil" size="sm" class="text-white" />
+            <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" size="lg" />
           </div>
         </template>
       </VDropdown>
