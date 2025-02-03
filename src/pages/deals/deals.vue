@@ -7,13 +7,14 @@
   import { useDeals } from './dealsComposable';
   import { useFlipKit } from 'flipkit';
   
-  const { fetchDeals, fetchDealers, deals, dealers, statuses, updateDealStatus } = useDeals();
+  const { fetchDeals, fetchDealers, fetchDealStatuses, deals, dealers, statuses, updateDealStatus } = useDeals();
   const { flip, measure } = useFlipKit();
 
   onMounted(async () => {
     await Promise.all([
       fetchDeals(),
-      fetchDealers()
+      fetchDealers(),
+      fetchDealStatuses()
     ]);
   });
 
@@ -57,7 +58,7 @@
       </div>
     </section>
 
-    <section v-if="statuses" aria-label="items" class="relative flex flex-col gap-14">
+    <section v-if="statuses.length" aria-label="items" class="relative flex flex-col gap-14">
       <template v-for="(status, sindex) in statuses">
         <Status 
           :status="status" 

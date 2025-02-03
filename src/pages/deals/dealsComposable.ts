@@ -1,5 +1,5 @@
 import { StatusType, DealType } from './dealsTypes';
-import { ref, Ref, onMounted } from 'vue';
+import { ref, Ref } from 'vue';
 import { supabase } from '@/utils/supabase';
 import { useFlipKit } from 'flipkit';
 
@@ -69,6 +69,30 @@ export const useDeals = () => {
     } catch (e) {
       error.value = e instanceof Error ? e.message : 'An error occurred fetching deals';
       console.error('Error fetching deals:', e);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const fetchDealStatuses = async () => {
+    try {
+      loading.value = true;
+      error.value = null;
+      
+      const { data, error: supabaseError } = await supabase
+        .from('deal_statuses')
+        .select('*')
+        .order('sort', { ascending: true });
+      
+      if (supabaseError) throw supabaseError;
+      
+      statuses.value = data.map(status => ({
+        name: status.name,
+        value: status.value
+      }));
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'An error occurred fetching deal statuses';
+      console.error('Error fetching deal statuses:', e);
     } finally {
       loading.value = false;
     }
@@ -169,6 +193,7 @@ export const useDeals = () => {
     error,
     fetchDeals,
     fetchDealers,
+    fetchDealStatuses,
     getDealsForStatus,
     createDeal,
     updateDeal,
