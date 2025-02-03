@@ -3,6 +3,12 @@ import { ref, Ref, onMounted } from 'vue';
 import { supabase } from '@/utils/supabase';
 import { useFlipKit } from 'flipkit';
 
+type Dealer = {
+  id: number | string;
+  name: string;
+  status: string;
+}
+
 const statuses: Ref<StatusType[]> = ref([
   {
     name: 'New App',
@@ -19,11 +25,32 @@ const statuses: Ref<StatusType[]> = ref([
 ]);
 
 const deals: Ref<DealType[]> = ref([]);
+const dealers: Ref<Dealer[]> = ref([]);
 const loading = ref(false);
 const error = ref<string | null>(null);
 
 export const useDeals = () => {
   const { flip, measure } = useFlipKit();
+
+  const fetchDealers = async () => {
+    try {
+      loading.value = true;
+      error.value = null;
+      
+      const { data, error: supabaseError } = await supabase
+        .from('dealers')
+        .select('*');
+      
+      if (supabaseError) throw supabaseError;
+      
+      dealers.value = data;
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'An error occurred fetching dealers';
+      console.error('Error fetching dealers:', e);
+    } finally {
+      loading.value = false;
+    }
+  };
 
   const fetchDeals = async () => {
     try {
@@ -137,9 +164,11 @@ export const useDeals = () => {
   return { 
     statuses, 
     deals,
+    dealers,
     loading,
     error,
     fetchDeals,
+    fetchDealers,
     getDealsForStatus,
     createDeal,
     updateDeal,

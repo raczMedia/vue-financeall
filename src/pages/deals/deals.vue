@@ -7,19 +7,20 @@
   import { useDeals } from './dealsComposable';
   import { useFlipKit } from 'flipkit';
   
-  const { fetchDeals, deals, statuses, updateDealStatus } = useDeals();
+  const { fetchDeals, fetchDealers, deals, dealers, statuses, updateDealStatus } = useDeals();
   const { flip, measure } = useFlipKit();
 
   onMounted(async () => {
-    await fetchDeals();
+    await Promise.all([
+      fetchDeals(),
+      fetchDealers()
+    ]);
   });
 
-  const options = ref([
-    {value: 'all', title: 'All Companies'},
-    {value: '1', title: '1'},
-    {value: '2', title: '2'},
-  ])
-  const selected = ref(options.value[0]);
+  const selectedDealer = ref({
+    value: 'all',
+    title: 'All Companies'
+  });
 
   const moveDeal = async ({deal, status}: {deal: DealType, status: StatusType}) => {
     try {
@@ -43,8 +44,14 @@
       </div>
       <div class="flex mt-4">
         <VDropdown 
-          :options="options"
-          v-model="selected"
+          :options="[{
+            value: 'all',
+            title: 'All Companies'
+          }, ...dealers.map(dealer => ({ 
+            value: dealer.id.toString(), 
+            title: dealer.name 
+          }))]"
+          v-model="selectedDealer"
           direction="down"
         />
       </div>
