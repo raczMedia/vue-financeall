@@ -16,7 +16,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.1",
     "@headlessui/vue": "^1.7.23",
     "@storyblok/vue": "^6.0.4",
-    "@supabase/supabase-js": "^2.45.0",
+    "@supabase/supabase-js": "^2.48.1",
     "@vueuse/core": "^9.13.0",
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
