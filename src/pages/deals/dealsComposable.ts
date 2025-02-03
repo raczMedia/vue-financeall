@@ -1,5 +1,6 @@
-import { StatusType } from './dealsTypes';
-import { ref, Ref } from 'vue';
+import { StatusType, DealType } from './dealsTypes';
+import { ref, Ref, onMounted } from 'vue';
+import { supabase } from '@/utils/supabase';
 
 const statuses: Ref<StatusType[]> = ref([
   {
@@ -15,54 +16,102 @@ const statuses: Ref<StatusType[]> = ref([
     value: 'pre-approved'
   }
 ]);
-const deals = ref([
-  {
-    id: 1,
-    name: "Kyle J", 
-    vehicle: "2020 Lincoln Nautilus",
-    mileage: "24,445 km",
-    vin: "12345678912345678",
-    status: 'new'
-  },
-  {
-    id: 2,
-    name: "Matthew B", 
-    vehicle: "2018 Porche 911",
-    mileage: "3,445 km",
-    vin: "12345678912345678",
-    status: 'new'
-  },
-  {
-    id: 3,
-    name: "Graham K", 
-    vehicle: "1989 Ford Mustang",
-    mileage: "124,445 km",
-    vin: "12336748912345678",
-    status: 'intro'
-  },
-  {
-    id: 4,
-    name: "Joe J", 
-    vehicle: "2021 Chrysler 300",
-    mileage: "33,145 km",
-    vin: "12345674412345678",
-    status: 'pre-approved'
-  },
-]);
+
+const deals: Ref<DealType[]> = ref([]);
+const loading = ref(false);
+const error = ref<string | null>(null);
 
 export const useDeals = () => {
-  const setStatuses = (value: StatusType[]) => {
-    statuses.value = value;
-  }
+  const fetchDeals = async () => {
+    try {
+      loading.value = true;
+      error.value = null;
+      
+      const { data, error: supabaseError } = await supabase
+        .from('deals')
+        .select();
+
+      console.log({ data });
+      
+      if (supabaseError) throw supabaseError;
+      
+      deals.value = data;
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'An error occurred fetching deals';
+      console.error('Error fetching deals:', e);
+    } finally {
+      loading.value = false;
+    }
+  };
 
   const getDealsForStatus = (status: string) => {
     return deals.value.filter(deal => deal.status === status);
-  }
+  };
+
+  const createDeal = async (deal: Omit<DealType, 'id'>) => {
+    try {
+      loading.value = true;
+      error.value = null;
+      
+      const { data, error: supabaseError } = await supabase
+        .from('deals')
+        .insert(deal)
+        .select()
+        .single();
+      
+      if (supabaseError) {
+        throw supabaseError;
+      }
+      
+      deals.value.push(data);
+
+      return data;
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'An error occurred creating the deal';
+      console.error('Error creating deal:', e);
+      throw e;
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const updateDeal = async (id: number | string, updates: Partial<DealType>) => {
+    try {
+      loading.value = true;
+      error.value = null;
+      
+      const { data, error: supabaseError } = await supabase
+        .from('deals')
+        .update(updates)
+        .eq('id', id)
+        .select()
+        .single();
+      
+      if (supabaseError) throw supabaseError;
+      
+      const index = deals.value.findIndex(d => d.id === id);
+      if (index !== -1) {
+        deals.value[index] = data;
+      }
+      
+      return data;
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'An error occurred updating the deal';
+      console.error('Error updating deal:', e);
+      throw e;
+    } finally {
+      loading.value = false;
+    }
+  };
 
   return { 
     statuses, 
-    deals, 
-    setStatuses, 
-    getDealsForStatus 
+    deals,
+    loading,
+    error,
+    fetchDeals,
+    getDealsForStatus,
+    createDeal,
+    updateDeal
   };
 };

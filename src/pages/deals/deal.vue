@@ -40,9 +40,9 @@
     <div class="flex justify-between">
       <div class="flex items-center gap-2">
         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-fa-blue text-white">
-          {{ deal.name[0] }}
+          {{ deal.first_name[0] }}
         </div>
-        <h4>{{ deal.name }}</h4>
+        <h4>{{ deal.first_name }} {{ deal.last_name }}</h4>
       </div>
       <VDropdown 
         v-if="statusOptions"
@@ -66,13 +66,13 @@
     </div>
     <div class="shadow-md bg-white p-4 rounded-md">
       <div class="flex">
-        <strong>Vehicle:</strong> <span>{{ deal.vehicle }}</span>
+        <strong>Vehicle:</strong> <span>{{ deal.make }} {{ deal.model }}</span>
       </div>
       <div class="flex">
         <strong>Mileage:</strong> <span>{{ deal.mileage }}</span>
       </div>
       <div class="flex">
-        <strong>VIN:</strong> <span>{{ deal.vin }}</span>
+        <strong>VIN:</strong> <span>{{ deal.VIN }}</span>
       </div>
     </div>
   </div>

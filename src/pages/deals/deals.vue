@@ -7,8 +7,12 @@
   import { useDeals } from './dealsComposable';
   import { useFlipKit } from 'flipkit';
   
-  const { deals, statuses, setStatuses, getDealsForStatus } = useDeals();
+  const { fetchDeals, deals, statuses, getDealsForStatus, updateDeal } = useDeals();
   const { flip, measure } = useFlipKit();
+
+  onMounted(async () => {
+    await fetchDeals();
+  });
 
   const options = ref([
     {value: 'all', title: 'All Companies'},
@@ -16,7 +20,7 @@
     {value: '2', title: '2'},
   ])
   const selected = ref(options.value[0]);
-  const moveDeal = ({deal, status}: {deal: DealType, status: StatusType}) => {
+  const moveDeal = async ({deal, status}: {deal: DealType, status: StatusType}) => {
     const dealsForStatus = getDealsForStatus(deal.status)
     const dealsForTargetStatus = getDealsForStatus(status.value)
     
@@ -26,10 +30,8 @@
       ...statuses.value.map(s => `status-${s.value}`)
     ]);
 
-    const item = deals.value.find(d => d.id === deal.id);
-
-    if (item) {
-      item.status = status.value;
+    try {
+      await updateDeal(deal.id, { status: status.value });
       
       flip([
         { keys: [`deal-${deal.id}`], animate: ['position'], "z-index": 2 },
@@ -39,10 +41,12 @@
           animate: ['position'], "z-index": 1 
         },
       ]);
+    } catch (error) {
+      await fetchDeals();
     }
   }
-
 </script>
+
 <template>
   <section aria-label="container" class="flex-grow flex flex-col px-8 lg:px-32 py-32 relative">
     <BgShapes />
@@ -58,6 +62,7 @@
         <VDropdown 
           :options="options"
           v-model="selected"
+          direction="down"
         />
       </div>
     </section>

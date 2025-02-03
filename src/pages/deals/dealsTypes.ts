@@ -1,9 +1,11 @@
 export type DealType = {
   id: string|number;
-  name: string;
-  vehicle: string;
+  first_name: string;
+  last_name: string;
+  make: string;
+  model: string;
   mileage: string;
-  vin: string;
+  VIN: string;
   status: string;
 }
 
