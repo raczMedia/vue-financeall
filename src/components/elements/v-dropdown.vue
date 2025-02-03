@@ -18,10 +18,6 @@
   });
   const emit = defineEmits(['update:modelValue'])
 
-  const selectOption = (option: OptionType) => {
-    emit('update:modelValue', option)
-    open.value = !open.value
-  }
   const toggleOpen = async () => {
     open.value = !open.value
 
@@ -30,8 +26,10 @@
       width.value = optionsContainer?.value?.clientWidth
     }
   }
-
-  const buttonClass = computed(() => open.value ? 'bg-blue-600' : 'bg-blue-500')
+  const selectOption = (option: OptionType) => {
+    emit('update:modelValue', option)
+    toggleOpen()
+  }
 
   onMounted(toggleOpen)
   onClickOutside(dropdown, () => open.value = false)
@@ -60,12 +58,6 @@
       `min-w-${width.value ? 'full' : '0'}`
     ];
   })
-
-  const optionsContainerClass = computed(() => [
-    ...baseClasses.value,
-    directionClasses.value,
-    animationClasses.value
-  ])
 </script>
 
 <template>
@@ -77,7 +69,7 @@
           transition-all duration-800
           text-white rounded focus:outline-none select-none
         " 
-        :class="buttonClass"
+        :class="open ? 'bg-blue-600' : 'bg-blue-500'"
         @click="toggleOpen()"
       >
         <span class="text-left" :style="{'min-width': `${width || 0}px`}">
@@ -87,10 +79,15 @@
       </button>
     </slot>
     <div 
+      v-show="open"
       ref="optionsContainer"
-      :class="optionsContainerClass"
+      :class="[
+        ...baseClasses,
+        directionClasses,
+        animationClasses
+      ]"
     >
-      <template v-for="option in props.options">
+      <template v-for="option in props.options" >
         <template v-if="option.isHeading">
           <div class="p-2 whitespace-nowrap bg-gray-100 text-gray-400 italic select-none">
             {{ option.title }}
