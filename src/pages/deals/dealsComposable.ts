@@ -1,6 +1,7 @@
 import { StatusType, DealType } from './dealsTypes';
 import { ref, Ref, onMounted } from 'vue';
 import { supabase } from '@/utils/supabase';
+import { useFlipKit } from 'flipkit';
 
 const statuses: Ref<StatusType[]> = ref([
   {
@@ -22,6 +23,8 @@ const loading = ref(false);
 const error = ref<string | null>(null);
 
 export const useDeals = () => {
+  const { flip, measure } = useFlipKit();
+
   const fetchDeals = async () => {
     try {
       loading.value = true;
@@ -44,8 +47,16 @@ export const useDeals = () => {
     }
   };
 
-  const getDealsForStatus = (status: string) => {
-    return deals.value.filter(deal => deal.status === status);
+  const getDealsForStatus = (
+    status: string,
+    attribute?: keyof DealType,
+    prefix: string = ''
+  ): DealType[] | (string | number)[] => {
+    const filteredDeals = deals.value.filter(deal => deal.status === status);
+    
+    return attribute 
+      ? filteredDeals.map(deal => `${prefix}${deal[attribute]}`)
+      : filteredDeals;
   };
 
   const createDeal = async (deal: Omit<DealType, 'id'>) => {
@@ -104,6 +115,25 @@ export const useDeals = () => {
     }
   };
 
+  const updateDealStatus = async (deal: DealType, status: StatusType) => {
+    const dealsForStatus = getDealsForStatus(deal.status, 'id', 'deal-') as string[];
+    const dealsForTargetStatus = getDealsForStatus(status.value, 'id', 'deal-') as string[];
+    const statusKeys = statuses.value.map(s => `status-${s.value}`) as string[];
+    
+    measure([
+      ...dealsForStatus, 
+      ...dealsForTargetStatus,
+      ...statusKeys
+    ]);
+
+    await updateDeal(deal.id, { status: status.value });
+    
+    flip([
+      { keys: [...statusKeys], animate: ['height'] },
+      { keys: [ ...dealsForStatus, ...dealsForTargetStatus], animate: ['position'] },
+    ]);
+  };
+
   return { 
     statuses, 
     deals,
@@ -112,6 +142,7 @@ export const useDeals = () => {
     fetchDeals,
     getDealsForStatus,
     createDeal,
-    updateDeal
+    updateDeal,
+    updateDealStatus
   };
 };

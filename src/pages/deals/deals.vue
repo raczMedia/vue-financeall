@@ -7,7 +7,7 @@
   import { useDeals } from './dealsComposable';
   import { useFlipKit } from 'flipkit';
   
-  const { fetchDeals, deals, statuses, getDealsForStatus, updateDeal } = useDeals();
+  const { fetchDeals, deals, statuses, updateDealStatus } = useDeals();
   const { flip, measure } = useFlipKit();
 
   onMounted(async () => {
@@ -20,27 +20,10 @@
     {value: '2', title: '2'},
   ])
   const selected = ref(options.value[0]);
-  const moveDeal = async ({deal, status}: {deal: DealType, status: StatusType}) => {
-    const dealsForStatus = getDealsForStatus(deal.status)
-    const dealsForTargetStatus = getDealsForStatus(status.value)
-    
-    measure([
-      ...dealsForStatus.map(d => `deal-${d.id}`), 
-      ...dealsForTargetStatus.map(d => `deal-${d.id}`),
-      ...statuses.value.map(s => `status-${s.value}`)
-    ]);
 
+  const moveDeal = async ({deal, status}: {deal: DealType, status: StatusType}) => {
     try {
-      await updateDeal(deal.id, { status: status.value });
-      
-      flip([
-        { keys: [`deal-${deal.id}`], animate: ['position'], "z-index": 2 },
-        { keys: [...statuses.value.map(s => `status-${s.value}`)], animate: ['height'] },
-        { 
-          keys: [ ...dealsForStatus.filter((d) => d.id != deal.id), ...dealsForTargetStatus].map(d => `deal-${d.id}`), 
-          animate: ['position'], "z-index": 1 
-        },
-      ]);
+      await updateDealStatus(deal, status);
     } catch (error) {
       await fetchDeals();
     }
