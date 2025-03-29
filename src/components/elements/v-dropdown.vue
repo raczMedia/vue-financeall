@@ -10,7 +10,7 @@
 
   const props = withDefaults(defineProps<{
     options: OptionType[],
-    modelValue: OptionType,
+    modelValue?: OptionType,
     buttonClass?: string,
     direction: 'left' | 'right' | 'down'
   }>(), {
@@ -29,6 +29,15 @@
   const selectOption = (option: OptionType) => {
     emit('update:modelValue', option)
     toggleOpen()
+  }
+
+  const clickAction = (option: OptionType) => {
+    if (option.trigger) {
+      toggleOpen();
+      option.trigger();
+    } else {
+      selectOption(option);
+    }
   }
 
   onMounted(toggleOpen)
@@ -73,7 +82,7 @@
         @click="toggleOpen()"
       >
         <span class="text-left" :style="{'min-width': `${width || 0}px`}">
-          {{ modelValue.title }}
+          {{ modelValue?.title }}
         </span>
         <font-awesome-icon icon="fa-solid fa-chevron-down" class="w-3 ml-2 transform transition-transform duration-200" :class="{'rotate-90': open}" />
       </button>
@@ -95,7 +104,7 @@
         </template>
         <div v-else 
           class="cursor-pointer border-b border-gray-200 px-4 p-2 hover:bg-blue-100 whitespace-nowrap select-none" 
-          @click="selectOption(option)"
+          @click="clickAction(option)"
         >
           {{ option.title }}
         </div>

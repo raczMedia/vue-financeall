@@ -9,7 +9,14 @@ export type DealType = {
   status: string;
 }
 
-export type StatusType = {
+export type DealStatusType = {
   name: string;
   value: string;
+  sort: number;
+}
+
+export type DealerType = {
+  id: number | string;
+  name: string;
+  status: string;
 }

@@ -1,31 +1,28 @@
-import { StatusType, DealType } from './dealsTypes';
+import { DealStatusType, DealerType, DealType } from './dealsTypes';
 import { ref, Ref } from 'vue';
 import { supabase } from '@/utils/supabase';
 import { useFlipKit } from 'flipkit';
 
-type Dealer = {
-  id: number | string;
-  name: string;
-  status: string;
-}
-
-const statuses: Ref<StatusType[]> = ref([
+const statuses: Ref<DealStatusType[]> = ref([
   {
     name: 'New App',
     value: 'new',
+    sort: 1
   },
   {
     name: "Intro Call / Doc Collection",
     value: 'intro',
+    sort: 2
   },
   {
     name: "Pre-Approved",
-    value: 'pre-approved'
+    value: 'pre-approved',
+    sort: 3
   }
 ]);
 
 const deals: Ref<DealType[]> = ref([]);
-const dealers: Ref<Dealer[]> = ref([]);
+const dealers: Ref<DealerType[]> = ref([]);
 const loading = ref(false);
 const error = ref<string | null>(null);
 
@@ -166,7 +163,7 @@ export const useDeals = () => {
     }
   };
 
-  const updateDealStatus = async (deal: DealType, status: StatusType) => {
+  const updateDealStatus = async (deal: DealType, status: DealStatusType) => {
     const dealsForStatus = getDealsForStatus(deal.status, 'id', 'deal-') as string[];
     const dealsForTargetStatus = getDealsForStatus(status.value, 'id', 'deal-') as string[];
     const statusKeys = statuses.value.map(s => `status-${s.value}`) as string[];
@@ -185,9 +182,41 @@ export const useDeals = () => {
     ]);
   };
 
+  const createDealStatus = async (dealStatus: DealStatusType) => {
+    try {
+      loading.value = true;
+      error.value = null;
+      
+      const { data, error: supabaseError } = await supabase
+        .from('deal_statuses')
+        .insert(dealStatus)
+        .select()
+        .single();
+      
+      if (supabaseError) throw supabaseError;
+      
+      statuses.value = [
+        ...statuses.value,
+        { name: data.name, value: data.value, sort: data.sort }
+      ].sort((a, b) => {
+        const aStatus = statuses.value.find(s => s.value === a.value);
+        const bStatus = statuses.value.find(s => s.value === b.value);
+        return (aStatus?.sort || 0) - (bStatus?.sort || 0);
+      });
+      
+      return data;
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'An error occurred creating deal status';
+      console.error('Error creating deal status:', e);
+      throw e;
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return { 
     statuses, 
-    deals,
+    deals, 
     dealers,
     loading,
     error,
@@ -197,6 +226,7 @@ export const useDeals = () => {
     getDealsForStatus,
     createDeal,
     updateDeal,
-    updateDealStatus
+    updateDealStatus,
+    createDealStatus
   };
 };

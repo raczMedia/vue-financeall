@@ -30,6 +30,14 @@
       await fetchDeals();
     }
   }
+
+  const createStatus = () => {
+    console.log('create status');
+  }
+
+  const createDeal = () => {
+    console.log('create deal');
+  }
 </script>
 
 <template>
@@ -43,7 +51,7 @@
       <div class="text-md font-medium text-gray-400">
         For questions, please make comments on items, email, or feel free to call to resolve your issue.
       </div>
-      <div class="flex mt-4">
+      <div class="flex justify-between mt-4">
         <VDropdown 
           :options="[{
             value: 'all',
@@ -55,6 +63,29 @@
           v-model="selectedDealer"
           direction="down"
         />
+        <VDropdown 
+          :options="[{
+            value: 'new-status',
+            title: 'New Status',
+            trigger: createStatus
+          }, {
+            value: 'new-deal',
+            title: 'New Deal',
+            trigger: createDeal
+          }]"
+          direction="down"
+        >
+          <template v-slot:toggle="{ toggleOpen }">
+            <div class="
+                relative flex flex-grow items-center justify-center 
+                pl-3 cursor-pointer rounded-full
+              "
+              @click="toggleOpen()"
+            >
+              <font-awesome-icon icon="fa-solid fa-gear" size="lg" />
+            </div>
+          </template>
+        </VDropdown>
       </div>
     </section>
 
